@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root,
+html,
 body {
-  margin: 0;
-  /* background-color: #f1efe9; */
+  min-height: 100vh;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
   font-family: "Inter Variable", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
