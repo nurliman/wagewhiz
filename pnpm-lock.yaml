@@ -8,9 +8,9 @@ dependencies:
   '@faker-js/faker':
     specifier: ^8.0.2
     version: 8.0.2
-  '@fontsource-variable/inter':
-    specifier: ^5.0.3
-    version: 5.0.3
+  '@fontsource-variable/nunito':
+    specifier: ^5.0.4
+    version: 5.0.4
   '@popperjs/core':
     specifier: ^2.11.8
     version: 2.11.8
@@ -346,8 +346,8 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: false
 
-  /@fontsource-variable/inter@5.0.3:
-    resolution: {integrity: sha512-AIE1Lm2/cNkCD4oAJ3JVY54tGhlUS7NnAiqGmE045v+7XHqmUhSYjhQNUgnBGcenth4bN75l+KIeTDbcGc7Emw==}
+  /@fontsource-variable/nunito@5.0.4:
+    resolution: {integrity: sha512-kEj6CC7rT76Bmoe0Lq/ItfMtByBFySvETDQgowk6jToBk9R8E2KuYg6xuP82yynKyrf9wd20n/9sASFjE1IA4g==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:
