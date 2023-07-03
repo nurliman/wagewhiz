@@ -66,7 +66,7 @@
   </div>
 </div>
 
-<div class="px-4 grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+<div class="px-4 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
   {#each data.people as person (person.id)}
     <Card class="max-w-none !p-4 !pb-6">
       <div class="flex flex-col items-center space-y-4">
