@@ -1,6 +1,7 @@
 <script lang="ts">
   import { faker } from "@faker-js/faker";
   import Avatar from "flowbite-svelte/Avatar.svelte";
+  import Badge from "flowbite-svelte/Badge.svelte";
   import Breadcrumb from "flowbite-svelte/Breadcrumb.svelte";
   import BreadcrumbItem from "flowbite-svelte/BreadcrumbItem.svelte";
   import Button from "flowbite-svelte/Button.svelte";
@@ -28,7 +29,13 @@
         <BreadcrumbItem href="/" home>Home</BreadcrumbItem>
         <BreadcrumbItem>People</BreadcrumbItem>
       </Breadcrumb>
-      <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">People</h1>
+      <div class="flex items-center">
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl md:text-3xl dark:text-white">
+          People
+        </h1>
+        <div class="w-2" />
+        <Badge border color="blue" rounded>{data.peopleCount}</Badge>
+      </div>
     </div>
     <div class="items-center justify-between block sm:flex">
       <div class="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-0">

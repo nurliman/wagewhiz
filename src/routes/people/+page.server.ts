@@ -21,5 +21,6 @@ export const load = (async () => {
 
   return {
     people: peopleWithInitials,
+    peopleCount: peopleWithInitials.length,
   };
 }) satisfies PageServerLoad;
