@@ -70,7 +70,7 @@
   {#each data.people as person (person.id)}
     <Card class="max-w-none !p-4 !pb-6">
       <div class="flex flex-col items-center space-y-4">
-        <div class="flex w-full">
+        <div class="flex items-start w-full">
           <Checkbox />
           <div class="flex-1" />
           <ButtonGroup class="space-x-px shadow-none" size="xs">
