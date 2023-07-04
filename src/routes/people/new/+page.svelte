@@ -8,8 +8,8 @@
   import Label from "flowbite-svelte/Label.svelte";
   import Input from "flowbite-svelte/Input.svelte";
   import Toggle from "flowbite-svelte/Toggle.svelte";
-  import CloudArrowUpIcon from "virtual:icons/ph/cloud-arrow-up";
-  import FloppyDiskIcon from "virtual:icons/ph/floppy-disk";
+  import CloudArrowUpIcon from "~icons/ph/cloud-arrow-up";
+  import FloppyDiskIcon from "~icons/ph/floppy-disk";
 
   let usingPassword = false;
 

@@ -13,10 +13,10 @@
   import Checkbox from "flowbite-svelte/Checkbox.svelte";
   import Search from "flowbite-svelte/Search.svelte";
   import EmploymentStatusBadge from "$lib/components/EmploymentStatusBadge.svelte";
-  import ExportIcon from "virtual:icons/ph/export";
-  import FunnelIcon from "virtual:icons/ph/funnel";
-  import BabyIcon from "virtual:icons/ph/baby-fill";
-  import CaretDownIcon from "virtual:icons/ph/caret-down";
+  import ExportIcon from "~icons/ph/export";
+  import FunnelIcon from "~icons/ph/funnel";
+  import BabyIcon from "~icons/ph/baby-fill";
+  import CaretDownIcon from "~icons/ph/caret-down";
   import type { PageData } from "./$types.ts";
 
   export let data: PageData;
