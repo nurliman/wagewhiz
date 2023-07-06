@@ -41,7 +41,7 @@
       <div class="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-0">
         <form>
           <Search
-            class="min-h-[38px] w-full sm:w-64 xl:w-96"
+            class="py-2 w-full sm:w-64 xl:w-96"
             size="md"
             placeholder="Search For People"
           />
