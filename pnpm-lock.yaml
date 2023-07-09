@@ -14,6 +14,9 @@ dependencies:
   '@popperjs/core':
     specifier: ^2.11.8
     version: 2.11.8
+  date-picker-svelte:
+    specifier: ^2.5.1
+    version: 2.5.1(svelte@4.0.5)
   dayjs:
     specifier: ^1.11.9
     version: 1.11.9
@@ -26,6 +29,12 @@ dependencies:
   initials:
     specifier: ^3.1.2
     version: 3.1.2
+  nanoid:
+    specifier: ^4.0.2
+    version: 4.0.2
+  svelte-smooth-popover:
+    specifier: ^1.0.8
+    version: 1.0.8
   sveltekit-superforms:
     specifier: ^1.2.0
     version: 1.2.0(@sveltejs/kit@1.22.1)(svelte@4.0.5)(zod@3.21.4)
@@ -1266,6 +1275,14 @@ packages:
     hasBin: true
     dev: true
 
+  /date-picker-svelte@2.5.1(svelte@4.0.5):
+    resolution: {integrity: sha512-8lMKjgzfUMh7+1TDiKafcxdZLNU+eD8YoH1a2a8CowELfliiuu9pABYaVoxVJoKGcRNZW5rU9e/rUaJifxwZNw==}
+    peerDependencies:
+      svelte: ^3.24.0 || ^4.0.0
+    dependencies:
+      svelte: 4.0.5
+    dev: false
+
   /dayjs@1.11.9:
     resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
     dev: false
@@ -1974,6 +1991,12 @@ packages:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
@@ -2869,6 +2892,10 @@ packages:
       svelte: 4.0.5
       typescript: 5.1.6
     dev: true
+
+  /svelte-smooth-popover@1.0.8:
+    resolution: {integrity: sha512-yuznI31OyrvmUmkDXSxBQe6Jrg/+5fecgvqZhZxDdZb7F9mnUY1/nqPBDxhfiP+9IMSBc1HSX+2WOAQNn73FKg==}
+    dev: false
 
   /svelte@4.0.5:
     resolution: {integrity: sha512-PHKPWP1wiWHBtsE57nCb8xiWB3Ht7/3Kvi3jac0XIxUM2rep8alO7YoAtgWeGD7++tFy46krilOrPW0mG3Dx+A==}

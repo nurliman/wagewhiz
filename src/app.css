@@ -13,3 +13,35 @@ body {
 body {
   font-family: "Nunito Variable", "Nunito", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+/* start date-picker-svelte */
+
+:root {
+  --date-input-width: 100%;
+}
+
+:root:is(.dark) {
+  --date-picker-background: rgb(31 41 55);
+  --date-picker-foreground: rgb(156 163 175);
+}
+
+.date-time-picker {
+  @apply !p-3;
+  @apply !shadow-sm;
+  @apply !rounded-lg;
+  @apply border !border-gray-200 dark:!border-gray-600;
+}
+
+.date-time-field > input {
+  @apply !block;
+  @apply !w-full;
+  @apply !p-2.5;
+  @apply !rounded-lg;
+  @apply !bg-gray-50 dark:!bg-gray-600;
+  @apply border !border-gray-300 focus:!border-primary-500 dark:!border-gray-500 dark:focus:!border-primary-500;
+  @apply text-sm text-gray-900 dark:text-white;
+  @apply dark:placeholder-gray-400;
+  @apply focus:ring-primary-500 dark:focus:ring-primary-500;
+}
+
+/* end date-picker-svelte */
