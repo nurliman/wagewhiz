@@ -101,14 +101,6 @@
           JPG, GIF or PNG. Max size of 800K
         </div>
         <div class="flex items-center space-x-2.5">
-          <input
-            bind:this={avatarInputFileElement}
-            name="avatar"
-            class="hidden"
-            type="file"
-            accept="image/*"
-            on:change={handleAvatarChange}
-          />
           <GradientButton
             size="sm"
             on:click={(e) => {
@@ -119,6 +111,14 @@
             <CloudArrowUpIcon class="mr-2" height={20} width={20} />
             <span>Upload picture</span>
           </GradientButton>
+          <input
+            bind:this={avatarInputFileElement}
+            name="avatar"
+            class="hidden"
+            type="file"
+            accept="image/*"
+            on:change={handleAvatarChange}
+          />
           <Button size="sm" color="alternative" on:click={handleClearAvatar}>Delete</Button>
         </div>
       </div>
