@@ -8,7 +8,10 @@
   import DropdownItem from "flowbite-svelte/DropdownItem.svelte";
   import DropdownHeader from "flowbite-svelte/DropdownHeader.svelte";
   import DropdownDivider from "flowbite-svelte/DropdownDivider.svelte";
+  import { nanoid } from "$lib/utils/nanoid.ts";
   import { toggleSidebar } from "$lib/stores/sidebar.ts";
+
+  const avatarElemId = nanoid();
 </script>
 
 <Navbar
@@ -26,9 +29,9 @@
   </div>
   <div class="flex items-center justify-end ml-auto">
     <DarkMode />
-    <Avatar id="avatar-menu" src="/images/profile-picture-3.webp" class="ml-3" />
+    <Avatar id={avatarElemId} src="/images/profile-picture-3.webp" class="ml-3" />
   </div>
-  <Dropdown placement="bottom" triggeredBy="#avatar-menu">
+  <Dropdown placement="bottom" triggeredBy={`#${avatarElemId}`}>
     <DropdownHeader>
       <span class="block text-sm"> Bonnie Green </span>
       <span class="block truncate text-sm font-medium"> name@flowbite.com </span>
