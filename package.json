@@ -14,12 +14,12 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
+    "@floating-ui/dom": "^1.4.4",
     "@fontsource-variable/nunito": "^5.0.5",
     "@popperjs/core": "^2.11.8",
     "date-picker-svelte": "^2.5.1",
     "dayjs": "^1.11.9",
     "flowbite": "^1.7.0",
-    "flowbite-svelte": "^0.39.2",
     "initials": "^3.1.2",
     "nanoid": "^4.0.2",
     "svelte-smooth-popover": "^1.0.8",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.5",
+    "@skeletonlabs/skeleton": "^1.9.0",
     "@sveltejs/adapter-auto": "^2.1.0",
     "@sveltejs/kit": "^1.22.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",

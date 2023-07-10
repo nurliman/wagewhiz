@@ -1,12 +1,6 @@
 <script>
   import { fade } from "svelte/transition";
   import { page } from "$app/stores";
-  import Sidebar from "flowbite-svelte/Sidebar.svelte";
-  import SidebarGroup from "flowbite-svelte/SidebarGroup.svelte";
-  import SidebarItem from "flowbite-svelte/SidebarItem.svelte";
-  import SidebarWrapper from "flowbite-svelte/SidebarWrapper.svelte";
-  import SidebarDropdownWrapper from "flowbite-svelte/SidebarDropdownWrapper.svelte";
-  import SidebarDropdownItem from "flowbite-svelte/SidebarDropdownItem.svelte";
   import sidebarStore, { closeSidebar } from "$lib/stores/sidebar.ts";
 
   $: activeUrl = $page.url.pathname;
@@ -17,42 +11,16 @@
 {/if}
 
 <div class="sidebar" class:show={$sidebarStore.show}>
-  <Sidebar class="border-r border-gray-200 dark:border-gray-700 h-full">
-    <SidebarWrapper class="bg-white h-full">
-      <SidebarGroup>
-        <SidebarItem label="Dashboard" active={activeUrl === "/dashboard"} href="/dashboard" />
-        <SidebarItem
-          label="People"
-          active={activeUrl?.startsWith?.("/people")}
-          href="/people"
-        />
-        <SidebarDropdownWrapper label="E-commerce">
-          <SidebarDropdownItem
-            label="Products"
-            href="/components/products"
-            active={activeUrl === "/components/products"}
-          />
-          <SidebarDropdownItem
-            label="Sidebar"
-            href="/docs/components/sidebar"
-            active={activeUrl === "/docs/components/sidebar"}
-          />
-        </SidebarDropdownWrapper>
-        <SidebarDropdownWrapper label="Items">
-          <SidebarDropdownItem
-            label="Item 1"
-            href="/components/item1"
-            active={activeUrl === "/components/item"}
-          />
-          <SidebarDropdownItem
-            label="Item 2"
-            href="/components/item2"
-            active={activeUrl === "/components/billing"}
-          />
-        </SidebarDropdownWrapper>
-      </SidebarGroup>
-    </SidebarWrapper>
-  </Sidebar>
+  <aside class="w-64 border-r border-gray-200 dark:border-surface-500 h-full" aria-label="Sidebar">
+    <div class="overflow-y-auto py-4 px-3 rounded bg-white dark:bg-surface-800 h-full">
+      <nav class="list-nav">
+        <ul>
+          <li><a href="/dashboard" class:active={activeUrl === "/dashboard"}>Dashboard</a></li>
+          <li><a href="/people" class:active={activeUrl?.startsWith?.("/people")}>People</a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
 </div>
 
 <style lang="scss">
@@ -86,5 +54,10 @@
     @media (min-width: 1024px) {
       display: none;
     }
+  }
+
+  .active {
+    @apply bg-gray-200 dark:bg-gray-700;
+    @apply hover:bg-gray-100 dark:hover:bg-gray-700;
   }
 </style>

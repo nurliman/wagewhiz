@@ -1,26 +1,34 @@
 <script lang="ts">
   import type { EmployeeStatus } from "$lib/types.ts";
-  import type { BadgeProps } from "flowbite-svelte/Badge.svelte";
-  import Badge from "flowbite-svelte/Badge.svelte";
-
-  type StatusColors = Record<EmployeeStatus, BadgeProps["color"]>;
-
-  const STATUS_COLORS: Readonly<StatusColors> = {
-    Permanent: "green",
-    Contract: "yellow",
-    Probation: "purple",
-  };
-
-  interface $$Props extends BadgeProps {
-    status: EmployeeStatus;
-  }
 
   export let status: EmployeeStatus;
-  export let color: BadgeProps["color"] = STATUS_COLORS[status];
-  export let border: BadgeProps["border"] = true;
-  export let large: BadgeProps["large"] = false;
 </script>
 
-<Badge {...$$restProps} {border} {color} {large}>
+<div
+  {...$$restProps}
+  class={`badge variant-ghost ` + $$restProps.class}
+  class:permanent={status === "Permanent"}
+  class:contract={status === "Contract"}
+  class:probation={status === "Probation"}
+>
   {status}
-</Badge>
+</div>
+
+<style lang="scss">
+  .badge {
+    &.permanent {
+      @apply ring-[1px] ring-green-500/80 dark:ring-green-500/80 ring-inset;
+      @apply bg-green-500/20 dark:bg-green-500/20;
+    }
+
+    &.contract {
+      @apply ring-[1px] ring-yellow-500/80 dark:ring-yellow-500/80 ring-inset;
+      @apply bg-yellow-500/20 dark:bg-yellow-500/20;
+    }
+
+    &.probation {
+      @apply ring-[1px] ring-purple-500/80 dark:ring-purple-500/80 ring-inset;
+      @apply bg-purple-500/20 dark:bg-purple-500/20;
+    }
+  }
+</style>
