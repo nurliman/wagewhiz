@@ -25,7 +25,9 @@ body {
   @apply !p-3;
   @apply !shadow-sm;
   @apply !rounded-lg;
-  @apply border !border-gray-200 dark:!border-gray-600;
+  @apply border !border-gray-200 dark:!border-surface-500;
+  @apply !bg-white dark:!bg-surface-700;
+  /* TODO: style selected date */
 }
 
 .date-time-field > input {

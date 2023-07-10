@@ -1,6 +1,7 @@
 <script lang="ts">
   import getInitials from "initials";
   import DatePicker from "date-picker-svelte/DatePicker.svelte";
+  import Portal from "$lib/components/Portal.svelte";
   import CalendarIcon from "~icons/ph/calendar";
   import CaretRightIcon from "~icons/ph/caret-right";
   import CloudArrowUpIcon from "~icons/ph/cloud-arrow-up";
@@ -9,11 +10,11 @@
   import EyeSlashIcon from "~icons/ph/eye-slash";
   import HouseIcon from "~icons/ph/house-fill";
   import dayjs from "dayjs";
-  import { Avatar, SlideToggle } from "@skeletonlabs/skeleton";
+  import { Avatar, SlideToggle, popup } from "@skeletonlabs/skeleton";
   import { superForm } from "sveltekit-superforms/client";
-  import { Popover } from "svelte-smooth-popover";
   import { nanoid } from "$lib/utils/nanoid.ts";
   import { validateEmail } from "$lib/utils/validateEmail.ts";
+  import type { PopupSettings } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types.ts";
 
   export let data: PageData;
@@ -34,8 +35,6 @@
   const fieldConfirmPasswordId = nanoid();
   let avatarInputFileElement: HTMLInputElement;
   let avatarImageSrc: string;
-  let showBirthdayPopover = false;
-  let showJoiningDatePopover = false;
   let usingPassword = false;
   let showPassword = false;
   let showConfirmPassword = false;
@@ -47,17 +46,23 @@
     },
   });
 
+  const birthdayPopupId = nanoid();
+  const birthdayPopup: PopupSettings = {
+    event: "focus-click",
+    target: birthdayPopupId,
+    closeQuery: ".date-time-picker .cell",
+  };
+
+  const joiningDatePopupId = nanoid();
+  const joiningDatePopup: PopupSettings = {
+    event: "focus-click",
+    target: joiningDatePopupId,
+    closeQuery: ".date-time-picker .cell",
+  };
+
   $: displayBirthday = $form.birthday && dayjs($form.birthday).format("DD/MM/YYYY");
   $: displayJoiningDate = $form.joiningDate && dayjs($form.joiningDate).format("DD/MM/YYYY");
   $: initials = $form.name ? getInitials($form.name) : undefined;
-
-  const toggleBirthdayPopover = () => {
-    showBirthdayPopover = !showBirthdayPopover;
-  };
-
-  const toggleJoiningDatePopover = () => {
-    showJoiningDatePopover = !showJoiningDatePopover;
-  };
 
   const toggleUsingPassword = () => {
     usingPassword = !usingPassword;
@@ -272,31 +277,31 @@
       <div class="col-span-6 sm:col-span-3 space-y-2">
         <label for={fieldBirthdayId} class="label">Birthday</label>
         <div>
-          <Popover caretBg="" offset={10} open={showBirthdayPopover}>
-            <DatePicker
-              min={new Date(1900, 0, 1)}
-              max={data.currentDate || new Date()}
-              bind:value={$form.birthday}
-              on:select={() => {
-                setTimeout(() => (showBirthdayPopover = false), 100);
-              }}
-            />
-          </Popover>
+          <Portal target="body">
+            <div class="shadow-xl" data-popup={birthdayPopupId}>
+              <DatePicker
+                min={new Date(1900, 0, 1)}
+                max={data.currentDate || new Date()}
+                bind:value={$form.birthday}
+              />
+            </div>
+          </Portal>
           <input type="hidden" name="birthday" value={$form.birthday} />
           <div
             class="input-group input-group-divider grid-cols-[1fr_auto]"
             class:input-error={$errors.birthday}
+            use:popup={birthdayPopup}
           >
             <input
               id={fieldBirthdayId}
               type="text"
+              class="cursor-pointer"
               placeholder="17/08/1990"
               readonly
               value={displayBirthday}
               aria-invalid={$errors.birthday ? "true" : undefined}
-              on:click={toggleBirthdayPopover}
             />
-            <button type="button" class="variant-soft" on:click={toggleBirthdayPopover}>
+            <button type="button" class="variant-soft">
               <CalendarIcon />
             </button>
           </div>
@@ -359,31 +364,31 @@
       <div class="col-span-6 sm:col-span-3 space-y-2">
         <label for={fieldJoiningDateId} class="label">Joining Date</label>
         <div>
-          <Popover caretBg="" offset={10} open={showJoiningDatePopover}>
-            <DatePicker
-              min={new Date(1900, 0, 1)}
-              max={data.currentDate || new Date()}
-              bind:value={$form.joiningDate}
-              on:select={() => {
-                setTimeout(() => (showJoiningDatePopover = false), 100);
-              }}
-            />
-          </Popover>
+          <Portal target="body">
+            <div class="shadow-xl" data-popup={joiningDatePopupId}>
+              <DatePicker
+                min={new Date(1900, 0, 1)}
+                max={data.currentDate || new Date()}
+                bind:value={$form.joiningDate}
+              />
+            </div>
+          </Portal>
           <input type="hidden" name="joiningDate" value={$form.joiningDate} />
           <div
             class="input-group input-group-divider grid-cols-[1fr_auto]"
             class:input-error={$errors.joiningDate}
+            use:popup={joiningDatePopup}
           >
             <input
               id={fieldJoiningDateId}
               type="text"
+              class="cursor-pointer"
               placeholder="15/08/1990"
               readonly
               value={displayJoiningDate}
               aria-invalid={$errors.joiningDate ? "true" : undefined}
-              on:click={toggleJoiningDatePopover}
             />
-            <button type="button" class="variant-soft" on:click={toggleJoiningDatePopover}>
+            <button type="button" class="variant-soft">
               <CalendarIcon />
             </button>
           </div>
