@@ -12,8 +12,8 @@ dependencies:
     specifier: ^1.4.4
     version: 1.4.4
   '@fontsource-variable/nunito':
-    specifier: ^5.0.5
-    version: 5.0.5
+    specifier: ^5.0.6
+    version: 5.0.6
   '@popperjs/core':
     specifier: ^2.11.8
     version: 2.11.8
@@ -713,8 +713,8 @@ packages:
       '@floating-ui/core': 1.3.1
     dev: false
 
-  /@fontsource-variable/nunito@5.0.5:
-    resolution: {integrity: sha512-1VZqBsSzu8VTgIr2YhT5UqRMeQ3ghJhyM4niR/SUa01DpSA2YanPwcAw/alIAZHj2qHqbUGZqMc5FnMY1PMUSQ==}
+  /@fontsource-variable/nunito@5.0.6:
+    resolution: {integrity: sha512-WrjJq+YwiT40Bj/SJp0AxkFStwqyO2AheQ5ufZbpZtI4xz0wed8p/gZINmNAn/s5yv9v+2sVZO8zYWWsBiJ4vw==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:
