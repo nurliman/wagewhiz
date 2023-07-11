@@ -4,63 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write ."
-  },
-  "dependencies": {
-    "@faker-js/faker": "^8.0.2",
-    "@floating-ui/dom": "^1.4.4",
-    "@fontsource-variable/nunito": "^5.0.6",
-    "@popperjs/core": "^2.11.8",
-    "date-picker-svelte": "^2.5.1",
-    "dayjs": "^1.11.9",
-    "flowbite": "^1.7.0",
-    "initials": "^3.1.2",
-    "nanoid": "^4.0.2",
-    "sveltekit-superforms": "^1.2.0",
-    "tailwind-merge": "^1.13.2",
-    "zod": "^3.21.4"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --plugin-search-dir . --write --ignore-path=.prettierignore ."
   },
   "devDependencies": {
-    "@iconify-json/ph": "^1.1.5",
-    "@skeletonlabs/skeleton": "^1.9.0",
-    "@sveltejs/adapter-auto": "^2.1.0",
-    "@sveltejs/kit": "^1.22.1",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
-    "autoprefixer": "^10.4.14",
     "eslint": "^8.44.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-svelte": "^2.32.2",
-    "postcss": "^8.4.25",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-preset-env": "^9.0.0",
-    "prettier": "^2",
+    "eslint-config-custom": "workspace:^",
+    "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",
-    "sass": "^1.63.6",
-    "svelte": "^4.0.5",
-    "svelte-check": "^3.4.5",
-    "tailwindcss": "^3.3.2",
-    "tslib": "^2.6.0",
-    "typescript": "^5.1.6",
-    "unplugin-icons": "^0.16.3",
-    "vite": "^4.4.2"
+    "turbo": "^1.10.7"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "packageManager": "pnpm@8.6.7"
 }
