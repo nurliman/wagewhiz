@@ -14,6 +14,6 @@ export type Employee = {
   status: EmployeeStatus;
 };
 
-export type WithInitials = { 
-  initials: string
- };
+export type WithInitials = {
+  initials: string;
+};
