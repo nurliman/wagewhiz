@@ -14,7 +14,7 @@
   {status}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
   .badge {
     &.permanent {
       @apply ring-[1px] ring-green-500/80 dark:ring-green-500/80 ring-inset;

@@ -1,8 +1,8 @@
 <script lang="ts">
   import "@fontsource-variable/nunito";
   import "@skeletonlabs/skeleton/styles/skeleton.css";
-  import "../app.css";
-  import "../theme.css";
+  import "../app.postcss";
+  import "../theme.postcss";
   import Navbar from "$lib/components/Navbar.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
   import Footer from "$lib/components/Footer.svelte";

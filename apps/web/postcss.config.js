@@ -1,5 +1,6 @@
 export default {
   plugins: {
+    "tailwindcss/nesting": "postcss-nesting",
     tailwindcss: {},
     "postcss-flexbugs-fixes": {},
     "postcss-preset-env": {
@@ -9,6 +10,7 @@ export default {
       stage: 3,
       features: {
         "custom-properties": false,
+        "nesting-rules": false,
       },
     },
   },

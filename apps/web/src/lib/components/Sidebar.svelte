@@ -23,7 +23,7 @@
   </aside>
 </div>
 
-<style lang="scss">
+<style lang="postcss">
   .sidebar {
     position: fixed;
     height: 100%;

@@ -87,6 +87,12 @@ importers:
       postcss-flexbugs-fixes:
         specifier: ^5.0.2
         version: 5.0.2(postcss@8.4.25)
+      postcss-load-config:
+        specifier: ^4.0.1
+        version: 4.0.1(postcss@8.4.25)
+      postcss-nesting:
+        specifier: ^12.0.0
+        version: 12.0.0(postcss@8.4.25)
       postcss-preset-env:
         specifier: ^9.0.0
         version: 9.0.0(postcss@8.4.25)
@@ -98,7 +104,10 @@ importers:
         version: 4.0.5
       svelte-check:
         specifier: ^3.4.5
-        version: 3.4.5(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)
+        version: 3.4.5(postcss-load-config@4.0.1)(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)
+      svelte-preprocess:
+        specifier: ^5.0.4
+        version: 5.0.4(postcss-load-config@4.0.1)(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)(typescript@5.1.6)
       tailwindcss:
         specifier: ^3.3.2
         version: 3.3.2
@@ -2752,7 +2761,7 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svelte-check@3.4.5(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5):
+  /svelte-check@3.4.5(postcss-load-config@4.0.1)(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5):
     resolution: {integrity: sha512-FsD/CUVdEI0F9sfylh1Fe15kDjvvbyBxzDpACPsdq0EASgaZukBXaMXofpxlgmWsgVET3OynMQlbtUQoWCz9Rw==}
     hasBin: true
     peerDependencies:
@@ -2765,7 +2774,7 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.0.5
-      svelte-preprocess: 5.0.4(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)(typescript@5.1.6)
+      svelte-preprocess: 5.0.4(postcss-load-config@4.0.1)(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
       - '@babel/core'
@@ -2804,7 +2813,7 @@ packages:
     dependencies:
       svelte: 4.0.5
 
-  /svelte-preprocess@5.0.4(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)(typescript@5.1.6):
+  /svelte-preprocess@5.0.4(postcss-load-config@4.0.1)(postcss@8.4.25)(sass@1.63.6)(svelte@4.0.5)(typescript@5.1.6):
     resolution: {integrity: sha512-ABia2QegosxOGsVlsSBJvoWeXy1wUKSfF7SWJdTjLAbx/Y3SrVevvvbFNQqrSJw89+lNSsM58SipmZJ5SRi5iw==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -2846,6 +2855,7 @@ packages:
       detect-indent: 6.1.0
       magic-string: 0.27.0
       postcss: 8.4.25
+      postcss-load-config: 4.0.1(postcss@8.4.25)
       sass: 1.63.6
       sorcery: 0.11.0
       strip-indent: 3.0.0

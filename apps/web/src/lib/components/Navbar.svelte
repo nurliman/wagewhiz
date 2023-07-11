@@ -71,7 +71,7 @@
   </div>
 </nav>
 
-<style lang="scss">
+<style lang="postcss">
   .navbar {
     position: fixed;
     top: 0;
