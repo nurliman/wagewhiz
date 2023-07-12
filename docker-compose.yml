@@ -1,0 +1,36 @@
+version: "3"
+services:
+  database:
+    image: percona:8.0-centos
+    restart: always
+    networks:
+      wagewhiz:
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${DB_NAME:?error}
+      MYSQL_USER: ${DB_USER:?error}
+      MYSQL_PASSWORD: ${DB_PASS?error}
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    depends_on:
+      - database
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8282:80'
+    environment:
+      PMA_HOST: ${DB_HOST:-database}
+      PMA_USER: ${DB_USER:?error}
+      PMA_PASSWORD: ${DB_PASS?error}
+    networks:
+      wagewhiz:
+
+networks:
+  wagewhiz:
+
+volumes:
+  mysql-data:
