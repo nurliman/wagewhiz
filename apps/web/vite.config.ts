@@ -9,4 +9,12 @@ export default defineConfig({
       compiler: "svelte",
     }),
   ],
+  server: {
+    port: 3000,
+    strictPort: false,
+  },
+  preview: {
+    port: 8080,
+    strictPort: false,
+  },
 });
