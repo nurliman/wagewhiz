@@ -1,12 +1,14 @@
-use std::net::AddrParseError;
-
-use axum::{extract::rejection::{FormRejection, JsonRejection}, http::StatusCode, response::IntoResponse};
+use axum::{
+    extract::rejection::{FormRejection, JsonRejection},
+    http::StatusCode,
+    response::IntoResponse,
+};
 use axum_macros::FromRequest;
 use diesel_async::pooled_connection::PoolError;
 use serde_json::json;
+use std::net::AddrParseError;
 use thiserror::Error;
 
-// create an extractor that internally uses `axum::Json` but has a custom rejection
 #[derive(FromRequest)]
 #[from_request(via(axum::Json), rejection(AppError))]
 pub struct Json<T>(T);
@@ -30,6 +32,21 @@ pub enum AppError {
 
     #[error("Validation error: {:?}",.0.to_string().replace('\n', ", "))]
     ValidationError(#[from] validator::ValidationErrors),
+
+    #[error("Error parsing token")]
+    TokenParseError,
+
+    #[error("Invalid token")]
+    InvalidToken,
+
+    #[error("Invalid access token")]
+    InvalidAccessToken,
+
+    #[error("Invalid refresh token")]
+    InvalidRefreshToken,
+
+    #[error("Token payload error")]
+    TokenPayloadError,
 
     #[error("Form error: {0}")]
     AxumFormRejection(#[from] FormRejection),
@@ -62,6 +79,10 @@ impl AppError {
             AppError::InvalidUsernameOrPassword => StatusCode::UNAUTHORIZED,
             AppError::UserPasswordNotFound => StatusCode::UNAUTHORIZED,
             AppError::ValidationError(_) => StatusCode::BAD_REQUEST,
+            AppError::TokenParseError => StatusCode::BAD_REQUEST,
+            AppError::InvalidToken => StatusCode::UNAUTHORIZED,
+            AppError::InvalidAccessToken => StatusCode::UNAUTHORIZED,
+            AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,
             AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
             AppError::UnsupportedMediaType => StatusCode::UNSUPPORTED_MEDIA_TYPE,

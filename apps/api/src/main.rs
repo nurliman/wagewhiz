@@ -5,6 +5,7 @@ mod handlers;
 mod models;
 mod schema;
 mod services;
+mod utils;
 mod validation;
 
 use axum::{
@@ -40,6 +41,7 @@ async fn main() {
         .route("/v0/users", get(handlers::auth::list_users))
         .route("/v0/users", post(create_user))
         .route("/v0/auth/sign-in", post(handlers::auth::sign_in))
+        .route("/v0/auth/refresh-token", post(handlers::auth::refresh_token))
         .with_state(pool);
 
     let addr = format!("{}:{}", env_var.host, env_var.port)

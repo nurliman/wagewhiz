@@ -65,6 +65,12 @@ pub struct SignIn {
     pub password: String,
 }
 
+#[derive(Deserialize, Validate)]
+pub struct RefreshToken {
+    #[validate(required, length(min = 1, message = "Refresh token cannot be empty"))]
+    pub refresh_token: Option<String>,
+}
+
 #[derive(Serialize)]
 pub struct Credential {
     pub access_token: String,
