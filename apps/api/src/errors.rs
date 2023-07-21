@@ -87,6 +87,7 @@ impl AppError {
             AppError::InvalidAccessToken => StatusCode::UNAUTHORIZED,
             AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,
             AppError::TokenPayloadError => StatusCode::UNAUTHORIZED,
+            AppError::TokenNotFound => StatusCode::UNAUTHORIZED,
             AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
             AppError::UnsupportedMediaType => StatusCode::UNSUPPORTED_MEDIA_TYPE,
