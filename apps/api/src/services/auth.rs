@@ -32,17 +32,19 @@ pub async fn sign_in(username: &str, password: &str) -> Result<CredentialUser, A
         return Err(AppError::InvalidUsernameOrPassword);
     }
 
-    let access_token = generate_access_token(&user).await?;
-    let refresh_token = generate_refresh_token(&user).await?;
-    let roles = get_roles_by_user(&user).await?;
+    let (access_token, refresh_token, roles) = tokio::join!(
+        generate_access_token(&user),
+        generate_refresh_token(&user),
+        get_roles_by_user(&user),
+    );
 
     Ok(CredentialUser {
         id: user.id.clone().to_string(),
         username: user.username.clone().to_string(),
-        roles,
+        roles: roles?,
         credential: Credential {
-            access_token,
-            refresh_token,
+            access_token: access_token?,
+            refresh_token: refresh_token?,
         },
     })
 }
@@ -62,17 +64,19 @@ pub async fn refresh_token(refresh_token: &str) -> Result<CredentialUser, AppErr
 
     let user = get_user_by_id(token_subject_str).await?;
 
-    let access_token = generate_access_token(&user).await?;
-    let refresh_token = generate_refresh_token(&user).await?;
-    let roles = get_roles_by_user(&user).await?;
+    let (access_token, refresh_token, roles) = tokio::join!(
+        generate_access_token(&user),
+        generate_refresh_token(&user),
+        get_roles_by_user(&user),
+    );
 
     Ok(CredentialUser {
         id: user.id.clone().to_string(),
         username: user.username.clone().to_string(),
-        roles,
+        roles: roles?,
         credential: Credential {
-            access_token,
-            refresh_token,
+            access_token: access_token?,
+            refresh_token: refresh_token?,
         },
     })
 }
