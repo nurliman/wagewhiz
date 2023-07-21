@@ -1,7 +1,7 @@
 use super::users::{get_user_by_id, get_user_by_username};
 use crate::{
     env,
-    errors::{self, AppError},
+    errors::AppError,
     models::{Credential, CredentialUser, User},
     utils::paseto::{parse_key_data, KeyPurpose},
 };
@@ -53,13 +53,13 @@ pub async fn refresh_token(refresh_token: &str) -> Result<CredentialUser, AppErr
     let verified_token = verify_refresh_token(refresh_token).await?;
     let token_claims = verified_token
         .payload_claims()
-        .ok_or(errors::AppError::TokenPayloadError)?;
+        .ok_or(AppError::TokenPayloadError)?;
     let token_subject = token_claims
         .get_claim("sub")
-        .ok_or(errors::AppError::TokenPayloadError)?;
+        .ok_or(AppError::TokenPayloadError)?;
     let token_subject_str = match token_subject {
         serde_json::Value::String(s) => s,
-        _ => return Err(errors::AppError::TokenPayloadError),
+        _ => return Err(AppError::TokenPayloadError),
     };
 
     let user = get_user_by_id(token_subject_str).await?;
@@ -84,7 +84,7 @@ pub async fn refresh_token(refresh_token: &str) -> Result<CredentialUser, AppErr
 pub async fn verify_password(password: &str, password_hash: &str) -> Result<bool, AppError> {
     let parsed_hash = PasswordHash::new(password_hash).map_err(|e| {
         tracing::error!("Error parsing password hash: {:?}", e);
-        errors::AppError::InternalError
+        AppError::InternalError
     })?;
     Ok(Argon2::default()
         .verify_password(password.as_bytes(), &parsed_hash)
@@ -95,16 +95,16 @@ pub async fn verify_password(password: &str, password_hash: &str) -> Result<bool
 pub async fn verify_token(public_token: &str, public_key: &[u8]) -> Result<TrustedToken, AppError> {
     let key = AsymmetricPublicKey::from(&public_key).map_err(|e| {
         tracing::error!("Error parsing access token public key: {:?}", e);
-        errors::AppError::InternalError
+        AppError::InternalError
     })?;
 
     let validation_rules = ClaimsValidationRules::new();
     let untrusted_token =
         UntrustedToken::<pasetors::Public, pasetors::version4::V4>::try_from(public_token)
-            .map_err(|_| errors::AppError::TokenParseError)?;
+            .map_err(|_| AppError::TokenParseError)?;
 
     let trusted_token = public::verify(&key, &untrusted_token, &validation_rules, None, None)
-        .map_err(|_| errors::AppError::InvalidToken)?;
+        .map_err(|_| AppError::InvalidToken)?;
 
     Ok(trusted_token)
 }
@@ -115,7 +115,7 @@ pub async fn verify_access_token(access_token: &str) -> Result<TrustedToken, App
     let public_key = parse_key_data(KeyPurpose::Public, &env_var.access_token_public_key, None)
         .map_err(|_| {
             tracing::error!("Error parsing access token public key");
-            errors::AppError::InternalError
+            AppError::InternalError
         })?;
 
     verify_token(access_token, &public_key)
@@ -134,7 +134,7 @@ pub async fn verify_refresh_token(refresh_token: &str) -> Result<TrustedToken, A
     let public_key = parse_key_data(KeyPurpose::Public, &env_var.refresh_token_public_key, None)
         .map_err(|_| {
             tracing::error!("Error parsing access token public key");
-            errors::AppError::InternalError
+            AppError::InternalError
         })?;
 
     verify_token(refresh_token, &public_key)
@@ -169,7 +169,7 @@ async fn generate_access_token(user: &User) -> Result<String, AppError> {
     let key = parse_key_data(KeyPurpose::Secret, &env_var.access_token_secret_key, None).map_err(
         |_| {
             tracing::error!("Error parsing access token secret key");
-            errors::AppError::InternalError
+            AppError::InternalError
         },
     )?;
 
@@ -177,14 +177,14 @@ async fn generate_access_token(user: &User) -> Result<String, AppError> {
         .format(&Rfc3339)
         .map_err(|e| {
             tracing::error!("Error formatting date: {:?}", e);
-            errors::AppError::InternalError
+            AppError::InternalError
         })?;
 
     generate_token(user, &key, &in_15_minutes)
         .await
         .map_err(|e| {
             tracing::error!("Error generating access token: {:?}", e);
-            errors::AppError::InternalError
+            AppError::InternalError
         })
 }
 
@@ -194,7 +194,7 @@ async fn generate_refresh_token(user: &User) -> Result<String, AppError> {
     let key = parse_key_data(KeyPurpose::Secret, &env_var.refresh_token_secret_key, None).map_err(
         |_| {
             tracing::error!("Error parsing refresh token secret key");
-            errors::AppError::InternalError
+            AppError::InternalError
         },
     )?;
 
@@ -202,12 +202,12 @@ async fn generate_refresh_token(user: &User) -> Result<String, AppError> {
         .format(&Rfc3339)
         .map_err(|e| {
             tracing::error!("Error formatting date: {:?}", e);
-            errors::AppError::InternalError
+            AppError::InternalError
         })?;
 
     generate_token(user, &key, &in_2_hours).await.map_err(|e| {
         tracing::error!("Error generating access token: {:?}", e);
-        errors::AppError::InternalError
+        AppError::InternalError
     })
 }
 
