@@ -48,6 +48,9 @@ pub enum AppError {
     #[error("Token payload error")]
     TokenPayloadError,
 
+    #[error("Token not found, please login")]
+    TokenNotFound,
+
     #[error("Form error: {0}")]
     AxumFormRejection(#[from] FormRejection),
 
@@ -83,6 +86,7 @@ impl AppError {
             AppError::InvalidToken => StatusCode::UNAUTHORIZED,
             AppError::InvalidAccessToken => StatusCode::UNAUTHORIZED,
             AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,
+            AppError::TokenPayloadError => StatusCode::UNAUTHORIZED,
             AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
             AppError::UnsupportedMediaType => StatusCode::UNSUPPORTED_MEDIA_TYPE,

@@ -2,6 +2,7 @@ mod db;
 mod env;
 mod errors;
 mod handlers;
+mod middlewares;
 mod models;
 mod schema;
 mod services;
@@ -12,6 +13,7 @@ use axum::{
     async_trait,
     extract::{FromRef, FromRequestParts, State},
     http::{request::Parts, StatusCode},
+    middleware,
     response::Json,
     routing::{get, post},
     Router,
@@ -38,10 +40,16 @@ async fn main() {
     let pool = db::get_pool().await.unwrap().clone();
 
     let app = Router::new()
-        .route("/v0/users", get(handlers::auth::list_users))
+        .route(
+            "/v0/users",
+            get(handlers::auth::list_users).route_layer(middleware::from_fn(middlewares::auth)),
+        )
         .route("/v0/users", post(create_user))
         .route("/v0/auth/sign-in", post(handlers::auth::sign_in))
-        .route("/v0/auth/refresh-token", post(handlers::auth::refresh_token))
+        .route(
+            "/v0/auth/refresh-token",
+            post(handlers::auth::refresh_token),
+        )
         .with_state(pool);
 
     let addr = format!("{}:{}", env_var.host, env_var.port)
