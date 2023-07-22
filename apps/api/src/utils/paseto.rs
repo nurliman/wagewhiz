@@ -15,7 +15,6 @@ pub enum PasetoError {
 static KEY_MAGIC_STRINGS: Lazy<HashMap<&'static str, HashMap<&'static str, &'static str>>> =
     Lazy::new(|| {
         let mut v4 = HashMap::new();
-        v4.insert("local", "k4.local.");
         v4.insert("secret", "k4.secret.");
         v4.insert("public", "k4.public.");
 
@@ -27,7 +26,6 @@ static KEY_MAGIC_STRINGS: Lazy<HashMap<&'static str, HashMap<&'static str, &'sta
 
 static KEY_LENGTHS: Lazy<HashMap<&'static str, HashMap<&'static str, usize>>> = Lazy::new(|| {
     let mut v4 = HashMap::new();
-    v4.insert("local", 32);
     v4.insert("secret", 64);
     v4.insert("public", 32);
 
@@ -38,7 +36,6 @@ static KEY_LENGTHS: Lazy<HashMap<&'static str, HashMap<&'static str, usize>>> = 
 });
 
 pub enum KeyPurpose {
-    Local,
     Secret,
     Public,
 }
@@ -56,7 +53,6 @@ pub fn parse_key_data(
 
     let magic_string = match version {
         Version::V4 => match purpose {
-            KeyPurpose::Local => KEY_MAGIC_STRINGS.get("v4").unwrap().get("local").unwrap(),
             KeyPurpose::Secret => KEY_MAGIC_STRINGS.get("v4").unwrap().get("secret").unwrap(),
             KeyPurpose::Public => KEY_MAGIC_STRINGS.get("v4").unwrap().get("public").unwrap(),
         },
@@ -79,7 +75,6 @@ pub fn parse_key_data(
 
     let key_length = match version {
         Version::V4 => match purpose {
-            KeyPurpose::Local => KEY_LENGTHS.get("v4").unwrap().get("local").unwrap(),
             KeyPurpose::Secret => KEY_LENGTHS.get("v4").unwrap().get("secret").unwrap(),
             KeyPurpose::Public => KEY_LENGTHS.get("v4").unwrap().get("public").unwrap(),
         },
