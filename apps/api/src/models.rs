@@ -1,26 +1,9 @@
-use crate::schema;
+use crate::{schema,utils};
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 use time::{serde::iso8601, Date, OffsetDateTime};
 use uuid::Uuid;
 use validator::Validate;
-
-#[derive(Serialize, Queryable, Selectable)]
-#[diesel(table_name = schema::users)]
-#[diesel(check_for_backend(diesel::pg::Pg))]
-pub struct User {
-    #[serde(with = "uuid::serde::compact")]
-    pub id: Uuid,
-    #[serde(with = "iso8601")]
-    pub created_at: OffsetDateTime,
-    #[serde(with = "iso8601")]
-    pub updated_at: OffsetDateTime,
-    #[serde(with = "iso8601::option")]
-    pub deleted_at: Option<OffsetDateTime>,
-    pub username: String,
-    pub password: String,
-    pub role: String,
-}
 
 #[derive(Serialize, Queryable, Selectable)]
 #[diesel(table_name = schema::people)]
@@ -47,6 +30,25 @@ pub struct Person {
     pub role: Option<String>,
     pub department: Option<String>,
     pub joining_date: Option<Date>,
+}
+
+#[derive(Serialize, Queryable, Selectable)]
+#[diesel(table_name = schema::user_accounts)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct UserAccount {
+    #[serde(with = "uuid::serde::compact")]
+    pub id: Uuid,
+    #[serde(with = "iso8601")]
+    pub created_at: OffsetDateTime,
+    #[serde(with = "iso8601")]
+    pub updated_at: OffsetDateTime,
+    #[serde(with = "iso8601::option")]
+    pub deleted_at: Option<OffsetDateTime>,
+    pub username: String,
+    pub password: String,
+    pub role: String,
+    #[serde(with = "utils::serde::uuid_option")]
+    pub person_id: Option<Uuid>,
 }
 
 #[derive(Deserialize, Validate)]

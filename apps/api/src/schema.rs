@@ -23,7 +23,7 @@ diesel::table! {
 }
 
 diesel::table! {
-    users (id) {
+    user_accounts (id) {
         id -> Uuid,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
@@ -31,10 +31,13 @@ diesel::table! {
         username -> Varchar,
         password -> Text,
         role -> Varchar,
+        person_id -> Nullable<Uuid>,
     }
 }
 
+diesel::joinable!(user_accounts -> people (person_id));
+
 diesel::allow_tables_to_appear_in_same_query!(
     people,
-    users,
+    user_accounts,
 );

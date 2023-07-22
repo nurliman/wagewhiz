@@ -2,7 +2,7 @@ use super::users::{get_user_by_id, get_user_by_username};
 use crate::{
     env,
     errors::AppError,
-    models::{Credential, CredentialUser, User},
+    models::{Credential, CredentialUser, UserAccount},
     utils::paseto::{parse_key_data, KeyPurpose},
 };
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
@@ -148,7 +148,7 @@ pub async fn verify_refresh_token(refresh_token: &str) -> Result<TrustedToken, A
 }
 
 async fn generate_token(
-    user: &User,
+    user: &UserAccount,
     secret_key: &[u8],
     expiration: &str,
 ) -> anyhow::Result<String> {
@@ -163,7 +163,7 @@ async fn generate_token(
     Ok(token)
 }
 
-async fn generate_access_token(user: &User) -> Result<String, AppError> {
+async fn generate_access_token(user: &UserAccount) -> Result<String, AppError> {
     let env_var = env::get_env_var()?;
 
     let key = parse_key_data(KeyPurpose::Secret, &env_var.access_token_secret_key, None).map_err(
@@ -188,7 +188,7 @@ async fn generate_access_token(user: &User) -> Result<String, AppError> {
         })
 }
 
-async fn generate_refresh_token(user: &User) -> Result<String, AppError> {
+async fn generate_refresh_token(user: &UserAccount) -> Result<String, AppError> {
     let env_var = env::get_env_var()?;
 
     let key = parse_key_data(KeyPurpose::Secret, &env_var.refresh_token_secret_key, None).map_err(
@@ -211,7 +211,7 @@ async fn generate_refresh_token(user: &User) -> Result<String, AppError> {
     })
 }
 
-async fn get_roles_by_user(_user: &User) -> Result<Vec<String>, AppError> {
+async fn get_roles_by_user(_user: &UserAccount) -> Result<Vec<String>, AppError> {
     let mut roles = Vec::new();
     roles.push("admin".to_string());
     Ok(roles)
