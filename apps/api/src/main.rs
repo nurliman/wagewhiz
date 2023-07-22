@@ -54,6 +54,11 @@ async fn main() {
             "/v0/people",
             get(handlers::people::get_people).route_layer(middleware::from_fn(middlewares::auth)),
         )
+        .route(
+            "/v0/people/:person_id",
+            get(handlers::people::get_person_by_id)
+                .route_layer(middleware::from_fn(middlewares::auth)),
+        )
         .with_state(pool);
 
     let addr = format!("{}:{}", env_var.host, env_var.port)

@@ -21,6 +21,9 @@ pub enum AppError {
     #[error("User with id '{0}' not found")]
     UserNotFound(String),
 
+    #[error("Person with id '{0}' not found")]
+    PersonNotFound(String),
+
     #[error("'{}' is not a valid uuid", .0)]
     InvalidUuid(String),
 
@@ -78,6 +81,7 @@ impl AppError {
         match self {
             AppError::UsernameNotFound(_) => StatusCode::NOT_FOUND,
             AppError::UserNotFound(_) => StatusCode::NOT_FOUND,
+            AppError::PersonNotFound(_) => StatusCode::NOT_FOUND,
             AppError::InvalidUuid(_) => StatusCode::BAD_REQUEST,
             AppError::InvalidUsernameOrPassword => StatusCode::UNAUTHORIZED,
             AppError::UserPasswordNotFound => StatusCode::UNAUTHORIZED,
