@@ -22,14 +22,6 @@ pub struct User {
     pub role: String,
 }
 
-#[derive(Deserialize, Insertable)]
-#[diesel(table_name = schema::users)]
-pub struct NewUser {
-    pub username: String,
-    pub password: String,
-    pub role: String,
-}
-
 #[derive(Serialize, Queryable, Selectable)]
 #[diesel(table_name = schema::people)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
