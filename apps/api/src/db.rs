@@ -31,3 +31,15 @@ async fn init_db() -> Result<Pool, AppError> {
 pub async fn get_pool() -> Result<&'static Pool, AppError> {
     Ok(DB.get_or_init(|| async { init_db().await.unwrap() }).await)
 }
+
+pub async fn get_connection(
+) -> Result<bb8::PooledConnection<'static, AsyncDieselConnectionManager<AsyncPgConnection>>, AppError>
+{
+    let pool = get_pool().await?;
+    let conn = pool.get().await.map_err(|e| {
+        tracing::error!("Error getting connection: {:?}", e);
+        AppError::InternalError
+    })?;
+
+    Ok(conn)
+}
