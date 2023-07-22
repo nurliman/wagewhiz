@@ -50,6 +50,10 @@ async fn main() {
             "/v0/auth/refresh-token",
             post(handlers::auth::refresh_token),
         )
+        .route(
+            "/v0/people",
+            get(handlers::people::get_people).route_layer(middleware::from_fn(middlewares::auth)),
+        )
         .with_state(pool);
 
     let addr = format!("{}:{}", env_var.host, env_var.port)
