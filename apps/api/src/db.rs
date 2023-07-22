@@ -1,5 +1,6 @@
 use crate::{env, errors::AppError};
 use diesel_async::{pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection};
+use std::time::Duration;
 use tokio::sync::OnceCell;
 
 pub type Pool = bb8::Pool<AsyncDieselConnectionManager<AsyncPgConnection>>;
@@ -15,10 +16,14 @@ async fn init_db() -> Result<Pool, AppError> {
     );
 
     let config = AsyncDieselConnectionManager::<diesel_async::AsyncPgConnection>::new(db_url);
-    let pool = bb8::Pool::builder().build(config).await.map_err(|e| {
-        tracing::error!("Error creating pool: {:?}", e);
-        AppError::DbError(e)
-    })?;
+    let pool = bb8::Pool::builder()
+        .connection_timeout(Duration::from_secs(8))
+        .build(config)
+        .await
+        .map_err(|e| {
+            tracing::error!("Error creating pool: {:?}", e);
+            AppError::DbError(e)
+        })?;
 
     Ok(pool)
 }
