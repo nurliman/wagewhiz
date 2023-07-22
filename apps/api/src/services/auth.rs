@@ -2,7 +2,7 @@ use super::users::{get_user_by_id, get_user_by_username};
 use crate::{
     env,
     errors::AppError,
-    models::{Credential, CredentialUser, UserAccount},
+    models::{Credential, UserAccount, UserWithCredential},
     utils::paseto::{parse_key_data, KeyPurpose},
 };
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
@@ -14,7 +14,7 @@ use pasetors::{
 };
 use time::format_description::well_known::Rfc3339;
 
-pub async fn sign_in(username: &str, password: &str) -> Result<CredentialUser, AppError> {
+pub async fn sign_in(username: &str, password: &str) -> Result<UserWithCredential, AppError> {
     let user = get_user_by_username(username).await.map_err(|error| {
         if let AppError::UsernameNotFound(_) = error {
             return AppError::InvalidUsernameOrPassword;
@@ -32,16 +32,20 @@ pub async fn sign_in(username: &str, password: &str) -> Result<CredentialUser, A
         return Err(AppError::InvalidUsernameOrPassword);
     }
 
-    let (access_token, refresh_token, roles) = tokio::join!(
-        generate_access_token(&user),
-        generate_refresh_token(&user),
-        get_roles_by_user(&user),
-    );
+    let (access_token, refresh_token) =
+        tokio::join!(generate_access_token(&user), generate_refresh_token(&user),);
 
-    Ok(CredentialUser {
-        id: user.id.clone().to_string(),
-        username: user.username.clone().to_string(),
-        roles: roles?,
+    Ok(UserWithCredential {
+        user: UserAccount {
+            id: user.id.clone(),
+            created_at: user.created_at,
+            updated_at: user.updated_at,
+            deleted_at: user.deleted_at,
+            username: user.username.clone(),
+            password: "".to_string(),
+            role: user.role.clone(),
+            person_id: user.person_id,
+        },
         credential: Credential {
             access_token: access_token?,
             refresh_token: refresh_token?,
@@ -49,7 +53,7 @@ pub async fn sign_in(username: &str, password: &str) -> Result<CredentialUser, A
     })
 }
 
-pub async fn refresh_token(refresh_token: &str) -> Result<CredentialUser, AppError> {
+pub async fn refresh_token(refresh_token: &str) -> Result<UserWithCredential, AppError> {
     let verified_token = verify_refresh_token(refresh_token).await?;
     let token_claims = verified_token
         .payload_claims()
@@ -64,16 +68,20 @@ pub async fn refresh_token(refresh_token: &str) -> Result<CredentialUser, AppErr
 
     let user = get_user_by_id(token_subject_str).await?;
 
-    let (access_token, refresh_token, roles) = tokio::join!(
-        generate_access_token(&user),
-        generate_refresh_token(&user),
-        get_roles_by_user(&user),
-    );
+    let (access_token, refresh_token) =
+        tokio::join!(generate_access_token(&user), generate_refresh_token(&user),);
 
-    Ok(CredentialUser {
-        id: user.id.clone().to_string(),
-        username: user.username.clone().to_string(),
-        roles: roles?,
+    Ok(UserWithCredential {
+        user: UserAccount {
+            id: user.id.clone(),
+            created_at: user.created_at,
+            updated_at: user.updated_at,
+            deleted_at: user.deleted_at,
+            username: user.username.clone(),
+            password: "".to_string(),
+            role: user.role.clone(),
+            person_id: user.person_id,
+        },
         credential: Credential {
             access_token: access_token?,
             refresh_token: refresh_token?,
@@ -209,10 +217,4 @@ async fn generate_refresh_token(user: &UserAccount) -> Result<String, AppError> 
         tracing::error!("Error generating access token: {:?}", e);
         AppError::InternalError
     })
-}
-
-async fn get_roles_by_user(_user: &UserAccount) -> Result<Vec<String>, AppError> {
-    let mut roles = Vec::new();
-    roles.push("admin".to_string());
-    Ok(roles)
 }

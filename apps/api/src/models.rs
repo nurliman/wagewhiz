@@ -1,7 +1,10 @@
-use crate::{schema,utils};
+use crate::{
+    schema,
+    utils::serde::{uuid_string, uuid_string_option},
+};
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
-use time::{serde::iso8601, Date, OffsetDateTime};
+use time::{serde::rfc3339, Date, OffsetDateTime};
 use uuid::Uuid;
 use validator::Validate;
 
@@ -9,13 +12,13 @@ use validator::Validate;
 #[diesel(table_name = schema::people)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Person {
-    #[serde(with = "uuid::serde::compact")]
+    #[serde(with = "uuid_string")]
     pub id: Uuid,
-    #[serde(with = "iso8601")]
+    #[serde(with = "rfc3339")]
     pub created_at: OffsetDateTime,
-    #[serde(with = "iso8601")]
+    #[serde(with = "rfc3339")]
     pub updated_at: OffsetDateTime,
-    #[serde(with = "iso8601::option")]
+    #[serde(with = "rfc3339::option")]
     pub deleted_at: Option<OffsetDateTime>,
     pub name: Option<String>,
     pub nip: Option<String>,
@@ -36,18 +39,19 @@ pub struct Person {
 #[diesel(table_name = schema::user_accounts)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct UserAccount {
-    #[serde(with = "uuid::serde::compact")]
+    #[serde(with = "uuid_string")]
     pub id: Uuid,
-    #[serde(with = "iso8601")]
+    #[serde(with = "rfc3339")]
     pub created_at: OffsetDateTime,
-    #[serde(with = "iso8601")]
+    #[serde(with = "rfc3339")]
     pub updated_at: OffsetDateTime,
-    #[serde(with = "iso8601::option")]
+    #[serde(with = "rfc3339::option")]
     pub deleted_at: Option<OffsetDateTime>,
     pub username: String,
+    #[serde(skip_serializing)]
     pub password: String,
     pub role: String,
-    #[serde(with = "utils::serde::uuid_option")]
+    #[serde(with = "uuid_string_option")]
     pub person_id: Option<Uuid>,
 }
 
@@ -72,9 +76,8 @@ pub struct Credential {
 }
 
 #[derive(Serialize)]
-pub struct CredentialUser {
-    pub id: String,
-    pub username: String,
-    pub roles: Vec<String>,
+pub struct UserWithCredential {
+    #[serde(flatten)]
+    pub user: UserAccount,
     pub credential: Credential,
 }
