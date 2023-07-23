@@ -24,6 +24,9 @@ pub enum AppError {
     #[error("Person with id '{0}' not found")]
     PersonNotFound(String),
 
+    #[error("Account not linked to person")]
+    AccountNotLinkedToPerson,
+
     #[error("'{}' is not a valid uuid", .0)]
     InvalidUuid(String),
 
@@ -82,6 +85,7 @@ impl AppError {
             AppError::UsernameNotFound(_) => StatusCode::NOT_FOUND,
             AppError::UserNotFound(_) => StatusCode::NOT_FOUND,
             AppError::PersonNotFound(_) => StatusCode::NOT_FOUND,
+            AppError::AccountNotLinkedToPerson => StatusCode::NOT_FOUND,
             AppError::InvalidUuid(_) => StatusCode::BAD_REQUEST,
             AppError::InvalidUsernameOrPassword => StatusCode::UNAUTHORIZED,
             AppError::UserPasswordNotFound => StatusCode::UNAUTHORIZED,

@@ -38,6 +38,15 @@ async fn main() {
             post(handlers::auth::refresh_token),
         )
         .route(
+            "/v0/me",
+            get(handlers::me::get_me).route_layer(middleware::from_fn(middlewares::auth)),
+        )
+        .route(
+            "/v0/me/personal-info",
+            get(handlers::me::get_my_personal_info)
+                .route_layer(middleware::from_fn(middlewares::auth)),
+        )
+        .route(
             "/v0/people",
             get(handlers::people::get_people).route_layer(middleware::from_fn(middlewares::auth)),
         )
