@@ -5,25 +5,34 @@ services:
     image: postgres:15
     restart: unless-stopped
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
       POSTGRES_DB: ${DB_NAME:?error}
       POSTGRES_USER: ${DB_USER:?error}
       POSTGRES_PASSWORD: ${DB_PASS?error}
     networks:
       wagewhiz:
-    volumes: 
+    volumes:
       - postgres-data:/var/lib/postgresql/data
 
   pgweb:
     restart: always
     image: sosedoff/pgweb
-    ports: 
-      - "8081:8081" 
+    ports:
+      - "8081:8081"
     environment:
       - DATABASE_URL=postgres://${DB_USER:?error}:${DB_PASS?error}@database:5432/${DB_NAME:?error}?sslmode=disable
     depends_on:
       - database
+    networks:
+      wagewhiz:
+
+  job-titles-meilisearch:
+    build: ./apps/job-titles-meilisearch
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=MASTER_KEY
     networks:
       wagewhiz:
 
