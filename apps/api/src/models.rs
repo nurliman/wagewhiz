@@ -81,3 +81,9 @@ pub struct UserWithCredential {
     pub user: UserAccount,
     pub credential: Credential,
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct JobTitle {
+    pub id: usize,
+    pub name: String,
+}

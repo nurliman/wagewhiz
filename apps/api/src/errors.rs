@@ -1,9 +1,9 @@
 use axum::{
-    extract::rejection::{FormRejection, JsonRejection},
+    extract::rejection::{FormRejection, JsonRejection, QueryRejection},
     http::StatusCode,
     response::IntoResponse,
 };
-use axum_macros::FromRequest;
+use axum_macros::{FromRequest, FromRequestParts};
 use diesel_async::pooled_connection::PoolError;
 use serde_json::json;
 use std::net::AddrParseError;
@@ -11,7 +11,11 @@ use thiserror::Error;
 
 #[derive(FromRequest)]
 #[from_request(via(axum::Json), rejection(AppError))]
-pub struct Json<T>(T);
+pub struct Json<T>(pub T);
+
+#[derive(FromRequestParts)]
+#[from_request(via(axum::extract::Query), rejection(AppError))]
+pub struct Query<T>(pub T);
 
 #[derive(Error, Debug)]
 pub enum AppError {
@@ -63,6 +67,9 @@ pub enum AppError {
     #[error("Body Json error: {0}")]
     AxumJsonRejection(#[from] JsonRejection),
 
+    #[error("Query Params error: {0}")]
+    AxumQueryRejection(#[from] QueryRejection),
+
     #[error("Unsupported media type")]
     UnsupportedMediaType,
 
@@ -98,6 +105,7 @@ impl AppError {
             AppError::TokenNotFound => StatusCode::UNAUTHORIZED,
             AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
+            AppError::AxumQueryRejection(_) => StatusCode::BAD_REQUEST,
             AppError::UnsupportedMediaType => StatusCode::UNSUPPORTED_MEDIA_TYPE,
             _ => StatusCode::INTERNAL_SERVER_ERROR,
         }

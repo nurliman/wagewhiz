@@ -2,6 +2,7 @@ mod db;
 mod env;
 mod errors;
 mod handlers;
+mod meilisearch;
 mod middlewares;
 mod models;
 mod schema;
@@ -53,6 +54,11 @@ async fn main() {
         .route(
             "/v0/people/:person_id",
             get(handlers::people::get_person_by_id)
+                .route_layer(middleware::from_fn(middlewares::auth)),
+        )
+        .route(
+            "/v0/job-titles/search",
+            get(handlers::misc::search_job_titles)
                 .route_layer(middleware::from_fn(middlewares::auth)),
         )
         .with_state(pool);
