@@ -32,9 +32,25 @@ services:
     ports:
       - "7700:7700"
     environment:
-      - MEILI_MASTER_KEY=MASTER_KEY
+      - MEILI_MASTER_KEY=${MEILISEARCH_MASTER_KEY:?error}
     networks:
       wagewhiz:
+
+  influxdb:
+    image: influxdb:2.7
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${INFLUXDB_USER:?error}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUXDB_PASS:?error}
+      DOCKER_INFLUXDB_INIT_ORG: ${INFLUXDB_ORG:-wagewhiz}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${INFLUXDB_BUCKET:-wagewhiz}
+    networks:
+      wagewhiz:
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
 
 networks:
   wagewhiz:
@@ -42,3 +58,4 @@ networks:
 
 volumes:
   postgres-data:
+  influxdb-data:
