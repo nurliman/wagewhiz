@@ -11,6 +11,7 @@ pub mod uuid_string {
         serializer.serialize_str(&uuid.to_string())
     }
 
+    #[allow(dead_code)]
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Uuid, D::Error>
     where
         D: Deserializer<'de>,
@@ -36,6 +37,7 @@ pub mod uuid_string_option {
         }
     }
 
+    #[allow(dead_code)]
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Option<Uuid>, D::Error>
     where
         D: Deserializer<'de>,
@@ -54,6 +56,7 @@ pub mod string {
     use serde::{de, Deserialize, Deserializer};
     use std::{fmt, str::FromStr};
 
+    #[allow(dead_code)]
     pub fn empty_string_as_none<'de, D, T>(de: D) -> Result<Option<T>, D::Error>
     where
         D: Deserializer<'de>,

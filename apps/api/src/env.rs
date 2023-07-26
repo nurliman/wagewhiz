@@ -27,10 +27,6 @@ pub struct EnvironmentVariables {
     #[serde(default = "default_db_migration")]
     pub db_migration: bool,
 
-    pub meilisearch_url: String,
-
-    pub meilisearch_api_key: String,
-
     pub access_token_secret_key: String,
 
     pub access_token_public_key: String,
