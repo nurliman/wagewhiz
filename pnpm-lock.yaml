@@ -30,7 +30,7 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3
 
-  apps/job-titles-meilisearch: {}
+  apps/meilisearch: {}
 
   apps/web:
     dependencies:

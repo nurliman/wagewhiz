@@ -27,8 +27,8 @@ services:
     networks:
       wagewhiz:
 
-  job-titles-meilisearch:
-    build: ./apps/job-titles-meilisearch
+  meilisearch:
+    build: ./apps/meilisearch
     ports:
       - "7700:7700"
     environment:
