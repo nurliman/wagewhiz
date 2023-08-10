@@ -21,8 +21,10 @@ export const actions: Actions = {
     }
 
     if (avatar && !(avatar instanceof File)) {
-      // @ts-ignore
-      form.errors.avatar = "Avatar must be a file";
+      type ErrorWithAvatar = typeof form & { avatar: string };
+
+      (form.errors as ErrorWithAvatar).avatar = "Avatar must be a file";
+
       return fail(400, { form });
     }
 
