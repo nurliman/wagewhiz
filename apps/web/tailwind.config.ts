@@ -1,5 +1,5 @@
 import { Config } from "tailwindcss";
-import flowbitePlugin from "flowbite/plugin";
+import basePlugin from "./tailwind-base.cjs";
 import skeletonPlugin from "@skeletonlabs/skeleton/tailwind/skeleton.cjs";
 
 export default {
@@ -8,5 +8,5 @@ export default {
     "./node_modules/@skeletonlabs/skeleton/**/*.{html,js,svelte,ts}",
   ],
   darkMode: "class",
-  plugins: [flowbitePlugin, ...skeletonPlugin()],
+  plugins: [basePlugin(), ...skeletonPlugin()],
 } satisfies Config;
