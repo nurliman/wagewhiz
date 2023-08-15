@@ -10,7 +10,7 @@
     "format": "prettier --plugin-search-dir . --write --ignore-path=.prettierignore ."
   },
   "devDependencies": {
-    "eslint": "^8.46.0",
+    "eslint": "^8.47.0",
     "eslint-config-custom": "workspace:^",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",

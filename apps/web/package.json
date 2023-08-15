@@ -23,14 +23,14 @@
     "nanoid": "^4.0.2",
     "sveltekit-superforms": "^1.5.1",
     "tailwind-merge": "^1.14.0",
-    "zod": "^3.21.4"
+    "zod": "^3.22.0"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.6",
     "@skeletonlabs/skeleton": "^1.11.0",
     "@sveltejs/adapter-auto": "^2.1.0",
-    "@sveltejs/kit": "^1.22.4",
-    "autoprefixer": "^10.4.14",
+    "@sveltejs/kit": "^1.22.6",
+    "autoprefixer": "^10.4.15",
     "eslint-config-custom": "workspace:^",
     "mini-svg-data-uri": "^1.4.4",
     "postcss": "^8.4.27",
@@ -39,8 +39,8 @@
     "postcss-nesting": "^12.0.1",
     "postcss-preset-env": "^9.1.1",
     "sass": "^1.65.1",
-    "svelte": "^4.1.2",
-    "svelte-check": "^3.4.6",
+    "svelte": "^4.2.0",
+    "svelte-check": "^3.5.0",
     "svelte-preprocess": "^5.0.4",
     "tailwindcss": "^3.3.3",
     "tslib": "^2.6.1",
