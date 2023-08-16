@@ -21,19 +21,19 @@
     "dayjs": "^1.11.9",
     "initials": "^3.1.2",
     "nanoid": "^4.0.2",
-    "sveltekit-superforms": "^1.5.1",
+    "sveltekit-superforms": "^1.5.2",
     "tailwind-merge": "^1.14.0",
-    "zod": "^3.22.0"
+    "zod": "^3.22.1"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.6",
-    "@skeletonlabs/skeleton": "^1.11.0",
+    "@skeletonlabs/skeleton": "^1.12.0",
     "@sveltejs/adapter-auto": "^2.1.0",
     "@sveltejs/kit": "^1.22.6",
     "autoprefixer": "^10.4.15",
     "eslint-config-custom": "workspace:^",
     "mini-svg-data-uri": "^1.4.4",
-    "postcss": "^8.4.27",
+    "postcss": "^8.4.28",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-load-config": "^4.0.1",
     "postcss-nesting": "^12.0.1",
