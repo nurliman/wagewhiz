@@ -1,3 +1,53 @@
+<script lang="ts">
+  import axios from "axios";
+  import { goto } from "$app/navigation";
+  import { nanoid } from "$lib/utils/nanoid.ts";
+  import { toastStore } from "@skeletonlabs/skeleton";
+  import { superForm } from "sveltekit-superforms/client";
+  import { signInInputSchema } from "$lib/schemas/signInInputSchema.ts";
+  import { theAxios } from "$lib/libs/theAxios.ts";
+  import type { PageData } from "./$types.ts";
+
+  export let data: PageData;
+  const fieldUsernameId = nanoid();
+  const fieldPasswordId = nanoid();
+
+  const { form, constraints, enhance } = superForm(data.form, {
+    SPA: true,
+    validators: signInInputSchema,
+    onUpdate({ form }) {
+      if (form.valid) {
+        theAxios
+          .post("/v0/auth/sign-in", form.data)
+          .then((res) => {
+            if (res.status !== 200) throw new Error("An error occurred");
+
+            // TODO: save credentials to persistent storage
+
+            goto("/dashboard");
+          })
+          .catch((err) => {
+            if (axios.isAxiosError(err)) {
+              if (err.response?.data?.message) {
+                toastStore.trigger({
+                  message: err.response.data.message,
+                  background: "variant-filled-error",
+                });
+              } else {
+                toastStore.trigger({
+                  message: "An error occurred",
+                  background: "variant-filled-error",
+                });
+              }
+            }
+
+            console.error(err);
+          });
+      }
+    },
+  });
+</script>
+
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
     <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -17,32 +67,39 @@
         >
           Sign in to your account
         </h1>
-        <form class="space-y-4 md:space-y-6" action="#">
+        <form class="space-y-4 md:space-y-6" method="POST" use:enhance>
           <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Your email</label
+            <label
+              for={fieldUsernameId}
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
+              Username
+            </label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              id={fieldUsernameId}
+              name="username"
+              type="text"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@company.com"
-              required=""
+              placeholder="Username"
+              bind:value={$form.username}
+              {...$constraints.username}
             />
           </div>
           <div>
             <label
-              for="password"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label
+              for={fieldPasswordId}
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
+              Password
+            </label>
             <input
               type="password"
               name="password"
-              id="password"
+              id={fieldPasswordId}
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
+              bind:value={$form.password}
+              {...$constraints.password}
             />
           </div>
           <div class="flex items-center justify-between">
