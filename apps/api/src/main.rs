@@ -10,11 +10,16 @@ mod utils;
 mod validation;
 
 use axum::{
+    http::{
+        header::{AUTHORIZATION, CONTENT_TYPE},
+        HeaderValue, Method,
+    },
     middleware,
     routing::{get, post},
     Router,
 };
 use std::net::SocketAddr;
+use tower_http::cors::CorsLayer;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -54,6 +59,13 @@ async fn main() {
             "/v0/people/:person_id",
             get(handlers::people::get_person_by_id)
                 .route_layer(middleware::from_fn(middlewares::auth)),
+        )
+        .layer(
+            CorsLayer::new()
+                // TODO: change this to the frontend url dynamically using env var
+                .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
+                .allow_headers([AUTHORIZATION, CONTENT_TYPE])
+                .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE]),
         )
         .with_state(pool);
 
