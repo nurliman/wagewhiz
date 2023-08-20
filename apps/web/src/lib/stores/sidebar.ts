@@ -4,7 +4,7 @@ export type SidebarState = {
   show: boolean;
 };
 
-const sidebarStore = writable<SidebarState>({
+export const sidebarStore = writable<SidebarState>({
   show: false,
 });
 
@@ -15,5 +15,3 @@ export const toggleSidebar = () => {
 export const closeSidebar = () => {
   return sidebarStore.update((state) => ({ ...state, show: false }));
 };
-
-export default sidebarStore;

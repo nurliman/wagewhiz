@@ -1,7 +1,7 @@
 <script>
   import { fade } from "svelte/transition";
   import { page } from "$app/stores";
-  import sidebarStore, { closeSidebar } from "$lib/stores/sidebar.ts";
+  import { closeSidebar, sidebarStore } from "$lib/stores/sidebar.ts";
 
   $: activeUrl = $page.url.pathname;
 </script>
