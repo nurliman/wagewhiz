@@ -5,10 +5,14 @@
   import "../theme.postcss";
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
   import { Toast, storePopup } from "@skeletonlabs/skeleton";
+  import { QueryClientProvider } from "@tanstack/svelte-query";
+  import { theQueryClient } from "$lib/libs/theQueryClient.ts";
 
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 </script>
 
-<slot />
+<QueryClientProvider client={theQueryClient}>
+  <slot />
+</QueryClientProvider>
 
 <Toast />
