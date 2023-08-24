@@ -5,6 +5,7 @@ export const theQueryClient = new QueryClient({
   defaultOptions: {
     queries: {
       enabled: browser,
+      retry: false,
     },
   },
 });
