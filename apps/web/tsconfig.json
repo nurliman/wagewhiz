@@ -6,7 +6,6 @@
     "checkJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node16",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
