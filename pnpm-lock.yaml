@@ -112,9 +112,6 @@ importers:
       postcss-load-config:
         specifier: ^4.0.1
         version: 4.0.1(postcss@8.4.28)
-      postcss-nesting:
-        specifier: ^12.0.1
-        version: 12.0.1(postcss@8.4.28)
       postcss-preset-env:
         specifier: ^9.1.1
         version: 9.1.1(postcss@8.4.28)
