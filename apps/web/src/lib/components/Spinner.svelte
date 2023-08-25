@@ -18,18 +18,18 @@
     border-width: 6px;
     border-radius: 50%;
     animation: rotation 0.6s infinite linear;
-  }
 
-  .the-spinner-primary {
-    @apply border-primary-900 border-t-primary-500;
-  }
+    &-primary {
+      @apply border-primary-900 border-t-primary-500;
+    }
 
-  .the-spinner-secondary {
-    @apply border-secondary-900 border-t-secondary-500;
-  }
+    &-secondary {
+      @apply border-secondary-900 border-t-secondary-500;
+    }
 
-  .the-spinner-tertiary {
-    @apply border-tertiary-900 border-t-tertiary-500;
+    &-tertiary {
+      @apply border-tertiary-900 border-t-tertiary-500;
+    }
   }
 
   @keyframes rotation {
