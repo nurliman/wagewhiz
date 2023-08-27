@@ -1,3 +1,4 @@
+mod constants;
 mod db;
 mod env;
 mod errors;
@@ -11,7 +12,7 @@ mod validation;
 
 use axum::{
     http::{
-        header::{AUTHORIZATION, CONTENT_TYPE},
+        header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE},
         HeaderValue, Method,
     },
     middleware,
@@ -64,8 +65,15 @@ async fn main() {
             CorsLayer::new()
                 // TODO: change this to the frontend url dynamically using env var
                 .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
-                .allow_headers([AUTHORIZATION, CONTENT_TYPE])
-                .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE]),
+                .allow_credentials(true)
+                .allow_headers([ACCEPT, AUTHORIZATION, CONTENT_TYPE])
+                .allow_methods([
+                    Method::GET,
+                    Method::POST,
+                    Method::PUT,
+                    Method::DELETE,
+                    Method::OPTIONS,
+                ]),
         )
         .with_state(pool);
 
