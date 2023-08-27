@@ -22,9 +22,11 @@
           .then((res) => {
             if (res.status !== 200) throw new Error("An error occurred");
 
-            // TODO: save credentials to persistent storage
+            // TODO: save credentials to persistent storage here
 
-            goto("/dashboard");
+            const query = new URLSearchParams(window.location.search);
+            const redirectUrl = query?.get?.("redirect") || "/dashboard";
+            goto(redirectUrl);
           })
           .catch((err) => {
             if (axios.isAxiosError(err)) {
