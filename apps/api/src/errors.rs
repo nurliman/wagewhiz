@@ -61,6 +61,10 @@ pub enum AppError {
     #[error("Token not found, please login")]
     TokenNotFound,
 
+    #[error("Refresh token not found, please provide refresh token in body or cookie")]
+    // This error may occur if the refresh token has expired.
+    RefreshTokenNotFound,
+
     #[error("Form error: {0}")]
     AxumFormRejection(#[from] FormRejection),
 
@@ -103,6 +107,7 @@ impl AppError {
             AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,
             AppError::TokenPayloadError => StatusCode::UNAUTHORIZED,
             AppError::TokenNotFound => StatusCode::UNAUTHORIZED,
+            AppError::RefreshTokenNotFound => StatusCode::UNAUTHORIZED,
             AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
             AppError::AxumQueryRejection(_) => StatusCode::BAD_REQUEST,

@@ -65,7 +65,6 @@ pub struct SignIn {
 
 #[derive(Deserialize, Validate)]
 pub struct RefreshToken {
-    #[validate(required, length(min = 1, message = "Refresh token cannot be empty"))]
     pub refresh_token: Option<String>,
 }
 

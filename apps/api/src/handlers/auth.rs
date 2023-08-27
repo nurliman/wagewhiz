@@ -1,22 +1,96 @@
 use crate::{
+    constants::{
+        ACCESS_TOKEN_COOKIE_NAME, ACCESS_TOKEN_MAX_AGE, REFRESH_TOKEN_COOKIE_NAME,
+        REFRESH_TOKEN_MAX_AGE,
+    },
     errors::AppError,
-    models::{RefreshToken, SignIn, UserWithCredential},
+    models::{RefreshToken, SignIn},
     services,
     validation::JsonOrForm,
 };
-use axum::Json;
+use axum::{
+    http::{header, Response},
+    response::IntoResponse,
+};
+use axum_extra::extract::{
+    cookie::{Cookie, SameSite},
+    CookieJar,
+};
+use serde_json::json;
 
-pub async fn sign_in(
-    JsonOrForm(body): JsonOrForm<SignIn>,
-) -> Result<Json<UserWithCredential>, AppError> {
+pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoResponse, AppError> {
     let user = services::auth::sign_in(&body.username, &body.password).await?;
-    Ok(Json(user))
+
+    let access_token_cookie = create_access_token_cookie(&user.credential.access_token);
+    let refresh_token_cookie = create_refresh_token_cookie(&user.credential.refresh_token);
+
+    let response = Response::builder()
+        .status(200)
+        .header(header::CONTENT_TYPE, "application/json")
+        .header(header::SET_COOKIE, access_token_cookie.to_string())
+        .header(header::SET_COOKIE, refresh_token_cookie.to_string())
+        .body(json!(user).to_string())
+        .map_err(|error| {
+            tracing::error!("Error while building response: {:?}", error);
+            AppError::InternalError
+        })?;
+
+    Ok(response)
 }
 
 pub async fn refresh_token(
+    cookie_jar: CookieJar,
     JsonOrForm(body): JsonOrForm<RefreshToken>,
-) -> Result<Json<UserWithCredential>, AppError> {
-    let refresh_token = body.refresh_token.ok_or(AppError::InternalError)?;
+) -> Result<impl IntoResponse, AppError> {
+    // get refresh token from cookie
+    let refresh_token = cookie_jar
+        .get(REFRESH_TOKEN_COOKIE_NAME)
+        .map(|cookie| cookie.value().to_string());
+
+    // get refresh token from body
+    let refresh_token = refresh_token.or_else(|| body.refresh_token.clone());
+
+    // throw error if refresh token is not found
+    let refresh_token = refresh_token.ok_or(AppError::RefreshTokenNotFound)?;
+
+    // regenerate access token and refresh token
     let user = services::auth::refresh_token(&refresh_token).await?;
-    Ok(Json(user))
+
+    let new_access_token_cookie = create_access_token_cookie(&user.credential.access_token);
+    let new_refresh_token_cookie = create_refresh_token_cookie(&user.credential.refresh_token);
+
+    let response = Response::builder()
+        .status(200)
+        .header(header::CONTENT_TYPE, "application/json")
+        .header(header::SET_COOKIE, new_access_token_cookie.to_string())
+        .header(header::SET_COOKIE, new_refresh_token_cookie.to_string())
+        .body(json!(user).to_string())
+        .map_err(|error| {
+            tracing::error!("Error while building response: {:?}", error);
+            AppError::InternalError
+        })?;
+
+    Ok(response)
+}
+
+// TODO: Set cookie domain and path based on environment
+// TODO: Set cookie secure based on environment
+fn create_access_token_cookie(access_token: &str) -> Cookie<'_> {
+    Cookie::build(ACCESS_TOKEN_COOKIE_NAME, access_token)
+        .path("/")
+        .http_only(true)
+        .max_age(ACCESS_TOKEN_MAX_AGE)
+        .same_site(SameSite::Lax)
+        .finish()
+}
+
+// TODO: Set cookie domain and path based on environment
+// TODO: Set cookie secure based on environment
+fn create_refresh_token_cookie(refresh_token: &str) -> Cookie<'_> {
+    Cookie::build(REFRESH_TOKEN_COOKIE_NAME, refresh_token)
+        .path("/")
+        .http_only(true)
+        .max_age(REFRESH_TOKEN_MAX_AGE)
+        .same_site(SameSite::Lax)
+        .finish()
 }

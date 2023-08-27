@@ -1,5 +1,6 @@
 use super::users::{get_user_by_id, get_user_by_username};
 use crate::{
+    constants::{ACCESS_TOKEN_MAX_AGE, REFRESH_TOKEN_MAX_AGE},
     env,
     errors::AppError,
     models::{Credential, UserAccount, UserWithCredential},
@@ -181,19 +182,17 @@ async fn generate_access_token(user: &UserAccount) -> Result<String, AppError> {
         },
     )?;
 
-    let in_15_minutes = (time::OffsetDateTime::now_utc() + time::Duration::minutes(15))
+    let expiration = (time::OffsetDateTime::now_utc() + ACCESS_TOKEN_MAX_AGE)
         .format(&Rfc3339)
         .map_err(|e| {
             tracing::error!("Error formatting date: {:?}", e);
             AppError::InternalError
         })?;
 
-    generate_token(user, &key, &in_15_minutes)
-        .await
-        .map_err(|e| {
-            tracing::error!("Error generating access token: {:?}", e);
-            AppError::InternalError
-        })
+    generate_token(user, &key, &expiration).await.map_err(|e| {
+        tracing::error!("Error generating access token: {:?}", e);
+        AppError::InternalError
+    })
 }
 
 async fn generate_refresh_token(user: &UserAccount) -> Result<String, AppError> {
@@ -206,14 +205,14 @@ async fn generate_refresh_token(user: &UserAccount) -> Result<String, AppError> 
         },
     )?;
 
-    let in_2_hours = (time::OffsetDateTime::now_utc() + time::Duration::hours(2))
+    let expiration = (time::OffsetDateTime::now_utc() + REFRESH_TOKEN_MAX_AGE)
         .format(&Rfc3339)
         .map_err(|e| {
             tracing::error!("Error formatting date: {:?}", e);
             AppError::InternalError
         })?;
 
-    generate_token(user, &key, &in_2_hours).await.map_err(|e| {
+    generate_token(user, &key, &expiration).await.map_err(|e| {
         tracing::error!("Error generating access token: {:?}", e);
         AppError::InternalError
     })
