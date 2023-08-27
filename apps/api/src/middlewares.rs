@@ -43,6 +43,7 @@ pub async fn auth<B>(
         _ => return Err(AppError::TokenPayloadError),
     };
 
+    // TODO: create a struct for app state
     req.extensions_mut().insert(token_subject_str.to_owned());
 
     Ok(next.run(req).await)
