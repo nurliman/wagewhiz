@@ -2,6 +2,8 @@ import endsWith from "lodash/endsWith";
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import { goto } from "$app/navigation";
+import type { UserWithCredential } from "$lib/types";
+import type { PartialDeep } from "type-fest";
 
 const BACKEND_BASE_URL = "http://localhost:3001";
 
@@ -29,7 +31,7 @@ axiosRetry(theAxios, {
       return axiosRetry.isNetworkOrIdempotentRequestError(error) || error.code === "ECONNABORTED";
     }
     const res = await theAxios
-      .post(`${BACKEND_BASE_URL}/v0/auth/refresh-token`, {})
+      .post<PartialDeep<UserWithCredential>>(`${BACKEND_BASE_URL}/v0/auth/refresh-token`, {})
       .catch((refreshTokenError) => {
         if ([400, 401].includes(refreshTokenError.response?.status)) {
           let loginUrl = "/login";

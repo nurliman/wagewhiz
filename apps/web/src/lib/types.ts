@@ -20,6 +20,25 @@ export type WithInitials = {
   initials: string;
 };
 
+export type UserAccount = {
+  id: string;
+  person_id: string | null;
+  role: string;
+  username: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: Date | null;
+};
+
+export interface Credential {
+  access_token: string;
+  refresh_token: string;
+}
+
+export type UserWithCredential = UserAccount & {
+  credential: Credential;
+};
+
 export type Person = {
   id: string;
   created_at: Date;
