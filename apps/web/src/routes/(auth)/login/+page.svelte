@@ -2,49 +2,52 @@
   import axios from "axios";
   import { goto } from "$app/navigation";
   import { nanoid } from "$lib/utils/nanoid.ts";
+  import { createMutation } from "@tanstack/svelte-query";
   import { toastStore } from "@skeletonlabs/skeleton";
   import { superForm } from "sveltekit-superforms/client";
-  import { signInInputSchema } from "$lib/schemas/signInInputSchema.ts";
-  import { theAxios } from "$lib/libs/theAxios.ts";
+  import { signInInputSchema, type SignInInput } from "$lib/schemas/signInInputSchema.ts";
+  import { signIn } from "$lib/apis/authApi.ts";
   import type { PageData } from "./$types.ts";
+  import type { UserWithCredential } from "$lib/types.ts";
 
   export let data: PageData;
   const fieldUsernameId = nanoid();
   const fieldPasswordId = nanoid();
+
+  const signInMutation = createMutation<UserWithCredential, Error, SignInInput>({
+    mutationFn: signIn,
+    onSuccess: () => {
+      // TODO: save credentials to persistent storage here
+
+      const query = new URLSearchParams(window.location.search);
+      const redirectUrl = query?.get?.("redirect") || "/dashboard";
+      goto(redirectUrl);
+    },
+    onError: (err) => {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          toastStore.trigger({
+            message: err.response.data.message,
+            background: "variant-filled-error",
+          });
+        } else {
+          toastStore.trigger({
+            message: "An error occurred",
+            background: "variant-filled-error",
+          });
+        }
+      }
+
+      console.error(err);
+    },
+  });
 
   const { form, constraints, enhance } = superForm(data.form, {
     SPA: true,
     validators: signInInputSchema,
     onUpdate({ form }) {
       if (form.valid) {
-        theAxios
-          .post("/v0/auth/sign-in", form.data)
-          .then((res) => {
-            if (res.status !== 200) throw new Error("An error occurred");
-
-            // TODO: save credentials to persistent storage here
-
-            const query = new URLSearchParams(window.location.search);
-            const redirectUrl = query?.get?.("redirect") || "/dashboard";
-            goto(redirectUrl);
-          })
-          .catch((err) => {
-            if (axios.isAxiosError(err)) {
-              if (err.response?.data?.message) {
-                toastStore.trigger({
-                  message: err.response.data.message,
-                  background: "variant-filled-error",
-                });
-              } else {
-                toastStore.trigger({
-                  message: "An error occurred",
-                  background: "variant-filled-error",
-                });
-              }
-            }
-
-            console.error(err);
-          });
+        $signInMutation.mutate(form.data);
       }
     },
   });
