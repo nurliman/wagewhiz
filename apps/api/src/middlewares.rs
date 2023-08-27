@@ -1,21 +1,32 @@
-use crate::{errors::AppError, services::auth::verify_access_token};
+use crate::{
+    constants::ACCESS_TOKEN_COOKIE_NAME, errors::AppError, services::auth::verify_access_token,
+};
 use axum::{
     http::{header, Request},
     middleware::Next,
     response::IntoResponse,
 };
+use axum_extra::extract::CookieJar;
 
-pub async fn auth<B>(mut req: Request<B>, next: Next<B>) -> Result<impl IntoResponse, AppError> {
-    let token = req
-        .headers()
-        .get(header::AUTHORIZATION)
-        .and_then(|auth_header| auth_header.to_str().ok())
-        .and_then(|auth_value| {
-            if auth_value.starts_with("Bearer ") {
-                Some(auth_value[7..].to_owned())
-            } else {
-                Some(auth_value.to_owned())
-            }
+pub async fn auth<B>(
+    cookie_jar: CookieJar,
+    mut req: Request<B>,
+    next: Next<B>,
+) -> Result<impl IntoResponse, AppError> {
+    let token = cookie_jar
+        .get(ACCESS_TOKEN_COOKIE_NAME)
+        .map(|cookie| cookie.value().to_string())
+        .or_else(|| {
+            req.headers()
+                .get(header::AUTHORIZATION)
+                .and_then(|auth_header| auth_header.to_str().ok())
+                .and_then(|auth_value| {
+                    if auth_value.starts_with("Bearer ") {
+                        Some(auth_value[7..].to_owned())
+                    } else {
+                        Some(auth_value.to_owned())
+                    }
+                })
         });
 
     let token = token.ok_or(AppError::TokenNotFound)?;

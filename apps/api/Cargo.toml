@@ -10,6 +10,7 @@ publish = false
 anyhow = "1.0.75"
 argon2 = "0.5.1"
 axum = "0.6.20"
+axum-extra = { version = "0.7.7", features = ["cookie"] }
 axum-macros = "0.3.8"
 base64-url = "2.0.0"
 bb8 = "0.8.1"
