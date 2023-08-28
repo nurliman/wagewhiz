@@ -16,7 +16,7 @@ export const signIn = async (signInInput: SignInInput) => {
 
 export const refreshToken = async (refreshToken?: string) => {
   const response = await theAxios.post<PartialDeep<UserWithCredential>>("v0/auth/refresh-token", {
-    refreshToken,
+    refresh_token: refreshToken,
   });
   return response.data;
 };
