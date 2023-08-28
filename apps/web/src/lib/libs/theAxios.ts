@@ -31,13 +31,13 @@ axiosRetry(theAxios, {
     }
     const refreshTokenData = await refreshToken().catch((refreshTokenError) => {
       if ([400, 401].includes(refreshTokenError.response?.status)) {
-        let loginUrl = "/login";
+        let signInUrl = "/sign-in";
 
-        if (window.location.href && !endsWith(window.location.href, "/login")) {
-          loginUrl += `?redirect=${window.location.href}`;
+        if (window.location.href && !endsWith(window.location.href, "/sign-in")) {
+          signInUrl += `?redirect=${window.location.href}`;
         }
 
-        goto(loginUrl);
+        goto(signInUrl);
       }
     });
     if (!refreshTokenData?.credential?.access_token) return false;
