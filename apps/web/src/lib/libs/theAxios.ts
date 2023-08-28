@@ -3,6 +3,7 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 import { goto } from "$app/navigation";
 import { refreshToken } from "$lib/apis/authApi";
+import { toastStore } from "@skeletonlabs/skeleton";
 
 const BACKEND_BASE_URL = "http://localhost:3001";
 
@@ -38,6 +39,11 @@ axiosRetry(theAxios, {
         }
 
         goto(signInUrl);
+
+        toastStore.trigger({
+          message: "Unauthorized, please sign in",
+          background: "variant-filled-error",
+        });
       }
     });
     if (!refreshTokenData?.credential?.access_token) return false;
