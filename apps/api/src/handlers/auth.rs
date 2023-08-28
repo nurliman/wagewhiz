@@ -38,6 +38,32 @@ pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoRe
     Ok(response)
 }
 
+pub async fn sign_out() -> Result<impl IntoResponse, AppError> {
+    let null_access_token_cookie = create_token_cookie(
+        ACCESS_TOKEN_COOKIE_NAME,
+        "",
+        Some(time::Duration::hours(-1)),
+    );
+    let null_refresh_token_cookie = create_token_cookie(
+        REFRESH_TOKEN_COOKIE_NAME,
+        "",
+        Some(time::Duration::hours(-1)),
+    );
+
+    let response = Response::builder()
+        .status(200)
+        .header(header::CONTENT_TYPE, "application/json")
+        .header(header::SET_COOKIE, null_access_token_cookie.to_string())
+        .header(header::SET_COOKIE, null_refresh_token_cookie.to_string())
+        .body(json!({"status": "success"}).to_string())
+        .map_err(|error| {
+            tracing::error!("Error while building response: {:?}", error);
+            AppError::InternalError
+        })?;
+
+    Ok(response)
+}
+
 pub async fn refresh_token(
     cookie_jar: CookieJar,
     JsonOrForm(body): JsonOrForm<RefreshToken>,
@@ -76,21 +102,38 @@ pub async fn refresh_token(
 // TODO: Set cookie domain and path based on environment
 // TODO: Set cookie secure based on environment
 fn create_access_token_cookie(access_token: &str) -> Cookie<'_> {
-    Cookie::build(ACCESS_TOKEN_COOKIE_NAME, access_token)
-        .path("/")
-        .http_only(true)
-        .max_age(ACCESS_TOKEN_MAX_AGE)
-        .same_site(SameSite::Lax)
-        .finish()
+    create_token_cookie(
+        ACCESS_TOKEN_COOKIE_NAME,
+        access_token,
+        Some(ACCESS_TOKEN_MAX_AGE),
+    )
 }
 
 // TODO: Set cookie domain and path based on environment
 // TODO: Set cookie secure based on environment
 fn create_refresh_token_cookie(refresh_token: &str) -> Cookie<'_> {
-    Cookie::build(REFRESH_TOKEN_COOKIE_NAME, refresh_token)
+    create_token_cookie(
+        REFRESH_TOKEN_COOKIE_NAME,
+        refresh_token,
+        Some(REFRESH_TOKEN_MAX_AGE),
+    )
+}
+
+fn create_token_cookie<'a>(
+    key: &'a str,
+    token: &'a str,
+    max_age: Option<time::Duration>,
+) -> Cookie<'a> {
+    let cookie = Cookie::build(key, token)
         .path("/")
         .http_only(true)
-        .max_age(REFRESH_TOKEN_MAX_AGE)
-        .same_site(SameSite::Lax)
-        .finish()
+        .same_site(SameSite::Lax);
+
+    let cookie = if let Some(max_age) = max_age {
+        cookie.max_age(max_age)
+    } else {
+        cookie
+    };
+
+    cookie.finish()
 }

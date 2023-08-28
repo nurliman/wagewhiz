@@ -39,6 +39,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/v0/auth/sign-in", post(handlers::auth::sign_in))
+        .route("/v0/auth/sign-out", post(handlers::auth::sign_out))
         .route(
             "/v0/auth/refresh-token",
             post(handlers::auth::refresh_token),

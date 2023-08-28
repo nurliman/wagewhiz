@@ -14,6 +14,11 @@ export const signIn = async (signInInput: SignInInput) => {
   return response.data;
 };
 
+export const signOut = async () => {
+  await theAxios.post("v0/auth/sign-out");
+  return null;
+};
+
 export const refreshToken = async (refreshToken?: string) => {
   const response = await theAxios.post<PartialDeep<UserWithCredential>>("v0/auth/refresh-token", {
     refresh_token: refreshToken,

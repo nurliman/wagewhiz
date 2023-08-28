@@ -101,7 +101,7 @@ impl AppError {
             AppError::InvalidUsernameOrPassword => StatusCode::UNAUTHORIZED,
             AppError::UserPasswordNotFound => StatusCode::UNAUTHORIZED,
             AppError::ValidationError(_) => StatusCode::BAD_REQUEST,
-            AppError::TokenParseError => StatusCode::BAD_REQUEST,
+            AppError::TokenParseError => StatusCode::UNAUTHORIZED,
             AppError::InvalidToken => StatusCode::UNAUTHORIZED,
             AppError::InvalidAccessToken => StatusCode::UNAUTHORIZED,
             AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,

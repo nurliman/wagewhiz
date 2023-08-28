@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { Avatar, LightSwitch, popup } from "@skeletonlabs/skeleton";
+  import { createMutation } from "@tanstack/svelte-query";
+  import { toastStore } from "@skeletonlabs/skeleton";
+  import { isAxiosError } from "axios";
   import { nanoid } from "$lib/utils/nanoid.ts";
   import { toggleSidebar } from "$lib/stores/sidebar.ts";
+  import { signOut } from "$lib/apis/authApi.ts";
   import type { PopupSettings } from "@skeletonlabs/skeleton";
 
   const avatarPopupId = nanoid();
@@ -10,7 +15,34 @@
     target: avatarPopupId,
     placement: "bottom",
   };
+
+  const signOutMutation = createMutation<null, Error>({
+    mutationFn: signOut,
+    onSuccess: async () => {
+      // TODO: update persistent storage here
+      await goto("/sign-in");
+    },
+    onError: (err) => {
+      if (isAxiosError(err)) {
+        if (err.response?.data?.message) {
+          toastStore.trigger({
+            message: err.response.data.message,
+            background: "variant-filled-error",
+          });
+        } else {
+          toastStore.trigger({
+            message: "An error occurred",
+            background: "variant-filled-error",
+          });
+        }
+      }
+
+      console.error(err);
+    },
+  });
 </script>
+
+<!-- TODO: handle sign out loading state -->
 
 <nav class="navbar">
   <div class="navbar-inner">
@@ -64,7 +96,9 @@
           <li><a href="/settings">Settings</a></li>
           <li><a href="/earnings">Earnings</a></li>
           <hr class="!my-2" />
-          <li><a href="/logout">Sign out</a></li>
+          <li>
+            <button class="w-full" on:click={() => $signOutMutation.mutate()}>Sign out</button>
+          </li>
         </ul>
       </nav>
     </div>
