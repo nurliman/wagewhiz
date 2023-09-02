@@ -65,7 +65,10 @@ async fn main() {
         .layer(
             CorsLayer::new()
                 // TODO: change this to the frontend url dynamically using env var
-                .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
+                .allow_origin([
+                    "http://localhost:3000".parse::<HeaderValue>().unwrap(),
+                    "http://localhost:8080".parse::<HeaderValue>().unwrap(),
+                ])
                 .allow_credentials(true)
                 .allow_headers([ACCEPT, AUTHORIZATION, CONTENT_TYPE])
                 .allow_methods([
