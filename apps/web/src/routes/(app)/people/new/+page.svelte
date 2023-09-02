@@ -366,11 +366,7 @@
         <div>
           <Portal target="body">
             <div class="shadow-xl" data-popup={joiningDatePopupId}>
-              <DatePicker
-                min={new Date(1900, 0, 1)}
-                max={data.currentDate || new Date()}
-                bind:value={$form.joiningDate}
-              />
+              <DatePicker min={new Date(1900, 0, 1)} bind:value={$form.joiningDate} />
             </div>
           </Portal>
           <input type="hidden" name="joiningDate" value={$form.joiningDate} />
