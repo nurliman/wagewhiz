@@ -3,10 +3,10 @@
   import { goto } from "$app/navigation";
   import { nanoid } from "$lib/utils/nanoid.ts";
   import { createMutation } from "@tanstack/svelte-query";
-  import { toastStore } from "@skeletonlabs/skeleton";
   import { superForm } from "sveltekit-superforms/client";
   import { signInInputSchema, type SignInInput } from "$lib/schemas/signInInputSchema.ts";
   import { signIn } from "$lib/apis/authApi.ts";
+  import { theToast } from "$lib/libs/theToast";
   import Spinner from "$lib/components/Spinner.svelte";
   import type { PageData } from "./$types.ts";
   import type { UserWithCredential } from "$lib/types.ts";
@@ -27,15 +27,9 @@
     onError: (err) => {
       if (isAxiosError(err)) {
         if (err.response?.data?.message) {
-          toastStore.trigger({
-            message: err.response.data.message,
-            background: "variant-filled-error",
-          });
+          theToast.error(err.response.data.message);
         } else {
-          toastStore.trigger({
-            message: "An error occurred",
-            background: "variant-filled-error",
-          });
+          theToast.error("An error occurred");
         }
       }
 

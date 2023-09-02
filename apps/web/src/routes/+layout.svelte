@@ -4,7 +4,8 @@
   import "../app.postcss";
   import "../theme.postcss";
   import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
-  import { Toast, storePopup } from "@skeletonlabs/skeleton";
+  import { storePopup } from "@skeletonlabs/skeleton";
+  import { SvelteToast } from "svelte-toast";
   import { QueryClientProvider } from "@tanstack/svelte-query";
   import { theQueryClient } from "$lib/libs/theQueryClient.ts";
 
@@ -15,4 +16,4 @@
   <slot />
 </QueryClientProvider>
 
-<Toast />
+<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />

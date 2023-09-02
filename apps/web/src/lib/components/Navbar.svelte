@@ -2,11 +2,11 @@
   import { goto } from "$app/navigation";
   import { Avatar, LightSwitch, popup } from "@skeletonlabs/skeleton";
   import { createMutation } from "@tanstack/svelte-query";
-  import { toastStore } from "@skeletonlabs/skeleton";
   import { isAxiosError } from "axios";
   import { nanoid } from "$lib/utils/nanoid.ts";
   import { toggleSidebar } from "$lib/stores/sidebar.ts";
   import { signOut } from "$lib/apis/authApi.ts";
+  import { theToast } from "$lib/libs/theToast";
   import type { PopupSettings } from "@skeletonlabs/skeleton";
 
   const avatarPopupId = nanoid();
@@ -25,15 +25,9 @@
     onError: (err) => {
       if (isAxiosError(err)) {
         if (err.response?.data?.message) {
-          toastStore.trigger({
-            message: err.response.data.message,
-            background: "variant-filled-error",
-          });
+          theToast.error(err.response.data.message);
         } else {
-          toastStore.trigger({
-            message: "An error occurred",
-            background: "variant-filled-error",
-          });
+          theToast.error("An error occurred");
         }
       }
 
