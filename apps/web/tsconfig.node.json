@@ -1,0 +1,9 @@
+{
+  "extends": ["@tsconfig/node18/tsconfig.json"],
+  "compilerOptions": {
+    "allowJs": true,
+    "composite": true,
+    "esModuleInterop": true
+  },
+  "include": ["tailwind.config.ts", "tailwind-base.cjs"]
+}

@@ -10,5 +10,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true
-  }
+  },
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
