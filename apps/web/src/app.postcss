@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
 :root,
 html,
 body {
@@ -57,6 +62,28 @@ body {
   --toastMsgPadding: 4px 10px;
   --toastBorderRadius: 8px;
   --toastBarHeight: 4px;
-  --toastBarBackground: rgb(var(--color-success-600))
+  --toastBarBackground: rgb(var(--color-success-600));
 }
 /* end @zerodevx/svelte-toast */
+
+/* start skeleton ui */
+.avatar {
+  @apply bg-secondary-500;
+  @apply dark:bg-primary-500;
+}
+
+.avatar-text {
+  @apply fill-white;
+}
+
+.card {
+  @apply bg-white;
+}
+
+.input,
+.input-group,
+.textarea {
+  @apply bg-gray-50;
+  @apply border-gray-300;
+}
+/* end skeleton ui */
