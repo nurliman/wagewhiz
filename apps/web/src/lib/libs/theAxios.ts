@@ -30,6 +30,7 @@ axiosRetry(theAxios, {
     if (error.response?.status !== 401) {
       return axiosRetry.isNetworkOrIdempotentRequestError(error) || error.code === "ECONNABORTED";
     }
+    // TODO: make sure refresh token only called once at a time
     const refreshTokenData = await refreshToken().catch((refreshTokenError) => {
       if ([400, 401].includes(refreshTokenError.response?.status)) {
         let signInUrl = "/sign-in";
