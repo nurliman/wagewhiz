@@ -25,7 +25,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
 async fn main() {
-    let env_var = env::get_env_var().unwrap().clone();
+    let env_var = env::get_env_var().unwrap();
 
     tracing_subscriber::registry()
         .with(

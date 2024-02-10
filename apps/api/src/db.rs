@@ -8,7 +8,7 @@ pub type Pool = bb8::Pool<AsyncDieselConnectionManager<AsyncPgConnection>>;
 static DB: OnceCell<Pool> = OnceCell::const_new();
 
 async fn init_db() -> Result<Pool, AppError> {
-    let env_var = env::get_env_var()?.clone();
+    let env_var = env::get_env_var()?;
 
     let db_url = format!(
         "postgres://{}:{}@{}:{}/{}",
