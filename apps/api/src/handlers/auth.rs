@@ -124,7 +124,7 @@ fn create_token_cookie<'a>(
     token: &'a str,
     max_age: Option<time::Duration>,
 ) -> Cookie<'a> {
-    let cookie = Cookie::build(key, token)
+    let cookie = Cookie::build((key, token))
         .path("/")
         .http_only(true)
         .same_site(SameSite::Lax);
@@ -135,5 +135,5 @@ fn create_token_cookie<'a>(
         cookie
     };
 
-    cookie.finish()
+    cookie.build()
 }

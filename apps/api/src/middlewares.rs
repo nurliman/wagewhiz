@@ -1,17 +1,13 @@
 use crate::{
     constants::ACCESS_TOKEN_COOKIE_NAME, errors::AppError, services::auth::verify_access_token,
 };
-use axum::{
-    http::{header, Request},
-    middleware::Next,
-    response::IntoResponse,
-};
+use axum::{extract::Request, http::header, middleware::Next, response::IntoResponse};
 use axum_extra::extract::CookieJar;
 
-pub async fn auth<B>(
+pub async fn auth(
     cookie_jar: CookieJar,
-    mut req: Request<B>,
-    next: Next<B>,
+    mut req: Request,
+    next: Next,
 ) -> Result<impl IntoResponse, AppError> {
     let token = cookie_jar
         .get(ACCESS_TOKEN_COOKIE_NAME)

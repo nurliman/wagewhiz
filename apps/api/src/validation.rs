@@ -3,9 +3,10 @@ use axum::{
     async_trait,
     extract::{
         rejection::{FormRejection, JsonRejection},
-        Form, FromRequest,
+        Form, FromRequest, Request,
     },
-    http::{header::CONTENT_TYPE, Request}, Json,
+    http::header::CONTENT_TYPE,
+    Json,
 };
 use serde::de::DeserializeOwned;
 use validator::Validate;
@@ -13,17 +14,16 @@ use validator::Validate;
 pub struct JsonOrForm<T>(pub T);
 
 #[async_trait]
-impl<S, B, T> FromRequest<S, B> for JsonOrForm<T>
+impl<S, T> FromRequest<S> for JsonOrForm<T>
 where
-    B: Send + 'static,
     S: Send + Sync,
-    Json<T>: FromRequest<S, B, Rejection = JsonRejection>,
-    Form<T>: FromRequest<S, B, Rejection = FormRejection>,
+    Json<T>: FromRequest<S, Rejection = JsonRejection>,
+    Form<T>: FromRequest<S, Rejection = FormRejection>,
     T: DeserializeOwned + Validate,
 {
     type Rejection = AppError;
 
-    async fn from_request(req: Request<B>, state: &S) -> Result<Self, Self::Rejection> {
+    async fn from_request(req: Request, state: &S) -> Result<Self, Self::Rejection> {
         let content_type_header = req.headers().get(CONTENT_TYPE);
         let content_type = content_type_header.and_then(|value| value.to_str().ok());
 
