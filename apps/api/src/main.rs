@@ -81,6 +81,8 @@ async fn main() {
         )
         .with_state(pool);
 
+    let app = app.fallback(handlers::mod_404::not_found);
+
     let addr = format!("{}:{}", env_var.host, env_var.port)
         .parse::<SocketAddr>()
         .map_err(|e| {
