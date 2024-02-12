@@ -1,14 +1,19 @@
 {
   "name": "@wagewhiz/eslint-config",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Nurliman Diara",
+    "email": "nurlimandiara@gmail.com",
+    "url": "https://nurliman.dev"
+  },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-turbo": "^1.10.13",
-    "eslint-plugin-svelte": "^2.33.0"
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^1.12.3",
+    "eslint-plugin-svelte": "^2.35.1"
   },
   "publishConfig": {
     "access": "public"

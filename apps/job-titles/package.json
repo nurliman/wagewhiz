@@ -1,12 +1,16 @@
 {
   "name": "@wagewhiz/job-titles",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "license": "MIT",
+  "keywords": [],
+  "author": {
+    "name": "Nurliman Diara",
+    "email": "nurlimandiara@gmail.com",
+    "url": "https://nurliman.dev"
+  },
   "scripts": {
     "dev": "go run main.go"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }

@@ -1,16 +1,20 @@
 {
   "name": "@wagewhiz/api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Backend for WageWhiz",
   "main": "index.js",
+  "license": "MIT",
   "type": "module",
+  "keywords": [],
+  "author": {
+    "name": "Nurliman Diara",
+    "email": "nurlimandiara@gmail.com",
+    "url": "https://nurliman.dev"
+  },
   "scripts": {
     "dev": "cargo run"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "paseto-ts": "^1.4.3"
+    "paseto-ts": "^1.5.5"
   }
 }

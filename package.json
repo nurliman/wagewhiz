@@ -1,8 +1,13 @@
 {
   "name": "wagewhiz",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
+  "author": {
+    "name": "Nurliman Diara",
+    "email": "nurlimandiara@gmail.com",
+    "url": "https://nurliman.dev"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -11,10 +16,10 @@
   },
   "devDependencies": {
     "@wagewhiz/eslint-config": "workspace:^",
-    "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
-    "prettier-plugin-svelte": "^3.0.3",
-    "turbo": "^1.10.13"
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.1.2",
+    "turbo": "^1.12.3"
   },
-  "packageManager": "pnpm@8.7.1"
+  "packageManager": "pnpm@8.15.1"
 }
