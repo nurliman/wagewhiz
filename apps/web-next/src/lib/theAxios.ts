@@ -4,6 +4,7 @@ import axiosRetry from "axios-retry";
 import { toast } from "svelte-sonner";
 import { goto } from "$app/navigation";
 import { refreshToken } from "$lib/api/auth";
+import { isLoggedIn } from "$lib/stores/auth";
 
 const BACKEND_BASE_URL = "http://localhost:3001";
 const LOGIN_URL = "/login";
@@ -20,6 +21,7 @@ const theAxios = axios.create({
   withCredentials: true,
 });
 
+// TODO: Replace axios with tanstack-query for retry and refresh token handling.
 axiosRetry(theAxios, {
   retries: 3,
   shouldResetTimeout: true,
@@ -43,11 +45,14 @@ axiosRetry(theAxios, {
         goto(loginUrl);
 
         toast.error("Unauthorized, please sign in");
+
+        isLoggedIn.set(false);
       }
     });
     if (!refreshTokenData?.credential?.access_token) return false;
 
-    // TODO: update auth state here
+    isLoggedIn.set(true);
+
     return true;
   },
 });

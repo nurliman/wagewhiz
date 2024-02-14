@@ -199,6 +199,9 @@ importers:
       mode-watcher:
         specifier: ^0.2.1
         version: 0.2.1(svelte@4.2.10)
+      svelte-persistent-store:
+        specifier: npm:@macfja/svelte-persistent-store@^2.4.1
+        version: /@macfja/svelte-persistent-store@2.4.1(svelte@4.2.10)
       svelte-sonner:
         specifier: ^0.3.17
         version: 0.3.17(svelte@4.2.10)
@@ -1214,6 +1217,23 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
+  /@macfja/serializer@1.1.2:
+    resolution: {integrity: sha512-kqEg3Zu5/g3ivdeb+jP4rBVVdmtKXVsRwH+x9KdM2Y7d2mKLq54g+YLSgTQ4KwJvWmyHFvRq0ouX5Dr4H1Hw3Q==}
+    dev: false
+
+  /@macfja/svelte-persistent-store@2.4.1(svelte@4.2.10):
+    resolution: {integrity: sha512-VlGtRCJcASmFeVRXm4rbncoM+llnbeJ8C0bzimhARCGi6zKxGncRFLeUVwtjcDW5uNfiJJUK8mzEhXBxeP8fbg==}
+    peerDependencies:
+      svelte: ^3.0 || ^4.0
+    dependencies:
+      '@macfja/serializer': 1.1.2
+      browser-cookies: 1.2.0
+      idb-keyval: 6.2.1
+      sjcl-codec-hex: 1.0.0
+      sjcl-es: 2.0.0
+      svelte: 4.2.10
+    dev: false
+
   /@melt-ui/svelte@0.71.2(svelte@4.2.10):
     resolution: {integrity: sha512-GDUErhAphEoEOLpcBjQ84BgzRR6M3344fQE4QYFffwT7aedWak7CvNsECgeig1Y5xvfDmeEaFnGlOQXIBucJYw==}
     peerDependencies:
@@ -1929,6 +1949,10 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
+  /browser-cookies@1.2.0:
+    resolution: {integrity: sha512-cg2WuoOJo+F+g2XjEaP8nmeRp1vDHjt7sqpKJMsTNXKrpyIBNVslYJeehvs6FEddj8usV2+qyRSBEX244yN5/g==}
+    dev: false
+
   /browserslist@4.22.3:
     resolution: {integrity: sha512-UAp55yfwNv0klWNapjs/ktHoguxuQNGnOzxYmfnXIS+8AsRDZkSDxg7R1AX3GKzn078SBI5dzwzj/Yx0Or0e3A==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -2633,6 +2657,10 @@ packages:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
     dev: true
+
+  /idb-keyval@6.2.1:
+    resolution: {integrity: sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==}
+    dev: false
 
   /ignore@5.2.4:
     resolution: {integrity: sha512-MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==}
@@ -3762,6 +3790,21 @@ packages:
       '@polka/url': 1.0.0-next.24
       mrmime: 2.0.0
       totalist: 3.0.1
+
+  /sjcl-bit-array@1.0.0:
+    resolution: {integrity: sha512-xoR134YJa7AHToLqCWuLYGpAdcBuLbSgwXe9c5HTIN4vr5TILXO/jVF8pLeXDhC7JTOvpmXUkiOupawVNTZVdQ==}
+    dev: false
+
+  /sjcl-codec-hex@1.0.0:
+    resolution: {integrity: sha512-lBBjqky1BEH+WZdABR/iSl2Pu3HO8n8r2D7nkzYLZfcR9ke4kUGMvO0ztRkla5oi4Esbc9pOlBtyGeMjYOU0ng==}
+    dependencies:
+      sjcl-bit-array: 1.0.0
+    dev: false
+
+  /sjcl-es@2.0.0:
+    resolution: {integrity: sha512-P8O+4pAt95XqmTlvvPdbmBggjAgSE0LQnhSEYUKYKepN176b/8K9zcVrrqhuLu5EUQyeCYy/56J9FzxvzvMavg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
 
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
