@@ -1,8 +1,19 @@
 <script lang="ts">
   import "../app.css";
+  import { browser } from "$app/environment";
+  import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
+  import { Toaster } from "$lib/components/ui/sonner";
 
   const title = "Wagewhiz";
   const description = "Open-source HR and Payroll software for small and medium-sized businesses.";
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        enabled: browser,
+      },
+    },
+  });
 </script>
 
 <svelte:head>
@@ -23,8 +34,12 @@
   <!-- TODO: Add twitter:image -->
 </svelte:head>
 
-<div class="flex min-h-full flex-col">
-  <main class="flex flex-1 flex-col">
-    <slot />
-  </main>
-</div>
+<QueryClientProvider client={queryClient}>
+  <Toaster closeButton position="bottom-right" />
+
+  <div class="flex min-h-full flex-col">
+    <main class="flex flex-1 flex-col">
+      <slot />
+    </main>
+  </div>
+</QueryClientProvider>

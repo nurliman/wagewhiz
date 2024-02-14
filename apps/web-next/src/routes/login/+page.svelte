@@ -1,8 +1,45 @@
 <script lang="ts">
-  import * as Card from "$lib/components/ui/card";
+  import type { FormOptions } from "formsnap";
+  import type { SuperValidated } from "sveltekit-superforms";
+  import type { UserWithCredential } from "$lib/types";
+  import { isAxiosError } from "axios";
+  import { createMutation } from "@tanstack/svelte-query";
+  import { toast } from "svelte-sonner";
+  import { login } from "$lib/api/auth";
+  import { loginInputSchema, type LoginInput } from "$lib/schemas/auth";
+  import { goto } from "$app/navigation";
   import { Button } from "$lib/components/ui/button";
-  import { Label } from "$lib/components/ui/label";
-  import { Input } from "$lib/components/ui/input";
+  import * as Card from "$lib/components/ui/card";
+  import * as Form from "$lib/components/ui/form";
+
+  const loginMutation = createMutation<UserWithCredential, Error, LoginInput>({
+    mutationFn: login,
+    onSuccess: async () => {
+      // TODO: save credentials to persistent storage here
+
+      const query = new URLSearchParams(window.location.search);
+      const redirectUrl = query?.get?.("redirect") || "/dashboard";
+      await goto(redirectUrl);
+    },
+    onError: (err) => {
+      if (isAxiosError(err)) {
+        toast.error(err.response?.data?.message || "An error occurred, please try again.");
+      }
+
+      console.error(err);
+    },
+  });
+
+  export let form: SuperValidated<typeof loginInputSchema>;
+
+  const options: FormOptions<typeof loginInputSchema> = {
+    SPA: true,
+    onUpdate({ form }) {
+      if (form.valid) {
+        $loginMutation.mutate(form.data);
+      }
+    },
+  };
 </script>
 
 <Card.Root>
@@ -10,18 +47,32 @@
     <Card.Title class="text-2xl">Login</Card.Title>
     <Card.Description>Enter your email/username and password to login.</Card.Description>
   </Card.Header>
-  <Card.Content class="grid gap-4">
-    <div class="grid gap-2">
-      <Label for="email">Email/Username</Label>
-      <Input id="email" type="email" placeholder="Enter your email or username" />
-    </div>
-    <div class="grid gap-2">
-      <Label for="password">Password</Label>
-      <Input id="password" type="password" placeholder="Enter your password" />
-    </div>
-    <div>
-      <Button type="submit" class="w-full">Login</Button>
-    </div>
+  <Card.Content class="flex flex-col space-y-4">
+    <Form.Root
+      {form}
+      {options}
+      schema={loginInputSchema}
+      class="flex flex-col space-y-4"
+      let:config
+    >
+      <Form.Field {config} name="username">
+        <Form.Item>
+          <Form.Label>Email/Username</Form.Label>
+          <Form.Input placeholder="Enter your email or username" />
+          <Form.Validation />
+        </Form.Item>
+      </Form.Field>
+      <Form.Field {config} name="password">
+        <Form.Item>
+          <Form.Label>Password</Form.Label>
+          <Form.Input type="password" placeholder="Enter your password" />
+          <Form.Validation />
+        </Form.Item>
+      </Form.Field>
+      <div>
+        <Form.Button class="w-full">Login</Form.Button>
+      </div>
+    </Form.Root>
     <div class="relative">
       <div class="absolute inset-0 flex items-center">
         <span class="w-full border-t"></span>
@@ -30,12 +81,12 @@
         <span class="bg-card px-2 text-muted-foreground"> Or continue with </span>
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-6">
-      <Button type="button" variant="outline">
+    <div class="flex flex-row space-x-6">
+      <Button class="flex-1" type="button" variant="outline">
         <!-- TODO: Add GitHub icon -->
         GitHub
       </Button>
-      <Button type="button" variant="outline">
+      <Button class="flex-1" type="button" variant="outline">
         <!-- TODO: Add Google icon -->
         Google
       </Button>
@@ -43,7 +94,7 @@
   </Card.Content>
 </Card.Root>
 
-<style>
+<style lang="postcss">
   :global(main) {
     @apply p-4 md:p-10 mx-auto max-w-xl w-full;
   }
