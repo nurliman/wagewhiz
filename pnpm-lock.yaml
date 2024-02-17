@@ -221,6 +221,9 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@iconify-json/fluent':
+        specifier: ^1.1.48
+        version: 1.1.48
       '@sveltejs/adapter-static':
         specifier: ^3.0.1
         version: 3.0.1(@sveltejs/kit@2.5.0)
@@ -269,6 +272,9 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+      unplugin-icons:
+        specifier: ^0.18.5
+        version: 0.18.5
       vite:
         specifier: ^5.1.2
         version: 5.1.2
@@ -1161,6 +1167,12 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.2:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
+
+  /@iconify-json/fluent@1.1.48:
+    resolution: {integrity: sha512-qp2/ETNldtnNBDKi6kMHGzkqx9ChINikdo5MuaZm9MziguSmij5DAfgOAs2aNoRVHdvMVD8BKcXTeVH8Sl8u8g==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
 
   /@iconify-json/ph@1.1.11:
     resolution: {integrity: sha512-izLvLZrU7WM03zNwNWNrAySv3i45hM3D3K6USjCGBSQMUG0HB8zxwrMf4O0leDrganmuQBH7Z0DWTgyH1ET/fg==}
