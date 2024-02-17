@@ -38,8 +38,6 @@
   <Toaster closeButton position="bottom-right" />
 
   <div class="flex min-h-full flex-col">
-    <main class="flex flex-1 flex-col">
-      <slot />
-    </main>
+    <slot />
   </div>
 </QueryClientProvider>
