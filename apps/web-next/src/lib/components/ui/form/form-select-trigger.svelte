@@ -11,7 +11,7 @@
   export let placeholder = "";
 </script>
 
-<Select.Trigger {...$$restProps} {...$attrStore} on:click on:keydown type="button">
+<Select.Trigger {...$$restProps} {...$attrStore} on:click on:keydown>
   <slot value={$value}>
     <Select.Value {placeholder} />
   </slot>

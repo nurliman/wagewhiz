@@ -8,6 +8,9 @@
   export { className as class };
 </script>
 
-<FormPrimitive.Description class={cn("text-sm text-muted-foreground", className)} {...$$restProps}>
+<FormPrimitive.Description
+  class={cn("text-muted-foreground text-[0.8rem]", className)}
+  {...$$restProps}
+>
   <slot />
 </FormPrimitive.Description>
