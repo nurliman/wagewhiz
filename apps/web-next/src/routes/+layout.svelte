@@ -2,6 +2,7 @@
   import "../app.css";
   import { browser } from "$app/environment";
   import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
+  import { ModeWatcher } from "mode-watcher";
   import { Toaster } from "$lib/components/ui/sonner";
 
   const title = "Wagewhiz";
@@ -35,6 +36,7 @@
 </svelte:head>
 
 <QueryClientProvider client={queryClient}>
+  <ModeWatcher />
   <Toaster closeButton position="bottom-right" />
 
   <div class="flex min-h-full flex-col">
