@@ -13,7 +13,7 @@
     mutationFn: logout,
     onSuccess() {
       isLoggedIn.set(false);
-      
+
       goto("/login");
 
       toast.success("You have been logged out.");
