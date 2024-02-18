@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
   import { cn } from "$lib/utils/shadcn";
   import { Button } from "$lib/components/ui/button";
-  import ThemeSwitcher from "$lib/components/ThemeSwitcher.svelte";
   import FluentApps24Regular from "virtual:icons/fluent/apps-24-regular";
   import FluentPeopleCommunity24Regular from "virtual:icons/fluent/people-community-24-regular";
   import FluentTimer24Regular from "virtual:icons/fluent/timer-24-regular";
@@ -22,15 +21,11 @@
   ];
 </script>
 
-<aside class="border-border/40 flex w-72 flex-col border-r">
-  <div class="mb-2.5 mt-3 flex h-16 items-center px-8">
-    <img src="/assets/mage.svg" alt="Wagewhiz" height="32" width="32" class="mr-2 h-8 w-auto" />
-    <span class="text-3xl font-semibold tracking-tight">Wagewhiz</span>
-  </div>
-  <nav class="flex flex-col">
-    <ul class="flex flex-col space-y-1">
+<div class="border-border/40 border-b pt-0.5">
+  <div class="container flex max-w-full flex-row">
+    <ul class="flex flex-row space-x-1">
       {#each links as link}
-        <li class="flex flex-row px-4">
+        <li class="flex flex-row pb-2">
           <Button
             href={link.href}
             variant="ghost"
@@ -39,17 +34,11 @@
               $page.url.pathname === link.href && "bg-accent/60",
             )}
           >
-            <svelte:component this={link.icon} class="mr-3.5" />
+            <svelte:component this={link.icon} class="mr-2" />
             <span>{link.name}</span>
           </Button>
         </li>
       {/each}
     </ul>
-  </nav>
-
-  <div class="flex-1" />
-
-  <div class="flex p-4">
-    <ThemeSwitcher />
   </div>
-</aside>
+</div>
