@@ -1,7 +1,7 @@
 <script lang="ts">
   import { toggleMode } from "mode-watcher";
   import { Button } from "$lib/components/ui/button";
-  import * as Avatar from "$lib/components/ui/avatar";
+  import TheAvatar from "$lib/components/TheAvatar.svelte";
   import FluentAlert24Regular from "virtual:icons/fluent/alert-24-regular";
   import FluentWeatherSunny24Regular from "virtual:icons/fluent/weather-sunny-24-regular";
   import FluentWeatherMoon24Regular from "virtual:icons/fluent/weather-moon-24-regular";
@@ -33,11 +33,8 @@
 
       <div class="border-border h-3/5 border-r" />
 
-      <div class="!ml-3.5">
-        <Avatar.Root class="h-8 w-8">
-          <Avatar.Image src="https://github.com/shadcn.png" alt="Avatar" />
-          <Avatar.Fallback>CN</Avatar.Fallback>
-        </Avatar.Root>
+      <div class="flex-center !ml-3.5">
+        <TheAvatar />
       </div>
     </div>
   </div>

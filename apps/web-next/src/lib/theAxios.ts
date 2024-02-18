@@ -42,11 +42,11 @@ axiosRetry(theAxios, {
           loginUrl += `?redirect=${window.location.href}`;
         }
 
+        isLoggedIn.set(false);
+
         goto(loginUrl);
 
         toast.error("Unauthorized, please sign in");
-
-        isLoggedIn.set(false);
       }
     });
     if (!refreshTokenData?.credential?.access_token) return false;
