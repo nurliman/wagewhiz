@@ -24,6 +24,7 @@
 
 <aside class="border-border/40 flex w-72 flex-col border-r">
   <div class="mb-2.5 mt-3 flex h-16 items-center px-8">
+    <img src="/assets/mage.svg" alt="Wagewhiz" height="32" width="32" class="mr-2 h-8 w-auto" />
     <span class="text-3xl font-semibold tracking-tight">Wagewhiz</span>
   </div>
   <nav class="flex flex-col">
