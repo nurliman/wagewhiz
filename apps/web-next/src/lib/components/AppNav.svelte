@@ -10,7 +10,7 @@
   import FluentCalendarDataBar24Regular from "virtual:icons/fluent/calendar-data-bar-24-regular";
   import FluentSettings24Regular from "virtual:icons/fluent/settings-24-regular";
 
-  const links = [
+  const navLinks = [
     { name: "Dashboard", href: "/dashboard", icon: FluentApps24Regular },
     { name: "People", href: "/people", icon: FluentPeopleCommunity24Regular },
     { name: "Time & Attendance", href: "/attendance", icon: FluentTimer24Regular },
@@ -19,13 +19,15 @@
     { name: "Insights", href: "/insights", icon: FluentCalendarDataBar24Regular },
     { name: "Settings", href: "/settings", icon: FluentSettings24Regular },
   ];
+
+  let navContainer: HTMLDivElement;
 </script>
 
-<div class="the-app-nav border-b pt-0.5">
+<div bind:this={navContainer} class="the-app-nav">
   <div class="container flex max-w-full flex-row">
     <ul class="flex flex-row space-x-1">
-      {#each links as link}
-        <li class="flex flex-row pb-2">
+      {#each navLinks as link}
+        <li class="flex flex-row py-2">
           <Button
             href={link.href}
             variant="ghost"
@@ -45,7 +47,12 @@
 
 <style>
   .the-app-nav {
-    overflow-x: auto;
+    @apply sticky top-0 z-10;
+    @apply -mt-1.5 border-b;
+    @apply overflow-x-auto;
+    @apply bg-background/60 dark:bg-background/80;
+    @apply backdrop-blur;
+
     scrollbar-width: none;
   }
 </style>
