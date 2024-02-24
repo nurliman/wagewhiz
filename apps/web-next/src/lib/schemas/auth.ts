@@ -1,8 +1,13 @@
-import { z } from "zod";
+import {
+  object as vObject,
+  string as vString,
+  minLength as vMinLength,
+  type Output,
+} from "valibot";
 
-export const loginInputSchema = z.object({
-  username: z.string().min(1),
-  password: z.string().min(1),
+export const loginInputSchema = vObject({
+  username: vString([vMinLength(1)]),
+  password: vString([vMinLength(1)]),
 });
 
-export type LoginInput = z.infer<typeof loginInputSchema>;
+export type LoginInput = Output<typeof loginInputSchema>;
