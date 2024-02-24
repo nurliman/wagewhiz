@@ -1,6 +1,8 @@
+import clone from "lodash-es/clone";
 import { createQuery } from "@tanstack/svelte-query";
 import { theAxios } from "$lib/theAxios";
-import type { Person, UserWithCredential } from "$lib/types.ts";
+import { encodeBase85 } from "base85";
+import type { Person, UserWithCredential } from "$lib/types";
 import type { LoginInput } from "$lib/schemas/auth";
 import type { PartialDeep } from "type-fest";
 
@@ -10,7 +12,17 @@ export const getMe = async () => {
 };
 
 export const login = async (signInInput: LoginInput) => {
-  const response = await theAxios.post<UserWithCredential>("v0/auth/sign-in", signInInput);
+  if (!signInInput?.username || !signInInput?.password) {
+    throw new Error("Username and password are required");
+  }
+  // Encode username and password to base85
+  const username = encodeBase85(clone(signInInput.username));
+  const password = encodeBase85(clone(signInInput.password));
+
+  const response = await theAxios.post<UserWithCredential>("v0/auth/sign-in", {
+    username,
+    password,
+  });
   return response.data;
 };
 

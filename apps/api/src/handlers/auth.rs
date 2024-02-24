@@ -19,7 +19,25 @@ use axum_extra::extract::{
 use serde_json::json;
 
 pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoResponse, AppError> {
-    let user = services::auth::sign_in(&body.username, &body.password).await?;
+    let username = ascii85::decode(&body.username).map_err(|e| {
+        tracing::error!("Error while decoding username: {:?}", e);
+        AppError::InvalidBase85Encoding
+    })?;
+    let username = String::from_utf8(username).map_err(|e| {
+        tracing::error!("Error while converting username to string: {:?}", e);
+        AppError::InternalError
+    })?;
+
+    let password = ascii85::decode(&body.password).map_err(|e| {
+        tracing::error!("Error while decoding password: {:?}", e);
+        AppError::InvalidBase85Encoding
+    })?;
+    let password = String::from_utf8(password).map_err(|e| {
+        tracing::error!("Error while converting password to string: {:?}", e);
+        AppError::InternalError
+    })?;
+
+    let user = services::auth::sign_in(&username, &password).await?;
 
     let access_token_cookie = create_access_token_cookie(&user.credential.access_token);
     let refresh_token_cookie = create_refresh_token_cookie(&user.credential.refresh_token);

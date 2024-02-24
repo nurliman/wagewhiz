@@ -19,6 +19,10 @@ pub struct Query<T>(pub T);
 
 #[derive(Error, Debug)]
 pub enum AppError {
+    // for invalid encoding base85
+    #[error("Invalid base85 encoding")]
+    InvalidBase85Encoding,
+
     #[error("User with username '{0}' not found")]
     UsernameNotFound(String),
 
@@ -93,6 +97,7 @@ pub enum AppError {
 impl AppError {
     pub fn status_code(&self) -> StatusCode {
         match self {
+            AppError::InvalidBase85Encoding => StatusCode::BAD_REQUEST,
             AppError::UsernameNotFound(_) => StatusCode::NOT_FOUND,
             AppError::UserNotFound(_) => StatusCode::NOT_FOUND,
             AppError::PersonNotFound(_) => StatusCode::NOT_FOUND,

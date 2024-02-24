@@ -184,6 +184,9 @@ importers:
       axios-retry:
         specifier: ^4.0.0
         version: 4.0.0(axios@1.6.7)
+      base85:
+        specifier: npm:@nurliman/base85@^1.0.1
+        version: /@nurliman/base85@1.0.1
       bits-ui:
         specifier: ^0.18.2
         version: 0.18.2(svelte@4.2.10)
@@ -1672,6 +1675,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+
+  /@nurliman/base85@1.0.1:
+    resolution: {integrity: sha512-oMG2MgJs681Pqmn3pXLCllswL+AkUYqCV461bNuuYTxv8MCnYJmJgN0WSgoTfnN+CeOb6J8Gp4RT5MfcU333oA==}
+    dev: false
 
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
