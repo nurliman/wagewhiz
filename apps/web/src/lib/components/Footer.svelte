@@ -1,15 +1,38 @@
 <script lang="ts">
-  export let currentYear = new Date().getFullYear();
+  import { onMount } from "svelte";
+  import isAbsoluteUrl from "is-absolute-url";
+
+  const LINKS = [
+    { name: "About", href: "#" },
+    { name: "Privacy", href: "#" },
+    { name: "Docs", href: "#" },
+    { name: "Contact", href: "#" },
+    { name: "Github", href: "https://github.com/nurliman/wagewhiz" },
+  ];
+
+  let currentYear = new Date().getFullYear();
+
+  onMount(() => {
+    currentYear = new Date().getFullYear();
+  });
 </script>
 
-<footer class="p-4 md:flex md:items-center md:justify-between md:p-6 mt-4">
-  <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-    © {currentYear} <a href="/" class="hover:underline">WageWhiz™</a> All Rights Reserved.
-  </span>
-  <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-    <li class="mr-4 last:mr-0 md:mr-6"><a href="/" class="hover:underline">About</a></li>
-    <li class="mr-4 last:mr-0 md:mr-6"><a href="/" class="hover:underline">Privacy Policy</a></li>
-    <li class="mr-4 last:mr-0 md:mr-6"><a href="/" class="hover:underline">Licensing</a></li>
-    <li class="mr-4 last:mr-0 md:mr-6"><a href="/" class="hover:underline">Contact</a></li>
-  </ul>
+<footer class="text-muted-foreground p-4 text-center text-sm leading-loose md:p-6">
+  <div class="container flex flex-col-reverse items-center md:flex-row md:justify-between">
+    <div class="md:text-left">
+      © {currentYear} <a href="/" class="hover:text-foreground underline">Wagewhiz</a>.
+    </div>
+
+    <ul class="flex flex-row flex-wrap justify-center space-x-4 space-x-6">
+      {#each LINKS as link}
+        <li>
+          <a
+            href={link.href}
+            target={isAbsoluteUrl(link.href) ? "_blank" : undefined}
+            class="hover:text-foreground hover:underline">{link.name}</a
+          >
+        </li>
+      {/each}
+    </ul>
+  </div>
 </footer>

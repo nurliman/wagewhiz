@@ -1,7 +1,7 @@
 <script>
-  import Spinner from "./Spinner.svelte";
+  import Spinner from "$lib/components/Spinner.svelte";
 </script>
 
-<div class="flex h-full justify-center items-center flex-1">
+<div class="flex h-full flex-1 items-center justify-center">
   <Spinner containerClass="w-16 h-16" />
 </div>

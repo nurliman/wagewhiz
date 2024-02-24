@@ -1,28 +1,27 @@
 <script lang="ts">
-  import Navbar from "$lib/components/Navbar.svelte";
-  import Sidebar from "$lib/components/Sidebar.svelte";
-  import Footer from "$lib/components/Footer.svelte";
+  import { useGetMeQuery } from "$lib/api/auth";
+  import AppHeader from "$lib/components/AppHeader.svelte";
+  import AppNav from "$lib/components/AppNav.svelte";
   import SpinnerPage from "$lib/components/SpinnerPage.svelte";
-  import { getMeQuery } from "$lib/apis/authApi.ts";
-  import type { LayoutData } from "./$types.ts";
+  import Footer from "$lib/components/Footer.svelte";
 
-  const me = getMeQuery();
-
-  export let data: LayoutData;
+  const me = useGetMeQuery();
 </script>
 
-{#if $me.status === "loading"}
-  <SpinnerPage />
-{:else if $me.status === "error"}
-  <span>Error: {$me.error.message}</span>
-{:else}
-  <Navbar />
-  <div class="flex h-full relative pt-16">
-    <Sidebar />
-    <main class="flex flex-col h-full w-full lg:ml-64">
+{#if $me.status === "success"}
+  <div class="flex h-full w-full flex-1 flex-col">
+    <AppHeader />
+
+    <AppNav />
+
+    <main class="flex-1 py-6 lg:py-8">
       <slot />
-      <div class="flex-1" />
-      <Footer currentYear={data.currentDate?.getFullYear?.()} />
     </main>
+
+    <Footer />
   </div>
+{:else if $me.status === "pending"}
+  <SpinnerPage />
+{:else}
+  <span>Error: {$me?.error?.message || "Unknown error"}</span>
 {/if}

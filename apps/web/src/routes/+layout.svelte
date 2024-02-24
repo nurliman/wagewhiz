@@ -1,17 +1,45 @@
 <script lang="ts">
-  import "@fontsource-variable/nunito";
-  import "../app.postcss";
-  import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
-  import { storePopup } from "@skeletonlabs/skeleton";
-  import { SvelteToast } from "svelte-toast";
-  import { QueryClientProvider } from "@tanstack/svelte-query";
-  import { theQueryClient } from "$lib/libs/theQueryClient.ts";
+  import "../app.css";
+  import { browser } from "$app/environment";
+  import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
+  import { ModeWatcher } from "mode-watcher";
+  import { Toaster } from "$lib/components/ui/sonner";
 
-  storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+  const title = "Wagewhiz";
+  const description = "Open-source HR and Payroll software for small and medium-sized businesses.";
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        enabled: browser,
+      },
+    },
+  });
 </script>
 
-<QueryClientProvider client={theQueryClient}>
-  <slot />
-</QueryClientProvider>
+<svelte:head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
 
-<SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:site_name" content={title?.split?.(" | ")?.[0] || title} />
+  <meta property="og:description" content={description} />
+  <!-- TODO: Add og:image -->
+
+  <!-- Twitter -->
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <!-- TODO: Add twitter:domain -->
+  <!-- TODO: Add twitter:image -->
+</svelte:head>
+
+<QueryClientProvider client={queryClient}>
+  <ModeWatcher />
+  <Toaster closeButton position="bottom-right" />
+
+  <div class="flex min-h-full flex-col">
+    <slot />
+  </div>
+</QueryClientProvider>

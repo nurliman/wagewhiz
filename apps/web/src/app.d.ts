@@ -1,5 +1,5 @@
-/// <reference types="@sveltejs/kit" />
-/// <reference types="unplugin-icons/types/svelte" />
+import "unplugin-icons/types/svelte";
+
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
@@ -7,6 +7,7 @@ declare global {
     // interface Error {}
     // interface Locals {}
     // interface PageData {}
+    // interface PageState {}
     // interface Platform {}
   }
 }
