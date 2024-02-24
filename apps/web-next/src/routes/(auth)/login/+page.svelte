@@ -46,57 +46,71 @@
   const { form: formData, enhance } = form;
 </script>
 
-<Card.Root>
-  <Card.Header class="space-y-1">
-    <Card.Title class="text-2xl">Login</Card.Title>
-    <Card.Description>Enter your email/username and password to login.</Card.Description>
-  </Card.Header>
-  <Card.Content class="flex flex-col space-y-4">
-    <form class="flex flex-col space-y-4" method="POST" use:enhance>
-      <Form.Field {form} name="username">
-        <Form.Control let:attrs>
-          <Form.Label>Email/Username</Form.Label>
-          <Input
-            {...attrs}
-            bind:value={$formData.username}
-            placeholder="Enter your email or username"
-          />
-        </Form.Control>
-        <Form.FieldErrors />
-      </Form.Field>
-      <Form.Field {form} name="password">
-        <Form.Control let:attrs>
-          <Form.Label>Password</Form.Label>
-          <Input
-            {...attrs}
-            bind:value={$formData.password}
-            type="password"
-            placeholder="Enter your password"
-          />
-        </Form.Control>
-        <Form.FieldErrors />
-      </Form.Field>
-      <div>
-        <Form.Button class="w-full" disabled={$loginMutation.isPending}>Login</Form.Button>
-      </div>
-    </form>
-    <div class="relative">
-      <div class="absolute inset-0 flex items-center">
-        <span class="w-full border-t"></span>
-      </div>
-      <div class="relative flex justify-center text-xs uppercase">
-        <span class="bg-card text-muted-foreground px-2"> Or continue with </span>
-      </div>
-    </div>
-    <div class="flex flex-row space-x-6">
-      <Button class="flex-1" type="button" variant="outline" disabled={$loginMutation.isPending}>
-        <!-- TODO: Add GitHub icon -->
-        GitHub
-      </Button>
-      <Button class="flex-1" type="button" variant="outline" disabled={$loginMutation.isPending}>
-        <!-- TODO: Add Google icon -->
-        Google
-      </Button>
-    </div>
-  </Card.Content>
-</Card.Root>
+<div class="container flex flex-1 flex-col">
+  <div class="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center">
+    <Card.Root>
+      <Card.Header class="space-y-1">
+        <Card.Title class="text-2xl">Login</Card.Title>
+        <Card.Description>Enter your email/username and password to login.</Card.Description>
+      </Card.Header>
+      <Card.Content class="flex flex-col space-y-4">
+        <form class="flex flex-col space-y-4" method="POST" use:enhance>
+          <Form.Field {form} name="username">
+            <Form.Control let:attrs>
+              <Form.Label>Email/Username</Form.Label>
+              <Input
+                {...attrs}
+                bind:value={$formData.username}
+                placeholder="Enter your email or username"
+              />
+            </Form.Control>
+            <Form.FieldErrors />
+          </Form.Field>
+          <Form.Field {form} name="password">
+            <Form.Control let:attrs>
+              <Form.Label>Password</Form.Label>
+              <Input
+                {...attrs}
+                bind:value={$formData.password}
+                type="password"
+                placeholder="Enter your password"
+              />
+            </Form.Control>
+            <Form.FieldErrors />
+          </Form.Field>
+          <div>
+            <Form.Button class="w-full" disabled={$loginMutation.isPending}>Login</Form.Button>
+          </div>
+        </form>
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <span class="w-full border-t"></span>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span class="bg-card text-muted-foreground px-2"> Or continue with </span>
+          </div>
+        </div>
+        <div class="flex flex-row space-x-6">
+          <Button
+            class="flex-1"
+            type="button"
+            variant="outline"
+            disabled={$loginMutation.isPending}
+          >
+            <!-- TODO: Add GitHub icon -->
+            GitHub
+          </Button>
+          <Button
+            class="flex-1"
+            type="button"
+            variant="outline"
+            disabled={$loginMutation.isPending}
+          >
+            <!-- TODO: Add Google icon -->
+            Google
+          </Button>
+        </div>
+      </Card.Content>
+    </Card.Root>
+  </div>
+</div>

@@ -193,6 +193,9 @@ importers:
       formsnap:
         specifier: ^0.5.0
         version: 0.5.0(svelte@4.2.10)(sveltekit-superforms@2.6.1)
+      is-absolute-url:
+        specifier: ^4.0.1
+        version: 4.0.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3234,6 +3237,11 @@ packages:
 
   /initials@3.1.2:
     resolution: {integrity: sha512-Sltg35nx8+GX1w4U86rmbxFEmqFiSuMJviS6cB2KChB+jcT2/8Td+nlImXD74HkqpZF5PMv8hN57AyrA/7ltXw==}
+    dev: false
+
+  /is-absolute-url@4.0.1:
+    resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: false
 
   /is-binary-path@2.1.0:

@@ -21,7 +21,7 @@
   ];
 </script>
 
-<div class="border-border/40 border-b pt-0.5">
+<div class="border-b pt-0.5">
   <div class="container flex max-w-full flex-row">
     <ul class="flex flex-row space-x-1">
       {#each links as link}

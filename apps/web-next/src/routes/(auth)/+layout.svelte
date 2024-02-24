@@ -4,6 +4,7 @@
   import { goto } from "$app/navigation";
   import { isLoggedIn } from "$lib/stores/auth";
   import SpinnerPage from "$lib/components/SpinnerPage.svelte";
+  import Footer from "$lib/components/Footer.svelte";
 
   let isLoggedInState: boolean | null = null;
 
@@ -21,10 +22,14 @@
   });
 </script>
 
-<main class="mx-auto flex h-full w-full max-w-xl flex-1 flex-col justify-center p-4 md:p-10">
-  {#if isBoolean(isLoggedInState) && !isLoggedInState}
-    <slot />
-  {:else}
-    <SpinnerPage />
-  {/if}
-</main>
+{#if isBoolean(isLoggedInState) && !isLoggedInState}
+  <div class="flex h-full w-full flex-1 flex-col">
+    <main class="flex flex-1 flex-col py-6 lg:py-8">
+      <slot />
+    </main>
+
+    <Footer />
+  </div>
+{:else}
+  <SpinnerPage />
+{/if}

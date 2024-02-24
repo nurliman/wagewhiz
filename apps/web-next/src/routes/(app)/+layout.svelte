@@ -3,6 +3,7 @@
   import AppHeader from "$lib/components/AppHeader.svelte";
   import AppNav from "$lib/components/AppNav.svelte";
   import SpinnerPage from "$lib/components/SpinnerPage.svelte";
+  import Footer from "$lib/components/Footer.svelte";
 
   const me = useGetMeQuery();
 </script>
@@ -13,9 +14,11 @@
 
     <AppNav />
 
-    <main class="flex-1">
+    <main class="flex-1 py-6 lg:py-8">
       <slot />
     </main>
+
+    <Footer />
   </div>
 {:else if $me.status === "pending"}
   <SpinnerPage />
