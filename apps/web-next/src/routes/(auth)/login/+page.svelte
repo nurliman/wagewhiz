@@ -77,7 +77,7 @@
         <Form.FieldErrors />
       </Form.Field>
       <div>
-        <Form.Button class="w-full">Login</Form.Button>
+        <Form.Button class="w-full" disabled={$loginMutation.isPending}>Login</Form.Button>
       </div>
     </form>
     <div class="relative">
@@ -89,11 +89,11 @@
       </div>
     </div>
     <div class="flex flex-row space-x-6">
-      <Button class="flex-1" type="button" variant="outline">
+      <Button class="flex-1" type="button" variant="outline" disabled={$loginMutation.isPending}>
         <!-- TODO: Add GitHub icon -->
         GitHub
       </Button>
-      <Button class="flex-1" type="button" variant="outline">
+      <Button class="flex-1" type="button" variant="outline" disabled={$loginMutation.isPending}>
         <!-- TODO: Add Google icon -->
         Google
       </Button>
