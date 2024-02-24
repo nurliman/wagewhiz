@@ -21,7 +21,7 @@
   ];
 </script>
 
-<div class="border-b pt-0.5">
+<div class="the-app-nav border-b pt-0.5">
   <div class="container flex max-w-full flex-row">
     <ul class="flex flex-row space-x-1">
       {#each links as link}
@@ -42,3 +42,10 @@
     </ul>
   </div>
 </div>
+
+<style>
+  .the-app-nav {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+</style>
