@@ -1,11 +1,11 @@
 mod constants;
 mod db;
 mod env;
+mod entities;
 mod errors;
 mod handlers;
 mod middlewares;
 mod models;
-mod schema;
 mod services;
 mod utils;
 mod validation;
@@ -34,8 +34,6 @@ async fn main() {
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
-
-    let pool = db::get_pool().await.unwrap().clone();
 
     let app = Router::new()
         .route("/v0/auth/login", post(handlers::auth::login))
@@ -78,8 +76,7 @@ async fn main() {
                     Method::DELETE,
                     Method::OPTIONS,
                 ]),
-        )
-        .with_state(pool);
+        );
 
     let app = app.fallback(handlers::mod_404::not_found);
 

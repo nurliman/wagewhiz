@@ -1,14 +1,13 @@
-use crate::{db, errors::AppError, models::Person, schema::people};
-use diesel::prelude::*;
-use diesel_async::RunQueryDsl;
+use crate::{db, entities::people, errors::AppError};
+use sea_orm::*;
 use uuid::Uuid;
 
-pub async fn get_people() -> Result<Vec<Person>, AppError> {
-    let mut conn = db::get_connection().await?;
-    let people = people::table
-        .select(Person::as_select())
+pub async fn get_people() -> Result<Vec<people::Model>, AppError> {
+    let conn = db::get_connection().await?;
+
+    let people = people::Entity::find()
         .limit(5)
-        .load(&mut *conn)
+        .all(conn)
         .await
         .map_err(|e| {
             tracing::error!("Error getting people: {:?}", e);
@@ -18,19 +17,23 @@ pub async fn get_people() -> Result<Vec<Person>, AppError> {
     Ok(people)
 }
 
-pub async fn get_person_by_id(person_id: &str) -> Result<Person, AppError> {
-    let mut conn = db::get_connection().await?;
+pub async fn get_person_by_id(person_id: &str) -> Result<people::Model, AppError> {
+    let conn = db::get_connection().await?;
+
     let person_uuid =
         Uuid::parse_str(person_id).map_err(|_| AppError::InvalidUuid(person_id.to_string()))?;
-    let person = people::table
-        .select(Person::as_select())
-        .find(person_uuid)
-        .first(&mut *conn)
+
+    let person = people::Entity::find_by_id(person_uuid)
+        .one(conn)
         .await
-        .map_err(|e| match e {
-            diesel::result::Error::NotFound => AppError::PersonNotFound(person_id.to_string()),
-            _ => AppError::InternalError,
+        .map_err(|e| {
+            tracing::error!("Error getting person: {:?}", e);
+            AppError::InternalError
         })?;
 
-    Ok(person)
+    if person.is_none() {
+        return Err(AppError::PersonNotFound(person_id.to_string()));
+    }
+
+    return Ok(person.unwrap());
 }

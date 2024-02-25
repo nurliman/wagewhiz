@@ -1,16 +1,11 @@
 use crate::{env, errors::AppError};
-use bb8::{Pool, PooledConnection};
-use diesel_async::{pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection};
+use sea_orm::{ConnectOptions, Database, DbConn};
 use std::time::Duration;
 use tokio::sync::OnceCell;
 
-pub type DbPool = Pool<AsyncDieselConnectionManager<AsyncPgConnection>>;
+static DB: OnceCell<DbConn> = OnceCell::const_new();
 
-pub type DbConn = PooledConnection<'static, AsyncDieselConnectionManager<AsyncPgConnection>>;
-
-static DB: OnceCell<DbPool> = OnceCell::const_new();
-
-async fn init_db() -> Result<DbPool, AppError> {
+async fn init_db() -> Result<DbConn, AppError> {
     let env_var = env::get_env_var()?;
 
     let db_url = format!(
@@ -18,29 +13,26 @@ async fn init_db() -> Result<DbPool, AppError> {
         env_var.db_user, env_var.db_pass, env_var.db_host, env_var.db_port, env_var.db_name
     );
 
-    let config = AsyncDieselConnectionManager::<diesel_async::AsyncPgConnection>::new(db_url);
-    let pool = Pool::builder()
-        .connection_timeout(Duration::from_secs(8))
-        .build(config)
-        .await
-        .map_err(|e| {
-            tracing::error!("Error creating pool: {:?}", e);
-            AppError::DbError(e)
-        })?;
+    let mut opt = ConnectOptions::new(db_url);
 
-    Ok(pool)
-}
+    opt.max_connections(100)
+        .min_connections(5)
+        .connect_timeout(Duration::from_secs(8))
+        .acquire_timeout(Duration::from_secs(8))
+        .idle_timeout(Duration::from_secs(8))
+        .max_lifetime(Duration::from_secs(8));
 
-pub async fn get_pool() -> Result<&'static DbPool, AppError> {
-    Ok(DB.get_or_init(|| async { init_db().await.unwrap() }).await)
-}
-
-pub async fn get_connection() -> Result<DbConn, AppError> {
-    let pool = get_pool().await?;
-    let conn = pool.get().await.map_err(|e| {
-        tracing::error!("Error getting connection: {:?}", e);
-        AppError::InternalError
+    let db = Database::connect(opt).await.map_err(|e| {
+        tracing::error!("Error connecting to db: {:?}", e);
+        AppError::DbError(e)
     })?;
+
+    Ok(db)
+}
+
+// result reference of DbConn
+pub async fn get_connection() -> Result<&'static DbConn, AppError> {
+    let conn = DB.get_or_init(|| async { init_db().await.unwrap() }).await;
 
     Ok(conn)
 }

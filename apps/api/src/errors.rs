@@ -4,7 +4,6 @@ use axum::{
     response::IntoResponse,
 };
 use axum_macros::{FromRequest, FromRequestParts};
-use diesel_async::pooled_connection::PoolError;
 use serde_json::json;
 use std::net::AddrParseError;
 use thiserror::Error;
@@ -87,8 +86,8 @@ pub enum AppError {
     #[error("Error parsing env variable")]
     EnvError(#[from] envy::Error),
 
-    #[error("Error connecting to db")]
-    DbError(#[from] PoolError),
+    #[error("Database error")]
+    DbError(#[from] sea_orm:: DbErr),
 
     #[error("Error binding address")]
     AddrError(#[from] AddrParseError),

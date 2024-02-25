@@ -1,18 +1,20 @@
 use crate::{
+    entities::{people, user_accounts},
     errors::AppError,
-    models::{Person, UserAccount},
     services,
 };
 use axum::{Extension, Json};
 
-pub async fn get_me(Extension(user_id): Extension<String>) -> Result<Json<UserAccount>, AppError> {
+pub async fn get_me(
+    Extension(user_id): Extension<String>,
+) -> Result<Json<user_accounts::Model>, AppError> {
     let user = services::users::get_user_by_id(&user_id).await?;
     Ok(Json(user))
 }
 
 pub async fn get_my_personal_info(
     Extension(user_id): Extension<String>,
-) -> Result<Json<Person>, AppError> {
+) -> Result<Json<people::Model>, AppError> {
     let user = services::users::get_user_by_id(&user_id).await?;
 
     match user.person_id {

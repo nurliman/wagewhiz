@@ -2,8 +2,9 @@ use super::users::{get_user_by_id, get_user_by_username};
 use crate::{
     constants::{ACCESS_TOKEN_MAX_AGE, REFRESH_TOKEN_MAX_AGE},
     env,
+    entities::user_accounts::Model as UserAccount,
     errors::AppError,
-    models::{Credential, UserAccount, UserWithCredential},
+    models::{Credential, UserWithCredential},
     utils::paseto::{parse_key_data, KeyPurpose},
 };
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
