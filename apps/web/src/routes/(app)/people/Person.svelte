@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Employee } from "$lib/types";
+  import type { DummyPerson } from "$lib/types";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
   import DotsVertical from "svelte-radix/DotsVertical.svelte";
@@ -8,7 +8,7 @@
   import * as Card from "$lib/components/ui/card";
   import initials from "initials";
 
-  export let person: Employee;
+  export let person: DummyPerson;
 
   const personInitials = initials(person.name);
   const personHref = `/people/${person.id}`;

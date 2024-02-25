@@ -1,7 +1,7 @@
 <script lang="ts">
   import PlusCircled from "svelte-radix/PlusCircled.svelte";
   import MixerHorizontal from "svelte-radix/MixerHorizontal.svelte";
-  import { people } from "$lib/data/people";
+  import { dummyPeople } from "$lib/data/people";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
@@ -34,7 +34,7 @@
           </Button>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {#each people as person (person.id)}
+          {#each dummyPeople as person (person.id)}
             <Person {person} />
           {/each}
         </div>

@@ -1,6 +1,6 @@
-import type { Employee } from "$lib/types.ts";
+import type { DummyPerson } from "$lib/types.ts";
 
-export const people: Readonly<Employee[]> = [
+export const dummyPeople: Readonly<DummyPerson[]> = [
   {
     id: 1,
     name: "John Doe",
