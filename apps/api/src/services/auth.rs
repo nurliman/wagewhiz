@@ -15,7 +15,7 @@ use pasetors::{
 };
 use time::format_description::well_known::Rfc3339;
 
-pub async fn sign_in(username: &str, password: &str) -> Result<UserWithCredential, AppError> {
+pub async fn login(username: &str, password: &str) -> Result<UserWithCredential, AppError> {
     let user = get_user_by_username(username).await.map_err(|error| {
         if let AppError::UsernameNotFound(_) = error {
             return AppError::InvalidUsernameOrPassword;

@@ -62,7 +62,7 @@ pub enum AppError {
     #[error("Token payload error")]
     TokenPayloadError,
 
-    #[error("Token not found, please sign in")]
+    #[error("Token not found, please login to get token")]
     TokenNotFound,
 
     #[error("Refresh token not found, please provide refresh token in body or cookie")]

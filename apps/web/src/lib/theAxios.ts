@@ -27,7 +27,7 @@ axiosRetry(theAxios, {
   shouldResetTimeout: true,
   retryDelay: axiosRetry.exponentialDelay,
   retryCondition: async (error) => {
-    if (error.config?.url?.includes("sign-in") || error.config?.url?.includes("refresh-token")) {
+    if (error.config?.url?.includes("login") || error.config?.url?.includes("refresh-token")) {
       return axiosRetry.isNetworkError(error) || error.code === "ECONNABORTED";
     }
     if (error.response?.status !== 401) {
@@ -46,7 +46,7 @@ axiosRetry(theAxios, {
 
         goto(loginUrl);
 
-        toast.error("Unauthorized, please sign in");
+        toast.error("Unauthorized, please login again.");
       }
     });
     if (!refreshTokenData?.credential?.access_token) return false;

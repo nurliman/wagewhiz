@@ -11,15 +11,15 @@ export const getMe = async () => {
   return response.data;
 };
 
-export const login = async (signInInput: LoginInput) => {
-  if (!signInInput?.username || !signInInput?.password) {
+export const login = async (loginInput: LoginInput) => {
+  if (!loginInput?.username || !loginInput?.password) {
     throw new Error("Username and password are required");
   }
   // Encode username and password to base85
-  const username = encodeBase85(clone(signInInput.username));
-  const password = encodeBase85(clone(signInInput.password));
+  const username = encodeBase85(clone(loginInput.username));
+  const password = encodeBase85(clone(loginInput.password));
 
-  const response = await theAxios.post<UserWithCredential>("v0/auth/sign-in", {
+  const response = await theAxios.post<UserWithCredential>("v0/auth/login", {
     username,
     password,
   });
@@ -27,7 +27,7 @@ export const login = async (signInInput: LoginInput) => {
 };
 
 export const logout = async () => {
-  await theAxios.post("v0/auth/sign-out");
+  await theAxios.post("v0/auth/logout");
   return null;
 };
 

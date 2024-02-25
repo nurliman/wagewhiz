@@ -38,8 +38,8 @@ async fn main() {
     let pool = db::get_pool().await.unwrap().clone();
 
     let app = Router::new()
-        .route("/v0/auth/sign-in", post(handlers::auth::sign_in))
-        .route("/v0/auth/sign-out", post(handlers::auth::sign_out))
+        .route("/v0/auth/login", post(handlers::auth::login))
+        .route("/v0/auth/logout", post(handlers::auth::logout))
         .route(
             "/v0/auth/refresh-token",
             post(handlers::auth::refresh_token),

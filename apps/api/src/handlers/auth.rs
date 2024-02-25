@@ -4,7 +4,7 @@ use crate::{
         REFRESH_TOKEN_MAX_AGE,
     },
     errors::AppError,
-    models::{RefreshToken, SignIn},
+    models::{RefreshToken, Login},
     services,
     validation::JsonOrForm,
 };
@@ -18,7 +18,7 @@ use axum_extra::extract::{
 };
 use serde_json::json;
 
-pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoResponse, AppError> {
+pub async fn login(JsonOrForm(body): JsonOrForm<Login>) -> Result<impl IntoResponse, AppError> {
     let username = ascii85::decode(&body.username).map_err(|e| {
         tracing::error!("Error while decoding username: {:?}", e);
         AppError::InvalidBase85Encoding
@@ -37,7 +37,7 @@ pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoRe
         AppError::InternalError
     })?;
 
-    let user = services::auth::sign_in(&username, &password).await?;
+    let user = services::auth::login(&username, &password).await?;
 
     let access_token_cookie = create_access_token_cookie(&user.credential.access_token);
     let refresh_token_cookie = create_refresh_token_cookie(&user.credential.refresh_token);
@@ -56,7 +56,7 @@ pub async fn sign_in(JsonOrForm(body): JsonOrForm<SignIn>) -> Result<impl IntoRe
     Ok(response)
 }
 
-pub async fn sign_out() -> Result<impl IntoResponse, AppError> {
+pub async fn logout() -> Result<impl IntoResponse, AppError> {
     let null_access_token_cookie = create_token_cookie(
         ACCESS_TOKEN_COOKIE_NAME,
         "",

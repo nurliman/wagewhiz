@@ -56,7 +56,7 @@ pub struct UserAccount {
 }
 
 #[derive(Deserialize, Validate)]
-pub struct SignIn {
+pub struct Login {
     #[validate(length(min = 1, message = "Username cannot be empty"))]
     pub username: String,
     #[validate(length(min = 1, message = "Password cannot be empty"))]
