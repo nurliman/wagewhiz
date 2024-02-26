@@ -6,9 +6,12 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub created_at: DateTimeWithTimeZone,
-    pub updated_at: DateTimeWithTimeZone,
-    pub deleted_at: Option<DateTimeWithTimeZone>,
+    #[serde(with = "time::serde::rfc3339")]
+    pub created_at: TimeDateTimeWithTimeZone,
+    #[serde(with = "time::serde::rfc3339")]
+    pub updated_at: TimeDateTimeWithTimeZone,
+    #[serde(with = "time::serde::rfc3339::option")]
+    pub deleted_at: Option<TimeDateTimeWithTimeZone>,
     pub username: String,
     #[sea_orm(column_type = "Text")]
     #[serde(skip_serializing)]
