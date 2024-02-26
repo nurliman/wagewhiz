@@ -18,13 +18,13 @@
     "format": "prettier --write --cache --ignore-path=../../.prettierignore --ignore-path=.gitignore ."
   },
   "dependencies": {
-    "@tanstack/svelte-query": "^5.22.2",
+    "@tanstack/svelte-query": "^5.24.1",
     "axios": "^1.6.7",
     "axios-retry": "^4.0.0",
     "base85": "npm:@nurliman/base85@^1.0.1",
     "bits-ui": "^0.18.2",
     "clsx": "^2.1.0",
-    "formsnap": "^0.5.0",
+    "formsnap": "^0.5.1",
     "initials": "^3.1.2",
     "is-absolute-url": "^4.0.1",
     "lodash-es": "^4.17.21",
@@ -32,13 +32,13 @@
     "svelte-persistent-store": "npm:@macfja/svelte-persistent-store@^2.4.1",
     "svelte-radix": "^1.0.1",
     "svelte-sonner": "^0.3.18",
-    "sveltekit-superforms": "^2.6.1",
+    "sveltekit-superforms": "^2.6.2",
     "tailwind-merge": "^2.2.1",
     "tailwind-variants": "^0.2.0",
     "valibot": "^0.29.0"
   },
   "devDependencies": {
-    "@iconify-json/fluent": "^1.1.48",
+    "@iconify-json/fluent": "^1.1.49",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",

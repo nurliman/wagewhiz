@@ -40,8 +40,8 @@ importers:
   apps/web:
     dependencies:
       '@tanstack/svelte-query':
-        specifier: ^5.22.2
-        version: 5.22.2(svelte@4.2.10)
+        specifier: ^5.24.1
+        version: 5.24.1(svelte@4.2.10)
       axios:
         specifier: ^1.6.7
         version: 1.6.7
@@ -58,8 +58,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       formsnap:
-        specifier: ^0.5.0
-        version: 0.5.0(svelte@4.2.10)(sveltekit-superforms@2.6.1)
+        specifier: ^0.5.1
+        version: 0.5.1(svelte@4.2.10)(sveltekit-superforms@2.6.2)
       initials:
         specifier: ^3.1.2
         version: 3.1.2
@@ -82,8 +82,8 @@ importers:
         specifier: ^0.3.18
         version: 0.3.18(svelte@4.2.10)
       sveltekit-superforms:
-        specifier: ^2.6.1
-        version: 2.6.1(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10)
+        specifier: ^2.6.2
+        version: 2.6.2(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10)
       tailwind-merge:
         specifier: ^2.2.1
         version: 2.2.1
@@ -95,8 +95,8 @@ importers:
         version: 0.29.0
     devDependencies:
       '@iconify-json/fluent':
-        specifier: ^1.1.48
-        version: 1.1.48
+        specifier: ^1.1.49
+        version: 1.1.49
       '@sveltejs/adapter-static':
         specifier: ^3.0.1
         version: 3.0.1(@sveltejs/kit@2.5.1)
@@ -913,8 +913,8 @@ packages:
   /@humanwhocodes/object-schema@2.0.2:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
 
-  /@iconify-json/fluent@1.1.48:
-    resolution: {integrity: sha512-qp2/ETNldtnNBDKi6kMHGzkqx9ChINikdo5MuaZm9MziguSmij5DAfgOAs2aNoRVHdvMVD8BKcXTeVH8Sl8u8g==}
+  /@iconify-json/fluent@1.1.49:
+    resolution: {integrity: sha512-BDgdWb8WjWzvfyv1s8JjYViRN/qPDG1cS56tjKt6p0InZq/+PAQFeFBhirTSKtqa8fGzUJpR4dCEBcZDXEb4EA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -1295,16 +1295,16 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tanstack/query-core@5.22.2:
-    resolution: {integrity: sha512-z3PwKFUFACMUqe1eyesCIKg3Jv1mysSrYfrEW5ww5DCDUD4zlpTKBvUDaEjsfZzL3ULrFLDM9yVUxI/fega1Qg==}
+  /@tanstack/query-core@5.24.1:
+    resolution: {integrity: sha512-DZ6Nx9p7BhjkG50ayJ+MKPgff+lMeol7QYXkvuU5jr2ryW/4ok5eanaS9W5eooA4xN0A/GPHdLGOZGzArgf5Cg==}
     dev: false
 
-  /@tanstack/svelte-query@5.22.2(svelte@4.2.10):
-    resolution: {integrity: sha512-7ZK/EoAAIB6KIKiSC3NSTJPJYo2meOZjsyBXLtbEpLYr7U/mCJwgJ0dXKOUt9n3eKwUyX9N/stqwyD10F+KS8Q==}
+  /@tanstack/svelte-query@5.24.1(svelte@4.2.10):
+    resolution: {integrity: sha512-N1T15f1uwZJ2HADxupj+rDNmA7Ez7q+1D68Koqo7rAyWaRgl2V9gR7Oc/MLQM9LrFv6M768btwogDlE1LfvxLw==}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
     dependencies:
-      '@tanstack/query-core': 5.22.2
+      '@tanstack/query-core': 5.24.1
       svelte: 4.2.10
     dev: false
 
@@ -2192,15 +2192,15 @@ packages:
       mime-types: 2.1.35
     dev: false
 
-  /formsnap@0.5.0(svelte@4.2.10)(sveltekit-superforms@2.6.1):
-    resolution: {integrity: sha512-T2S8oKhJwW/14hJoX5lUOrIzuE5WNH8JVLvjY5oAnTw+FP6AprjCZZLLJuxWW13ktJcy3JJRohAwAjmB1nxtwA==}
+  /formsnap@0.5.1(svelte@4.2.10)(sveltekit-superforms@2.6.2):
+    resolution: {integrity: sha512-8ppOlOu7llBEJbV0PzUz/KWh1J8KfiGqwjiyb8emQ2m+/nYXohLBtMcLVpW3XwlMkUbYaIXM+5lhfGjw8xbGJw==}
     peerDependencies:
       svelte: ^4.0.0
       sveltekit-superforms: ^2.3.0
     dependencies:
       nanoid: 5.0.5
       svelte: 4.2.10
-      sveltekit-superforms: 2.6.1(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10)
+      sveltekit-superforms: 2.6.2(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10)
     dev: false
 
   /fraction.js@4.3.7:
@@ -3677,8 +3677,8 @@ packages:
       magic-string: 0.30.7
       periscopic: 3.1.0
 
-  /sveltekit-superforms@2.6.1(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10):
-    resolution: {integrity: sha512-ZJkW4Q+wDUYu+iX6XxLA9A1Sa2M5SqCGkum/Tz5xG5yAVFUumrrcxDetLApgiEAXzTme8v+Uh/eAwiYWFP4Buw==}
+  /sveltekit-superforms@2.6.2(@sveltejs/kit@2.5.1)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.19.12)(svelte@4.2.10):
+    resolution: {integrity: sha512-a2dlCO5v+AiDJjEmVlUfEec4Spx/2VC5lp6yEh97sKsIQsNY63lwL8Uh9PmgzOGerDchUwlB008nAZJJf9PDng==}
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x
       svelte: 3.x || 4.x || >=5.0.0-next.51
