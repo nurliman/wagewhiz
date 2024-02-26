@@ -8,7 +8,18 @@ use axum::{Extension, Json};
 pub async fn get_me(
     Extension(user_id): Extension<String>,
 ) -> Result<Json<user_accounts::Model>, AppError> {
-    let user = services::users::get_user_by_id(&user_id).await?;
+    // if user error not found then return error unauthorized or forbidden
+    let user = services::users::get_user_by_id(&user_id)
+        .await
+        .map_err(|e| {
+            // when user not found then return unauthorized
+            if let AppError::UserNotFound(_) = e {
+                AppError::Unauthorized
+            } else {
+                e
+            }
+        })?;
+
     Ok(Json(user))
 }
 

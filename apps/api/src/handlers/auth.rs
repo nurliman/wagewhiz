@@ -4,8 +4,8 @@ use crate::{
         REFRESH_TOKEN_MAX_AGE,
     },
     errors::AppError,
-    types::{RefreshToken, Login},
     services,
+    types::{Login, RefreshToken},
     validation::JsonOrForm,
 };
 use axum::{
@@ -98,7 +98,16 @@ pub async fn refresh_token(
     let refresh_token = refresh_token.ok_or(AppError::RefreshTokenNotFound)?;
 
     // regenerate access token and refresh token
-    let user = services::auth::refresh_token(&refresh_token).await?;
+    let user = services::auth::refresh_token(&refresh_token)
+        .await
+        .map_err(|e| {
+            // when user not found then return unauthorized
+            if let AppError::UserNotFound(_) = e {
+                AppError::Unauthorized
+            } else {
+                e
+            }
+        })?;
 
     let new_access_token_cookie = create_access_token_cookie(&user.credential.access_token);
     let new_refresh_token_cookie = create_refresh_token_cookie(&user.credential.refresh_token);

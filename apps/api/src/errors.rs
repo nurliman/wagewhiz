@@ -22,6 +22,10 @@ pub enum AppError {
     #[error("Invalid base85 encoding")]
     InvalidBase85Encoding,
 
+    // Generic unauthorized error
+    #[error("Unauthorized")]
+    Unauthorized,
+
     #[error("User with username '{0}' not found")]
     UsernameNotFound(String),
 
@@ -97,6 +101,7 @@ impl AppError {
     pub fn status_code(&self) -> StatusCode {
         match self {
             AppError::InvalidBase85Encoding => StatusCode::BAD_REQUEST,
+            AppError::Unauthorized => StatusCode::UNAUTHORIZED,
             AppError::UsernameNotFound(_) => StatusCode::NOT_FOUND,
             AppError::UserNotFound(_) => StatusCode::NOT_FOUND,
             AppError::PersonNotFound(_) => StatusCode::NOT_FOUND,
