@@ -2,8 +2,8 @@
   import type { DummyPerson } from "$lib/types";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
-  import DotsVertical from "svelte-radix/DotsVertical.svelte";
-  import PaperPlane from "svelte-radix/PaperPlane.svelte";
+  import FluentSend16Regular from "virtual:icons/fluent/send-16-regular";
+  import FluentMoreVertical20Regular from "virtual:icons/fluent/more-vertical-20-regular";
   import * as Avatar from "$lib/components/ui/avatar";
   import * as Card from "$lib/components/ui/card";
   import initials from "initials";
@@ -34,12 +34,12 @@
     </div>
   </Card.Content>
   <Card.Footer class="flex space-x-2">
-    <Button variant="secondary" size="sm" class="flex-1 h-8">
-      <PaperPlane class="mr-2 h-3.5 w-3.5" /> 
+    <Button variant="secondary" size="sm" class="h-8 flex-1">
+      <FluentSend16Regular class="mr-2 h-4 w-4" />
       <span>Send Message</span>
     </Button>
     <Button variant="secondary" size="icon" class="h-8">
-      <DotsVertical class="h-4 w-4" />
+      <FluentMoreVertical20Regular class="h-5 w-5" />
     </Button>
   </Card.Footer>
 </Card.Root>
