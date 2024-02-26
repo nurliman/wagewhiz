@@ -40,6 +40,6 @@ export const refreshToken = async (refreshToken?: string) => {
 
 export const useGetMeQuery = () =>
   createQuery<Person, Error>({
-    queryKey: ["me"],
+    queryKey: ["v0/me"],
     queryFn: getMe,
   });
