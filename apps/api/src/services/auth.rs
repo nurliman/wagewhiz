@@ -4,7 +4,7 @@ use crate::{
     env,
     entities::user_accounts::Model as UserAccount,
     errors::AppError,
-    models::{Credential, UserWithCredential},
+    types::{Credential, UserWithCredential},
     utils::paseto::{parse_key_data, KeyPurpose},
 };
 use argon2::{Argon2, PasswordHash, PasswordVerifier};

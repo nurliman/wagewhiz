@@ -4,7 +4,7 @@ use crate::{
         REFRESH_TOKEN_MAX_AGE,
     },
     errors::AppError,
-    models::{RefreshToken, Login},
+    types::{RefreshToken, Login},
     services,
     validation::JsonOrForm,
 };

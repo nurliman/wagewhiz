@@ -5,8 +5,8 @@ mod entities;
 mod errors;
 mod handlers;
 mod middlewares;
-mod models;
 mod services;
+mod types;
 mod utils;
 mod validation;
 
