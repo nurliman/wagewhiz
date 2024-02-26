@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DummyPerson } from "$lib/types";
+  import type { Person } from "$lib/types";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
   import FluentSend16Regular from "virtual:icons/fluent/send-16-regular";
@@ -8,9 +8,10 @@
   import * as Card from "$lib/components/ui/card";
   import initials from "initials";
 
-  export let person: DummyPerson;
+  export let person: Person;
 
-  const personInitials = initials(person.name);
+  const safeName = person.name || "Guest";
+  const personInitials = initials(safeName);
   const personHref = `/people/${person.id}`;
 </script>
 
@@ -20,15 +21,22 @@
     <div class="flex flex-col items-center space-y-4">
       <a href={personHref}>
         <Avatar.Root class="h-20 w-20">
-          <Avatar.Image src="https://github.com/nurliman.png" alt="@nurliman" loading="lazy" />
+          <Avatar.Image src={person.avatar_url} alt={safeName} loading="lazy" />
           <Avatar.Fallback class="text-2xl">{personInitials}</Avatar.Fallback>
         </Avatar.Root>
       </a>
       <div class="text-center">
-        <Badge variant="outline" class="mb-1.5">{person.status}</Badge>
+        {#if person.status}
+          <Badge variant="outline" class="mb-1.5">
+            {person.status}
+          </Badge>
+        {/if}
+
         <a href={personHref}>
-          <div class="text-lg font-semibold hover:underline">{person.name}</div>
-          <div class="text-muted-foreground text-sm">{person.position}</div>
+          <div class="text-lg font-semibold hover:underline">{safeName}</div>
+          {#if person.role}
+            <div class="text-muted-foreground text-sm">{person.role}</div>
+          {/if}
         </a>
       </div>
     </div>

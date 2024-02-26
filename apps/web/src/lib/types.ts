@@ -43,18 +43,7 @@ export type Person = {
   role: string | null;
   department: string | null;
   joining_date: Date | null;
-};
-
-export type DummyPerson = {
-  id: number;
-  NIP: string;
-  name: string;
-  email: string;
-  phone: string;
-  department: string;
-  position: string;
-  gender: string;
-  startDate: string;
-  isActive: boolean;
-  status: EmployeeStatus;
+  gender: string | null;
+  status: EmployeeStatus | null;
+  avatar_url: string | null;
 };

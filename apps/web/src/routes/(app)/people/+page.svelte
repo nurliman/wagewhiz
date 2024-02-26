@@ -1,11 +1,13 @@
 <script lang="ts">
   import PlusCircled from "svelte-radix/PlusCircled.svelte";
   import MixerHorizontal from "svelte-radix/MixerHorizontal.svelte";
-  import { dummyPeople } from "$lib/data/people";
+  import { useGetPeopleQuery } from "$lib/api/people";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import Person from "./Person.svelte";
+
+  const people = useGetPeopleQuery();
 </script>
 
 <div>
@@ -34,7 +36,7 @@
           </Button>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {#each dummyPeople as person (person.id)}
+          {#each $people.data || [] as person (person.id)}
             <Person {person} />
           {/each}
         </div>
