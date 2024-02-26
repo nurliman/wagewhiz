@@ -6,7 +6,7 @@
   import SpinnerPage from "$lib/components/SpinnerPage.svelte";
   import Footer from "$lib/components/Footer.svelte";
 
-  let isLoggedInState: boolean | null = null;
+  let isLoggedInState = $state<boolean | null>(null);
 
   onMount(() => {
     // check if user is already logged in
