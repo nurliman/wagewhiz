@@ -1,14 +1,25 @@
 import { theAxios } from "$lib/theAxios";
-import { createQuery } from "@tanstack/svelte-query";
-import type { Person } from "$lib/types";
+import { createInfiniteQuery } from "@tanstack/svelte-query";
+import type { PaginationParams, PaginationResponse, Person } from "$lib/types";
 
-export const getPeople = async () => {
-  const response = await theAxios.get<Person[]>("v0/people");
+export const PEOPLE_ENDPOINT = "v0/people" as const;
+
+export const getPeople = async (params: PaginationParams = {}) => {
+  const response = await theAxios<PaginationResponse<Person>>(PEOPLE_ENDPOINT, { params });
   return response.data;
 };
 
-export const useGetPeopleQuery = () =>
-  createQuery<Person[], Error>({
-    queryKey: ["v0/people"],
-    queryFn: getPeople,
+export const useGetPeopleQuery = (params: Omit<PaginationParams, "page"> = {}) => {
+  return createInfiniteQuery({
+    queryKey: [PEOPLE_ENDPOINT, params] as const,
+    queryFn: ({ queryKey, pageParam }) =>
+      getPeople({
+        page: pageParam,
+        page_size: queryKey[1].page_size,
+      }),
+    initialPageParam: 1,
+    getNextPageParam: ({ page, page_size, total }) => {
+      return page * page_size < total ? page + 1 : undefined;
+    },
   });
+};

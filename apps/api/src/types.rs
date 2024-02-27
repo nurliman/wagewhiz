@@ -3,6 +3,20 @@ use crate::entities::user_accounts::Model as UserAccount;
 use serde::{Deserialize, Serialize};
 use validator::Validate;
 
+#[derive(Debug, Deserialize)]
+pub struct PaginationParams {
+   pub page: Option<u64>,
+   pub page_size: Option<u64>,
+}
+
+#[derive(Debug, Serialize)]
+pub struct PaginationResponse<T> {
+    pub data: Vec<T>,
+    pub page: u64,
+    pub page_size: u64,
+    pub total: u64,
+}
+
 #[derive(Deserialize, Validate)]
 pub struct Login {
     #[validate(length(min = 1, message = "Username cannot be empty"))]

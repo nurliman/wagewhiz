@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { inview } from "svelte-inview";
   import PlusCircled from "svelte-radix/PlusCircled.svelte";
   import MixerHorizontal from "svelte-radix/MixerHorizontal.svelte";
   import { useGetPeopleQuery } from "$lib/api/people";
@@ -36,9 +37,31 @@
           </Button>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {#each $people.data || [] as person (person.id)}
-            <Person {person} />
+          {#each $people.data?.pages || [] as page (page.page)}
+            {#each page.data as person (person.id)}
+              <Person {person} />
+            {/each}
           {/each}
+        </div>
+        <div
+          class="text-muted-foreground mt-8 flex justify-center"
+          use:inview
+          on:inview_enter={(event) => {
+            if (!event.detail.inView) return;
+            if (!$people.isFetched) return;
+            if (!$people.hasNextPage) return;
+            if ($people.isFetchingNextPage) return;
+
+            $people.fetchNextPage();
+          }}
+        >
+          <!-- TODO: Add skeleton loader -->
+          <!-- TODO: Add button to load more people in case of auto-fetch not triggered -->
+          {#if $people.isFetched && $people.hasNextPage}
+            <span>Loading...</span>
+          {:else if $people.isFetched}
+            <span>No more people to load.</span>
+          {/if}
         </div>
       </Card.Content>
     </Card.Root>
