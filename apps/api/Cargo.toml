@@ -23,7 +23,7 @@ sea-orm = { version = "0.12.14", features = [
     "macros",
     "runtime-tokio-native-tls",
     "sqlx-postgres",
-    "with-time",
+    "with-chrono",
     "with-uuid",
 ] }
 serde = { version = "1.0.197", features = ["derive"] }

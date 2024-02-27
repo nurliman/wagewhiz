@@ -8,12 +8,9 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    #[serde(with = "time::serde::rfc3339")]
-    pub created_at: TimeDateTimeWithTimeZone,
-    #[serde(with = "time::serde::rfc3339")]
-    pub updated_at: TimeDateTimeWithTimeZone,
-    #[serde(with = "time::serde::rfc3339::option")]
-    pub deleted_at: Option<TimeDateTimeWithTimeZone>,
+    pub created_at: DateTimeWithTimeZone,
+    pub updated_at: DateTimeWithTimeZone,
+    pub deleted_at: Option<DateTimeWithTimeZone>,
     #[sea_orm(column_type = "Text", nullable)]
     pub name: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
@@ -30,14 +27,14 @@ pub struct Model {
     pub email: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub phone: Option<String>,
-    pub birthday: Option<TimeDate>,
+    pub birthday: Option<Date>,
     #[sea_orm(column_type = "Text", nullable)]
     pub organization: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub role: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub department: Option<String>,
-    pub joining_date: Option<TimeDate>,
+    pub joining_date: Option<Date>,
     pub is_active: Option<bool>,
     pub gender: Option<String>,
     pub status: Option<String>,
