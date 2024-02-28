@@ -18,8 +18,8 @@
 <Card.Root>
   <Card.Content>
     <div class="mb-6" />
-    <div class="flex flex-col items-center space-y-4">
-      <a href={personHref}>
+    <div class="flex flex-col items-center">
+      <a href={personHref} class="mb-4">
         <Avatar.Root class="h-20 w-20">
           <Avatar.Image src={person.avatar_url} alt={safeName} loading="lazy" />
           <Avatar.Fallback class="text-2xl">{personInitials}</Avatar.Fallback>

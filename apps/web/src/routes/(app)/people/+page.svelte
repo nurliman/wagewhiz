@@ -7,8 +7,17 @@
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
   import Person from "./Person.svelte";
+  import PersonSkeleton from "./PersonSkeleton.svelte";
 
   const people = useGetPeopleQuery();
+
+  const fetchNextPage = () => {
+    if (!$people.isFetched) return;
+    if (!$people.hasNextPage) return;
+    if ($people.isFetchingNextPage) return;
+
+    $people.fetchNextPage();
+  };
 </script>
 
 <div>
@@ -37,33 +46,42 @@
           </Button>
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <!-- TODO: add ui for empty data -->
           {#each $people.data?.pages || [] as page (page.page)}
             {#each page.data as person (person.id)}
               <Person {person} />
             {/each}
           {/each}
-        </div>
-        <div
-          class="text-muted-foreground mt-8 flex justify-center"
-          use:inview
-          on:inview_enter={(event) => {
-            if (!event.detail.inView) return;
-            if (!$people.isFetched) return;
-            if (!$people.hasNextPage) return;
-            if ($people.isFetchingNextPage) return;
 
-            $people.fetchNextPage();
-          }}
-        >
-          <!-- TODO: Add skeleton loader -->
-          <!-- TODO: Add button to load more people in case of auto-fetch not triggered -->
-          {#if $people.isFetched && $people.hasNextPage}
-            <span>Loading...</span>
+          {#if $people.isFetching || $people.isFetchingNextPage}
+            {@render skeleton()}
+          {:else if $people.isFetched && $people.hasNextPage}
+            {@render loadMoreData()}
           {:else if $people.isFetched}
-            <span>No more people to load.</span>
+            {@render noMoreData()}
           {/if}
         </div>
       </Card.Content>
     </Card.Root>
   </div>
 </div>
+
+{#snippet skeleton()}
+  {#each Array.from({ length: 12 }) as _}
+    <PersonSkeleton />
+  {/each}
+{/snippet}
+
+{#snippet loadMoreData()}
+  <div
+    use:inview
+    class="col-span-full mt-8 flex items-center justify-center"
+    on:inview_enter={(e) => !!e.detail.inView && $people.fetchNextPage()}
+  >
+    <Button variant="outline" on:click={fetchNextPage}>Load more</Button>
+  </div>
+{/snippet}
+
+{#snippet noMoreData()}
+  <div class="text-muted-foreground col-span-full mt-8 text-center">No more people to load.</div>
+{/snippet}
