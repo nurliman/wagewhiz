@@ -7,7 +7,7 @@
   import FluentWeatherMoon24Regular from "virtual:icons/fluent/weather-moon-24-regular";
 </script>
 
-<header class="h-14 z-20">
+<header class="z-20 h-14">
   <div class="container flex h-full max-w-full flex-row items-center">
     <Button href="/" variant="link" class="flex items-center">
       <img src="/assets/mage.svg" alt="Wagewhiz" height="24" width="24" class="mr-2 h-6 w-auto" />
