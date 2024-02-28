@@ -14,6 +14,7 @@
   const fetchNextPage = () => {
     if (!$people.isFetched) return;
     if (!$people.hasNextPage) return;
+    if ($people.isFetching) return;
     if ($people.isFetchingNextPage) return;
 
     $people.fetchNextPage();
@@ -48,9 +49,11 @@
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <!-- TODO: add ui for empty data -->
           {#each $people.data?.pages || [] as page (page.page)}
-            {#each page.data as person (person.id)}
-              <Person {person} />
-            {/each}
+            {#if Array.isArray(page.data)}
+              {#each page.data as person (person.id)}
+                <Person {person} />
+              {/each}
+            {/if}
           {/each}
 
           {#if $people.isFetching || $people.isFetchingNextPage}
@@ -76,7 +79,7 @@
   <div
     use:inview
     class="col-span-full mt-8 flex items-center justify-center"
-    on:inview_enter={(e) => !!e.detail.inView && $people.fetchNextPage()}
+    on:inview_enter={(e) => e.detail.inView && fetchNextPage()}
   >
     <Button variant="outline" on:click={fetchNextPage}>Load more</Button>
   </div>
