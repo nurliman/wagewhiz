@@ -1,5 +1,6 @@
 <script lang="ts">
   import "../app.css";
+  import ms from "ms";
   import { browser } from "$app/environment";
   import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
   import { ModeWatcher } from "mode-watcher";
@@ -12,6 +13,7 @@
     defaultOptions: {
       queries: {
         enabled: browser,
+        staleTime: ms("3 minutes"),
       },
     },
   });

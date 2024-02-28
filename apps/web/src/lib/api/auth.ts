@@ -1,3 +1,4 @@
+import ms from "ms";
 import clone from "lodash-es/clone";
 import { createQuery } from "@tanstack/svelte-query";
 import { theAxios } from "$lib/theAxios";
@@ -42,4 +43,6 @@ export const useGetMeQuery = () =>
   createQuery<Person, Error>({
     queryKey: ["v0/me"],
     queryFn: getMe,
+    staleTime: 0,
+    refetchInterval: ms("1 minute"),
   });
