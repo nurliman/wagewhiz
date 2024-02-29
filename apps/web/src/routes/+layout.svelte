@@ -5,6 +5,7 @@
   import { QueryClient, QueryClientProvider } from "@tanstack/svelte-query";
   import { ModeWatcher } from "mode-watcher";
   import { Toaster } from "$lib/components/ui/sonner";
+  import NProgress from "$lib/components/NProgress.svelte";
 
   const title = "Wagewhiz";
   const description = "Open-source HR and Payroll software for small and medium-sized businesses.";
@@ -39,6 +40,9 @@
 
 <QueryClientProvider client={queryClient}>
   <ModeWatcher />
+
+  <NProgress />
+
   <Toaster closeButton position="bottom-right" />
 
   <div class="flex min-h-full flex-col">
