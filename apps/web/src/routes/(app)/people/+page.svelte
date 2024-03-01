@@ -57,34 +57,24 @@
           {/each}
 
           {#if $people.isFetching || $people.isFetchingNextPage}
-            {@render skeleton()}
+            {#each Array.from({ length: 12 }) as _}
+              <PersonSkeleton />
+            {/each}
           {:else if $people.isFetched && $people.hasNextPage}
-            {@render loadMoreData()}
+            <div
+              use:inview
+              class="col-span-full mt-8 flex items-center justify-center"
+              on:inview_enter={(e) => e.detail.inView && fetchNextPage()}
+            >
+              <Button variant="outline" on:click={fetchNextPage}>Load more</Button>
+            </div>
           {:else if $people.isFetched}
-            {@render noMoreData()}
+            <div class="text-muted-foreground col-span-full mt-8 text-center">
+              No more people to load.
+            </div>
           {/if}
         </div>
       </Card.Content>
     </Card.Root>
   </div>
 </div>
-
-{#snippet skeleton()}
-  {#each Array.from({ length: 12 }) as _}
-    <PersonSkeleton />
-  {/each}
-{/snippet}
-
-{#snippet loadMoreData()}
-  <div
-    use:inview
-    class="col-span-full mt-8 flex items-center justify-center"
-    on:inview_enter={(e) => e.detail.inView && fetchNextPage()}
-  >
-    <Button variant="outline" on:click={fetchNextPage}>Load more</Button>
-  </div>
-{/snippet}
-
-{#snippet noMoreData()}
-  <div class="text-muted-foreground col-span-full mt-8 text-center">No more people to load.</div>
-{/snippet}
