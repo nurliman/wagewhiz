@@ -10,7 +10,7 @@
     { name: "Github", href: "https://github.com/nurliman/wagewhiz" },
   ];
 
-  let currentYear = $state(new Date().getFullYear());
+  let currentYear = new Date().getFullYear();
 
   onMount(() => {
     currentYear = new Date().getFullYear();

@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import isObject from "lodash-es/isObject";
+  import { onMount, onDestroy } from "svelte";
+  import { browser } from "$app/environment";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
   import NProgress, { type NProgressOptions } from "nprogress";
 
@@ -13,32 +15,31 @@
     disableSameRoute?: boolean;
   };
 
-  let {
-    height = "2px",
-    color = "#f540cc",
-    colorDark,
-    delay = 0,
-    disableSameRoute = true,
-    nonce = "nprogress",
-    options = {},
-  } = $props<NProgressProps>();
+  export let height: NProgressProps["height"] = "2px";
+  export let color: NProgressProps["color"] = "#f540cc";
+  export let colorDark: NProgressProps["colorDark"];
+  export let delay: NProgressProps["delay"] = 0;
+  export let disableSameRoute: NProgressProps["disableSameRoute"] = true;
+  export let nonce: NProgressProps["nonce"] = "nprogress";
+  export let options: NProgressProps["options"] = {};
 
-  options.showSpinner ??= false;
+  isObject(options) && (options.showSpinner ??= false);
 
-  let timer = $state<ReturnType<typeof setTimeout>>();
-  let incInterval = $state<ReturnType<typeof setInterval>>();
+  let timer: ReturnType<typeof setTimeout>;
+  let incInterval: ReturnType<typeof setInterval>;
+  let styleElement: HTMLStyleElement;
 
-  let stylesheet = $derived(`
+  $: stylesheet = `
     :root {
       --nprogress-color:${color};
       --nprogress-height:${height};
     }
 
     ${colorDark ? `:root.dark{--nprogress-color:${colorDark};}` : ""}
-  `);
+  `;
 
   onMount(() => {
-    NProgress.configure(options);
+    isObject(options) && NProgress.configure(options);
 
     return () => {
       clearTimeout(timer);
@@ -63,19 +64,22 @@
     }, 1);
   });
 
-  $effect.pre(() => {
-    const style = document.createElement("style");
-    style.setAttribute("nonce", nonce);
-    style.innerHTML = stylesheet;
-    document.head.appendChild(style);
+  $: {
+    isObject(options) && NProgress.configure(options);
+  }
 
-    return () => {
-      document.querySelector("style[nonce=nprogress]")?.remove?.();
-    };
-  });
+  $: {
+    if (browser) {
+      styleElement?.remove?.();
+      styleElement = document.createElement("style");
+      styleElement.setAttribute("nonce", nonce || "");
+      styleElement.innerHTML = stylesheet;
+      document.head.appendChild(styleElement);
+    }
+  }
 
-  $effect(() => {
-    NProgress.configure(options);
+  onDestroy(() => {
+    browser && styleElement?.remove?.();
   });
 </script>
 
