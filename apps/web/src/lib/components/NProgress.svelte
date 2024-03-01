@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "./NProgress.css";
   import isObject from "lodash-es/isObject";
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -82,48 +83,3 @@
     browser && styleElement?.remove?.();
   });
 </script>
-
-<style lang="postcss">
-  :global(#nprogress) {
-    @apply pointer-events-none;
-
-    & :global(.bar) {
-      @apply fixed left-0 top-0 z-[9999] w-full;
-      background-color: var(--nprogress-color);
-      height: var(--nprogress-height);
-    }
-
-    /* Fancy blur effect */
-    & :global(.peg) {
-      @apply absolute right-0 block h-full w-[100px] opacity-100;
-      box-shadow:
-        0 0 10px var(--nprogress-color),
-        0 0 5px var(--nprogress-color);
-      transform: rotate(3deg) translate3d(0px, -4px, 0);
-    }
-
-    /* Remove these to get rid of the spinner */
-    & :global(.spinner) {
-      @apply fixed right-[15px] top-[15px] z-[9999] block;
-    }
-
-    & :global(.spinner-icon) {
-      @apply box-border h-[18px] w-[18px];
-      @apply animate-spin duration-[400ms];
-
-      border: solid 2px transparent;
-      border-top-color: var(--nprogress-color);
-      border-left-color: var(--nprogress-color);
-      border-radius: 50%;
-    }
-  }
-
-  :global(.nprogress-custom-parent) {
-    @apply relative overflow-hidden;
-  }
-
-  :global(.nprogress-custom-parent #nprogress .spinner),
-  :global(.nprogress-custom-parent #nprogress .bar) {
-    @apply absolute;
-  }
-</style>
