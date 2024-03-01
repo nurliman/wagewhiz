@@ -20,7 +20,7 @@
     &-teal {
       @apply border-t-teal border-teal-200;
 
-      :is(:global(.dark) &) {
+      :global(html:where(.dark)) & {
         @apply border-teal-900 border-t-teal-500;
       }
     }
