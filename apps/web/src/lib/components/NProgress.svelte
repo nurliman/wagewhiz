@@ -17,7 +17,7 @@
   };
 
   export let height: NProgressProps["height"] = "2px";
-  export let color: NProgressProps["color"] = "#f540cc";
+  export let color: NProgressProps["color"] = "hsl(var(--secondary) / 1)";
   export let colorDark: NProgressProps["colorDark"];
   export let delay: NProgressProps["delay"] = 0;
   export let disableSameRoute: NProgressProps["disableSameRoute"] = true;

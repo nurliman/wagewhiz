@@ -33,7 +33,7 @@
             variant="ghost"
             class={cn(
               "flex flex-1 flex-row items-center justify-start",
-              $page.url.pathname === link.href && "bg-accent/60",
+              $page.url.pathname === link.href && "bg-accent/20 text-foreground",
             )}
           >
             <svelte:component this={link.icon} class="mr-2" />
@@ -45,14 +45,18 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .the-app-nav {
     @apply sticky top-0 z-10;
     @apply -mt-1.5 border-b;
     @apply overflow-x-auto;
-    @apply bg-background/60 dark:bg-background/80;
+    @apply bg-background/60;
     @apply backdrop-blur;
 
     scrollbar-width: none;
+
+    :global(html:where(.dark)) & {
+      @apply bg-background/80;
+    }
   }
 </style>

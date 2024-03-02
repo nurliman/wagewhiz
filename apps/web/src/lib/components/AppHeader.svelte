@@ -11,7 +11,7 @@
   <div class="container flex h-full max-w-full flex-row items-center">
     <Button href="/" variant="link" class="flex items-center">
       <img src="/assets/mage.svg" alt="Wagewhiz" height="24" width="24" class="mr-2 h-6 w-auto" />
-      <span class="text-xl font-semibold tracking-tight">Wagewhiz</span>
+      <span class="text-foreground text-xl font-semibold tracking-tight">Wagewhiz</span>
     </Button>
 
     <div class="flex-1" />

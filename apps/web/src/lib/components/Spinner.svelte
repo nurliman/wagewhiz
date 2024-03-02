@@ -1,10 +1,10 @@
 <script lang="ts">
   import { cn } from "$lib/utils/shadcn";
 
-  type Color = "teal";
+  type Color = "primary" | "secondary" | "accent";
 
   export let containerClass: string = "";
-  export let color: Color = "teal";
+  export let color: Color = "secondary";
 </script>
 
 <div class={cn("flex h-12 w-12 items-center justify-center", containerClass)}>
@@ -17,12 +17,16 @@
     @apply rounded-full border-[6px];
     @apply animate-[spin_.5s_infinite_linear];
 
-    &-teal {
-      @apply border-t-teal border-teal-200;
+    &-primary {
+      @apply border-t-primary border-primary/20;
+    }
 
-      :global(html:where(.dark)) & {
-        @apply border-teal-900 border-t-teal-500;
-      }
+    &-secondary {
+      @apply border-t-secondary border-secondary/20;
+    }
+
+    &-accent {
+      @apply border-t-accent border-accent/20;
     }
   }
 </style>
