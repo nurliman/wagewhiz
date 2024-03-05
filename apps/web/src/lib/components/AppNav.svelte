@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import { cn } from "$lib/utils/shadcn";
+  import { isActivePath } from "$lib/utils/isActivePath";
   import { Button } from "$lib/components/ui/button";
   import FluentApps24Regular from "virtual:icons/fluent/apps-24-regular";
   import FluentPeopleCommunity24Regular from "virtual:icons/fluent/people-community-24-regular";
@@ -27,13 +28,15 @@
   <div class="container flex max-w-full flex-row">
     <ul class="flex flex-row space-x-1">
       {#each navLinks as link}
+        {@const isActive = isActivePath(link.href, $page.url.pathname)}
+
         <li class="flex flex-row py-2">
           <Button
             href={link.href}
             variant="ghost"
             class={cn(
               "flex flex-1 flex-row items-center justify-start px-3 py-0.5",
-              $page.url.pathname === link.href && "bg-accent/20 text-foreground",
+              isActive && "bg-accent/20 text-foreground",
             )}
           >
             <svelte:component this={link.icon} class="mr-2" />

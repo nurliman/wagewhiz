@@ -28,6 +28,7 @@
     "formsnap": "^0.5.1",
     "initials": "^3.1.2",
     "is-absolute-url": "^4.0.1",
+    "is-relative-url": "^4.0.0",
     "lodash-es": "^4.17.21",
     "mode-watcher": "^0.2.2",
     "ms": "^3.0.0-canary.1",
