@@ -8,8 +8,8 @@
     --foreground: 224 69% 3%;
     --muted: 344 7% 89%;
     --muted-foreground: 344 12% 29%;
-    --popover: 224 42% 100%;
-    --popover-foreground: 224 69% 3%;
+    --popover: 0 0% 99%;
+    --popover-foreground: 224 69% 2%;
     --card: 0 0% 99%;
     --card-foreground: 224 69% 2%;
     --border: 224 11% 95%;
@@ -31,8 +31,8 @@
     --foreground: 224 10% 98%;
     --muted: 217.2 20.32% 36.44%;
     --muted-foreground: 344 0% 70%;
-    --popover: 224 51% 0%;
-    --popover-foreground: 224 10% 98%;
+    --popover: 240 32% 8%;
+    --popover-foreground: 224 10% 99%;
     --card: 240 32% 8%;
     --card-foreground: 224 10% 99%;
     --border: 215 28% 17%;
