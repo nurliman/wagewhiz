@@ -32,7 +32,7 @@
             href={link.href}
             variant="ghost"
             class={cn(
-              "flex flex-1 flex-row items-center justify-start",
+              "flex flex-1 flex-row items-center justify-start px-3 py-0.5",
               $page.url.pathname === link.href && "bg-accent/20 text-foreground",
             )}
           >
