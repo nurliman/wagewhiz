@@ -15,6 +15,6 @@
     "dev": "cargo run"
   },
   "devDependencies": {
-    "paseto-ts": "^1.5.6"
+    "paseto-ts": "^1.5.7"
   }
 }
