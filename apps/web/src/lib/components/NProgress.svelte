@@ -16,28 +16,29 @@
     disableSameRoute?: boolean;
   };
 
-  export let height: NProgressProps["height"] = "2px";
-  export let color: NProgressProps["color"] = "hsl(var(--secondary) / 1)";
-  export let colorDark: NProgressProps["colorDark"];
-  export let delay: NProgressProps["delay"] = 0;
-  export let disableSameRoute: NProgressProps["disableSameRoute"] = true;
-  export let nonce: NProgressProps["nonce"] = "nprogress";
-  export let options: NProgressProps["options"] = {};
+  let {
+    height = "2px",
+    color = "hsl(var(--secondary) / 1)",
+    colorDark,
+    delay = 0,
+    disableSameRoute = true,
+    nonce = "nprogress",
+    options = {},
+  }: NProgressProps = $props();
 
   isObject(options) && (options.showSpinner ??= false);
 
-  let timer: ReturnType<typeof setTimeout>;
-  let incInterval: ReturnType<typeof setInterval>;
-  let styleElement: HTMLStyleElement;
+  let timer = $state<ReturnType<typeof setTimeout>>();
+  let incInterval = $state<ReturnType<typeof setInterval>>();
 
-  $: stylesheet = `
+  let stylesheet = $derived(`
     :root {
       --nprogress-color:${color};
       --nprogress-height:${height};
     }
 
     ${colorDark ? `:root.dark{--nprogress-color:${colorDark};}` : ""}
-  `;
+  `);
 
   onMount(() => {
     isObject(options) && NProgress.configure(options);
@@ -65,21 +66,21 @@
     }, 1);
   });
 
-  $: {
+  $effect(() => {
     isObject(options) && NProgress.configure(options);
-  }
+  });
 
-  $: {
-    if (browser) {
+  $effect.pre(() => {
+    let styleElement: HTMLStyleElement | undefined;
+
+    styleElement?.remove?.();
+    styleElement = document.createElement("style");
+    styleElement.setAttribute("nonce", nonce || "");
+    styleElement.innerHTML = stylesheet;
+    document.head.appendChild(styleElement);
+
+    return () => {
       styleElement?.remove?.();
-      styleElement = document.createElement("style");
-      styleElement.setAttribute("nonce", nonce || "");
-      styleElement.innerHTML = stylesheet;
-      document.head.appendChild(styleElement);
-    }
-  }
-
-  onDestroy(() => {
-    browser && styleElement?.remove?.();
+    };
   });
 </script>
