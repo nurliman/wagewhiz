@@ -15,6 +15,7 @@
       queries: {
         enabled: browser,
         staleTime: ms("3 minutes"),
+        retry: false,
       },
     },
   });
