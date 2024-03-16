@@ -44,5 +44,5 @@ export const useGetMeQuery = () =>
     queryKey: ["v0/me"],
     queryFn: getMe,
     staleTime: 0,
-    refetchInterval: ms("1 minute"),
+    refetchInterval: ms("5 minutes"),
   });
