@@ -16,7 +16,7 @@ pub async fn get_people(
     let page = query.page.unwrap_or(1);
     let page = max(page, 1);
 
-    let page_size = query.page_size.unwrap_or(8);
+    let page_size = query.page_size.unwrap_or(12);
     let page_size: u64 = min(page_size, 50);
 
     let people = GetPeople::new().page(page).page_size(page_size);
