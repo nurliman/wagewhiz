@@ -8,6 +8,7 @@
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
+  import * as Breadcrumb from "$lib/components/ui/breadcrumb";
   import Person from "./Person.svelte";
   import PersonSkeleton from "./PersonSkeleton.svelte";
 
@@ -25,6 +26,18 @@
 
 <div>
   <div class="container">
+    <Breadcrumb.Root class="mb-8 px-4">
+      <Breadcrumb.List>
+        <Breadcrumb.Item>
+          <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Separator />
+        <Breadcrumb.Item>
+          <Breadcrumb.Page>People</Breadcrumb.Page>
+        </Breadcrumb.Item>
+      </Breadcrumb.List>
+    </Breadcrumb.Root>
+
     <Card.Root>
       <Card.Header>
         <Card.Title class="text-xl font-medium tracking-tight"
