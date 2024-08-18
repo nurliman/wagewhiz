@@ -1,3 +1,6 @@
 [workspace]
 resolver = "2"
 members = ["apps/api", "apps/api/migration"]
+
+[patch.crates-io]
+time = { path="target/patch/time-0.3.36" }
