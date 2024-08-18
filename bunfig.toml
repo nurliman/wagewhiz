@@ -1,0 +1,7 @@
+telemetry = false
+
+[install.scopes]
+"@jsr" = "https://npm.jsr.io"
+
+[install.lockfile]
+print = "yarn"
