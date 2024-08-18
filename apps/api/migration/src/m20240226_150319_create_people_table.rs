@@ -69,7 +69,7 @@ impl MigrationTrait for Migration {
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
             .get_connection()
-            .execute_unprepared("DROP TABLE `people`")
+            .execute_unprepared("DROP TABLE people")
             .await?;
 
         Ok(())
