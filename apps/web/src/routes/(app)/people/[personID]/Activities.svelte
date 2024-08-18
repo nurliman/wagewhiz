@@ -38,7 +38,7 @@
         <div class="flex items-center space-x-4">
           <img
             src="https://via.placeholder.com/48"
-            alt="Profile Picture"
+            alt="Profile"
             class="aspect-square h-12 w-12 rounded-full object-cover"
             width="48"
             height="48"

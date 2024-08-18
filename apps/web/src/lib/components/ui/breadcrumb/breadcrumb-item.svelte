@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLLiAttributes } from "svelte/elements";
-  import { cn } from "$lib/utils/shadcn.js";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = HTMLLiAttributes & {
     el?: HTMLLIElement;

@@ -1,4 +1,7 @@
-import { writable } from "svelte/store";
-import { persist, createLocalStorage } from "svelte-persistent-store";
+import { persistentAtom } from "@nanostores/persistent";
 
-export const isLoggedIn = persist<boolean>(writable(false), createLocalStorage(), "isLoggedIn");
+export const isLoggedIn = persistentAtom<boolean>("isLoggedIn", false, {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+  listen: true,
+});

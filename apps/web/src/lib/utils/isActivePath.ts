@@ -1,5 +1,5 @@
-import startsWith from "lodash-es/startsWith";
 import isRelativeUrl from "is-relative-url";
+import startsWith from "lodash-es/startsWith";
 
 export const isDOM = (): boolean => {
   return typeof window !== "undefined" && window.document && !!window.document.documentElement;

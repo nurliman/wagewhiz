@@ -5,7 +5,7 @@
 
 <Card.Root class="flex h-[280px] w-full flex-col">
   <Card.Content class="flex-1">
-    <div class="mb-6" />
+    <div class="mb-6"></div>
     <div class="flex flex-col items-center">
       <Skeleton class="mb-4 h-20 w-20 rounded-full" />
       <div class="flex flex-col items-center">

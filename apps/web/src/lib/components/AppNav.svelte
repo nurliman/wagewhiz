@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { cn } from "$lib/utils/shadcn";
+  import { cn } from "$lib/utils/shadcn.ts";
   import { isActivePath } from "$lib/utils/isActivePath";
   import { Button } from "$lib/components/ui/button";
   import FluentApps24Regular from "virtual:icons/fluent/apps-24-regular";

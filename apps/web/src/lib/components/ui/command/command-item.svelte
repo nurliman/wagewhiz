@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Command as CommandPrimitive } from "cmdk-sv";
-  import { cn } from "$lib/utils/shadcn";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = CommandPrimitive.ItemProps;
 

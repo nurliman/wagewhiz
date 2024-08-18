@@ -42,7 +42,7 @@
     <div class="col-span-2">
       <Activities />
 
-      <div class="mb-8" />
+      <div class="mb-8"></div>
 
       <Resources />
     </div>

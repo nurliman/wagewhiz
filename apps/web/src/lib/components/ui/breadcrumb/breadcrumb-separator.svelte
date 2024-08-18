@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLLiAttributes } from "svelte/elements";
   import ChevronRight from "svelte-radix/ChevronRight.svelte";
-  import { cn } from "$lib/utils/shadcn.js";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = HTMLLiAttributes & {
     el?: HTMLLIElement;

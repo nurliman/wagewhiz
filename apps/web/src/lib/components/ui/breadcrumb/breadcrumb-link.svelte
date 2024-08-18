@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { HTMLAnchorAttributes } from "svelte/elements";
-  import { cn } from "$lib/utils/shadcn.js";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = HTMLAnchorAttributes & {
     el?: HTMLAnchorElement;
@@ -16,7 +16,7 @@
   let attrs: Record<string, unknown>;
 
   $: attrs = {
-    class: cn("transition-colors hover:text-foreground", className),
+    class: cn("hover:text-foreground transition-colors", className),
     href,
     ...$$restProps,
   };

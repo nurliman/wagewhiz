@@ -22,7 +22,7 @@
   }
 
   & .spinner-icon {
-    @apply box-border h-[18px] w-[18px];
+    @apply box-border size-[18px];
     @apply animate-spin duration-[400ms];
 
     border: solid 2px transparent;

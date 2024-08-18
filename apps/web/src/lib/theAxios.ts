@@ -1,10 +1,10 @@
-import startsWith from "lodash-es/startsWith";
-import axios from "axios";
-import axiosRetry from "axios-retry";
-import { toast } from "svelte-sonner";
 import { goto } from "$app/navigation";
 import { refreshToken } from "$lib/api/auth";
 import { isLoggedIn } from "$lib/stores/auth";
+import axios from "axios";
+import axiosRetry from "axios-retry";
+import startsWith from "lodash-es/startsWith";
+import { toast } from "svelte-sonner";
 
 const BACKEND_BASE_URL = "http://localhost:3001";
 const LOGIN_URL = "/login";

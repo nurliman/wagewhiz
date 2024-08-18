@@ -1,13 +1,8 @@
-import {
-  object as vObject,
-  string as vString,
-  minLength as vMinLength,
-  type Output,
-} from "valibot";
+import * as v from "@valibot/valibot";
 
-export const loginInputSchema = vObject({
-  username: vString([vMinLength(1)]),
-  password: vString([vMinLength(1)]),
+export const loginInputSchema = v.object({
+  username: v.pipe(v.string(), v.minLength(1)),
+  password: v.pipe(v.string(), v.minLength(1)),
 });
 
-export type LoginInput = Output<typeof loginInputSchema>;
+export type LoginInput = v.InferOutput<typeof loginInputSchema>;

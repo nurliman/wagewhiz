@@ -1,7 +1,7 @@
 <script lang="ts">
   import { toggleMode } from "mode-watcher";
   import { Button } from "$lib/components/ui/button";
-  import TheAvatar from "$lib/components/TheAvatar.svelte";
+  import AppAvatar from "$lib/components/AppAvatar.svelte";
   import FluentAlert24Regular from "virtual:icons/fluent/alert-24-regular";
   import FluentWeatherSunny24Regular from "virtual:icons/fluent/weather-sunny-24-regular";
   import FluentWeatherMoon24Regular from "virtual:icons/fluent/weather-moon-24-regular";
@@ -14,7 +14,7 @@
       <span class="text-foreground text-xl font-semibold tracking-tight">Wagewhiz</span>
     </Button>
 
-    <div class="flex-1" />
+    <div class="flex-1"></div>
 
     <div class="flex h-full flex-row items-center space-x-2">
       <Button variant="ghost" size="icon">
@@ -31,10 +31,10 @@
         <span class="sr-only">Change Theme</span>
       </Button>
 
-      <div class="border-border h-3/5 border-r" />
+      <div class="border-border h-3/5 border-r"></div>
 
       <div class="flex-center !ml-3.5">
-        <TheAvatar />
+        <AppAvatar />
       </div>
     </div>
   </div>

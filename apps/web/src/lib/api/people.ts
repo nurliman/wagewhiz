@@ -1,6 +1,6 @@
 import { theAxios } from "$lib/theAxios";
-import { createQuery, createInfiniteQuery } from "@tanstack/svelte-query";
 import type { PaginationParams, PaginationResponse, Person } from "$lib/types";
+import { createInfiniteQuery, createQuery } from "@tanstack/svelte-query";
 
 export const PEOPLE_ENDPOINT = "v0/people" as const;
 

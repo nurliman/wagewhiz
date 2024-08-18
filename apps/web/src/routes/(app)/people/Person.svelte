@@ -17,7 +17,7 @@
 
 <Card.Root>
   <Card.Content>
-    <div class="mb-6" />
+    <div class="mb-6"></div>
     <div class="flex flex-col items-center">
       <a href={personHref} class="mb-4">
         <Avatar.Root class="h-20 w-20">

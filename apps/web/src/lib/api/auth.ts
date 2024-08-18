@@ -1,10 +1,10 @@
-import ms from "ms";
-import clone from "lodash-es/clone";
-import { createQuery } from "@tanstack/svelte-query";
-import { theAxios } from "$lib/theAxios";
-import { encodeBase85 } from "base85";
-import type { Person, UserWithCredential } from "$lib/types";
 import type { LoginInput } from "$lib/schemas/auth";
+import { theAxios } from "$lib/theAxios";
+import type { Person, UserWithCredential } from "$lib/types";
+import { createQuery } from "@tanstack/svelte-query";
+import { encodeBase85 } from "base85";
+import clone from "lodash-es/clone";
+import ms from "ms";
 import type { PartialDeep } from "type-fest";
 
 export const getMe = async () => {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { RadioGroup as RadioGroupPrimitive } from "bits-ui";
-  import { cn } from "$lib/utils/shadcn";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = RadioGroupPrimitive.Props;
 

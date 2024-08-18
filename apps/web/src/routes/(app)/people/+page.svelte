@@ -61,7 +61,7 @@
           <span>Sort</span>
         </Button>
 
-        <div class="flex-1" />
+        <div class="flex-1"></div>
 
         <Button variant="outline" class="">
           <FluentPeopleAdd20Regular class="mr-2 h-4 w-4" />
@@ -75,7 +75,7 @@
       </Card.Content>
     </Card.Root>
 
-    <div class="mb-4" />
+    <div class="mb-4"></div>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <!-- TODO: add ui for empty data -->

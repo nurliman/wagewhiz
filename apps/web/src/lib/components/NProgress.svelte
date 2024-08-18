@@ -1,8 +1,7 @@
 <script lang="ts">
   import "./NProgress.css";
   import isObject from "lodash-es/isObject";
-  import { onMount, onDestroy } from "svelte";
-  import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
   import NProgress, { type NProgressOptions } from "nprogress";
 
@@ -26,7 +25,7 @@
     options = {},
   }: NProgressProps = $props();
 
-  isObject(options) && (options.showSpinner ??= false);
+  if (isObject(options)) options.showSpinner ??= false;
 
   let timer = $state<ReturnType<typeof setTimeout>>();
   let incInterval = $state<ReturnType<typeof setInterval>>();
@@ -41,7 +40,7 @@
   `);
 
   onMount(() => {
-    isObject(options) && NProgress.configure(options);
+    if (isObject(options)) NProgress.configure(options);
 
     return () => {
       clearTimeout(timer);
@@ -67,7 +66,7 @@
   });
 
   $effect(() => {
-    isObject(options) && NProgress.configure(options);
+    if (isObject(options)) NProgress.configure(options);
   });
 
   $effect.pre(() => {

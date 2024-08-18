@@ -2,7 +2,7 @@
   import { Checkbox as CheckboxPrimitive } from "bits-ui";
   import Check from "svelte-radix/Check.svelte";
   import Minus from "svelte-radix/Minus.svelte";
-  import { cn } from "$lib/utils/shadcn";
+  import { cn } from "$lib/utils/shadcn.ts";
 
   type $$Props = CheckboxPrimitive.Props;
   type $$Events = CheckboxPrimitive.Events;

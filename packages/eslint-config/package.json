@@ -3,17 +3,23 @@
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "author": {
     "name": "Nurliman Diara",
     "email": "nurlimandiara@gmail.com",
     "url": "https://nurliman.dev"
   },
+  "scripts": {
+    "lint": "eslint ."
+  },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-turbo": "^1.12.5",
-    "eslint-plugin-svelte": "^2.36.0-next.10"
+    "eslint-config-turbo": "^1",
+    "eslint-plugin-svelte": "^2.43.0",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.1.0"
   },
   "publishConfig": {
     "access": "public"

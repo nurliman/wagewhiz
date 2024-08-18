@@ -1,7 +1,47 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
+import type { Config } from "tailwindcss";
+import twDefault from "tailwindcss/defaultTheme";
+import twPlugin from "tailwindcss/plugin";
 
-/** @type {import('tailwindcss').Config} */
-const config = {
+const thePlugin = twPlugin(({ addUtilities }) => {
+  addUtilities({
+    ".absolute-center": {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    },
+    ".flex-center": {
+      display: "flex",
+      "justify-content": "center",
+      "align-items": "center",
+    },
+    ".hide-scrollbar": {
+      "-ms-overflow-style": "none",
+      "scrollbar-width": "none",
+    },
+    ".hide-scrollbar::-webkit-scrollbar": {
+      display: "none",
+    },
+    ".no-drag": {
+      "-webkit-user-drag": "none",
+      "-khtml-user-drag": "none",
+      "-moz-user-drag": "none",
+      "-o-user-drag": "none",
+      "-ms-user-drag": "none",
+      "user-drag": "none",
+    },
+    ".no-select": {
+      "-webkit-user-select": "none",
+      "-khtml-user-select": "none",
+      "-moz-user-select": "none",
+      "-o-user-select": "none",
+      "-ms-user-select": "none",
+      "user-select": "none",
+    },
+  });
+});
+
+const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{html,js,svelte,ts}"],
   safelist: ["dark"],
@@ -14,6 +54,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans Variable"', '"Plus Jakarta Sans"', ...twDefault.fontFamily.sans],
+      },
       colors: {
         border: "hsl(var(--border) / <alpha-value>)",
         input: "hsl(var(--input) / <alpha-value>)",
@@ -54,11 +97,9 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily: {
-        sans: [...fontFamily.sans],
-      },
     },
   },
+  plugins: [thePlugin],
 };
 
 export default config;
