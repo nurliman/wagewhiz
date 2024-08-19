@@ -12,8 +12,7 @@
     "url": "https://nurliman.dev"
   },
   "scripts": {
-    "dev": "cargo run",
-    "generate": "sea-orm-cli generate entity -o src/entities --date-time-crate time --with-serde both"
+    "dev": "cargo run"
   },
   "devDependencies": {
     "paseto-ts": "^1.5.7"
