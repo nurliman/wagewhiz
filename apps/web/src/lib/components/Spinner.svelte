@@ -4,7 +4,7 @@
   type Color = "primary" | "secondary" | "accent";
 
   export let containerClass: string = "";
-  export let color: Color = "secondary";
+  export let color: Color = "primary";
 </script>
 
 <div class={cn("flex-center size-12", containerClass)}>
