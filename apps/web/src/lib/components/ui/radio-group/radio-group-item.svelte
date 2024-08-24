@@ -16,15 +16,15 @@
 <RadioGroupPrimitive.Item
   {value}
   class={cn(
-    "border-primary text-primary focus-visible:ring-ring aspect-square h-4 w-4 rounded-full border shadow focus:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
+    "border-primary text-primary focus-visible:ring-ring aspect-square size-4 rounded-full border shadow focus:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
     className,
   )}
   {...$$restProps}
   on:click
 >
-  <div class="flex items-center justify-center">
+  <div class="flex-center">
     <RadioGroupPrimitive.ItemIndicator>
-      <Check class="fill-primary h-3.5 w-3.5" />
+      <Check class="fill-primary size-3.5" />
     </RadioGroupPrimitive.ItemIndicator>
   </div>
 </RadioGroupPrimitive.Item>

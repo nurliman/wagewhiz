@@ -39,7 +39,7 @@
           <img
             src="https://via.placeholder.com/48"
             alt="Profile"
-            class="aspect-square h-12 w-12 rounded-full object-cover"
+            class="aspect-square size-12 rounded-full object-cover"
             width="48"
             height="48"
             loading="lazy"

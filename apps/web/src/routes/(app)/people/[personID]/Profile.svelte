@@ -47,7 +47,7 @@
 
 <Card.Root class="col-span-1">
   <Card.Header class="bg-primary flex flex-col items-center rounded-t-xl">
-    <Avatar.Root class="h-32 w-32">
+    <Avatar.Root class="size-32">
       <Avatar.Image src={person.avatar_url} alt={safeName} loading="lazy" />
       <Avatar.Fallback class="text-4xl">{personInitials}</Avatar.Fallback>
     </Avatar.Root>

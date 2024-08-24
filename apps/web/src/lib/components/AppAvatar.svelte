@@ -30,8 +30,8 @@
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger>
-    <Button variant="outline" size="icon" class="flex-center h-10 w-10 rounded-full">
-      <Avatar.Root class="h-8 w-8">
+    <Button variant="outline" size="icon" class="flex-center size-10 rounded-full">
+      <Avatar.Root class="size-8">
         <Avatar.Image src="https://github.com/shadcn.png" alt="Avatar" />
         <Avatar.Fallback>CN</Avatar.Fallback>
       </Avatar.Root>

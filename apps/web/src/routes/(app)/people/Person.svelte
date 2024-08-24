@@ -20,7 +20,7 @@
     <div class="mb-6"></div>
     <div class="flex flex-col items-center">
       <a href={personHref} class="mb-4">
-        <Avatar.Root class="h-20 w-20">
+        <Avatar.Root class="size-20">
           <Avatar.Image src={person.avatar_url} alt={safeName} loading="lazy" />
           <Avatar.Fallback class="text-2xl">{personInitials}</Avatar.Fallback>
         </Avatar.Root>
@@ -43,11 +43,11 @@
   </Card.Content>
   <Card.Footer class="flex space-x-2">
     <Button variant="secondary" size="sm" class="h-8 flex-1">
-      <FluentSend16Regular class="mr-2 h-4 w-4" />
+      <FluentSend16Regular class="mr-2 size-4" />
       <span>Send Message</span>
     </Button>
     <Button variant="secondary" size="icon" class="h-8">
-      <FluentMoreVertical20Regular class="h-5 w-5" />
+      <FluentMoreVertical20Regular class="size-5" />
     </Button>
   </Card.Footer>
 </Card.Root>

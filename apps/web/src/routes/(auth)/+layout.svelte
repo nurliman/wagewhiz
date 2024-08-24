@@ -23,7 +23,7 @@
 </script>
 
 {#if isBoolean(isLoggedInState) && !isLoggedInState}
-  <div class="flex h-full w-full flex-1 flex-col">
+  <div class="flex size-full flex-1 flex-col">
     <main class="flex flex-1 flex-col py-6 lg:py-8">
       <!-- TODO: change `<slot/>` to `@render` -->
       <!-- svelte-ignore slot_element_deprecated -->

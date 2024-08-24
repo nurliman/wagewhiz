@@ -7,7 +7,7 @@
   <Card.Content class="flex-1">
     <div class="mb-6"></div>
     <div class="flex flex-col items-center">
-      <Skeleton class="mb-4 h-20 w-20 rounded-full" />
+      <Skeleton class="mb-4 size-20 rounded-full" />
       <div class="flex flex-col items-center">
         <Skeleton class="mb-2 h-5 w-24" />
         <Skeleton class="mb-1 h-6 w-40" />

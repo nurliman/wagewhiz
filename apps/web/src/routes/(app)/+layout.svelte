@@ -9,7 +9,7 @@
 </script>
 
 {#if $me.status === "success"}
-  <div class="flex h-full w-full flex-1 flex-col">
+  <div class="flex size-full flex-1 flex-col">
     <AppHeader />
 
     <AppNav />

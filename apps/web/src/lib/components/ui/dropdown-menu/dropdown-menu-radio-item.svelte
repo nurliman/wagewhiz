@@ -26,9 +26,9 @@
   on:pointerleave
   on:pointermove
 >
-  <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+  <span class="flex-center absolute left-2 size-3.5">
     <DropdownMenuPrimitive.RadioIndicator>
-      <DotFilled class="h-4 w-4 fill-current" />
+      <DotFilled class="size-4 fill-current" />
     </DropdownMenuPrimitive.RadioIndicator>
   </span>
   <slot />

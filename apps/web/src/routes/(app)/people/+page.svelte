@@ -52,24 +52,24 @@
         <Input type="search" placeholder="Search for people" class="w-[150px] lg:w-[250px]" />
 
         <Button variant="outline" class="">
-          <FluentFilter20Regular class="mr-2 h-4 w-4" />
+          <FluentFilter20Regular class="mr-2 size-4" />
           <span>Filter</span>
         </Button>
 
         <Button variant="outline" class="">
-          <FluentArrowSort20Regular class="mr-2 h-4 w-4" />
+          <FluentArrowSort20Regular class="mr-2 size-4" />
           <span>Sort</span>
         </Button>
 
         <div class="flex-1"></div>
 
         <Button variant="outline" class="">
-          <FluentPeopleAdd20Regular class="mr-2 h-4 w-4" />
+          <FluentPeopleAdd20Regular class="mr-2 size-4" />
           <span>Import People</span>
         </Button>
 
         <Button variant="default" class="">
-          <FluentPersonAdd20Regular class="mr-2 h-4 w-4" />
+          <FluentPersonAdd20Regular class="mr-2 size-4" />
           <span>Add Person</span>
         </Button>
       </Card.Content>
@@ -94,7 +94,7 @@
       {:else if $people.isFetched && $people.hasNextPage}
         <div
           use:inview
-          class="col-span-full mt-8 flex items-center justify-center"
+          class="flex-center col-span-full mt-8"
           on:inview_enter={(e) => e.detail.inView && fetchNextPage()}
         >
           <Button variant="outline" on:click={fetchNextPage}>Load more</Button>

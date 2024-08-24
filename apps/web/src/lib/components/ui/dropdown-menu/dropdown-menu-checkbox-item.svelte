@@ -26,9 +26,9 @@
   on:pointerleave
   on:pointermove
 >
-  <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+  <span class="flex-center absolute left-2 size-3.5">
     <DropdownMenuPrimitive.CheckboxIndicator>
-      <Check class="h-4 w-4" />
+      <Check class="size-4" />
     </DropdownMenuPrimitive.CheckboxIndicator>
   </span>
   <slot />
