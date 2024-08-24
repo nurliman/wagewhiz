@@ -1,0 +1,20 @@
+diff --git a/dist/bits/combobox/components/combobox.svelte b/dist/bits/combobox/components/combobox.svelte
+index 5b1fb88ab6e4cbfc4b628708a111ba5fc0f8d8f4..4c2863877bb1caf9b5d4fe1406f221d3f7c6d3f1 100644
+--- a/dist/bits/combobox/components/combobox.svelte
++++ b/dist/bits/combobox/components/combobox.svelte
+@@ -1,4 +1,4 @@
+-<script context="module"></script>
++<script module></script>
+ 
+ <script generics="T, Multiple extends boolean = false">import { derived } from "svelte/store";
+ import { setCtx } from "../ctx.js";
+diff --git a/dist/bits/select/components/select.svelte b/dist/bits/select/components/select.svelte
+index 421e770a426e48d5b3cd0a8ac12a36a705644305..9da31bdf530ee871551e2de20cadab4eff457b4d 100644
+--- a/dist/bits/select/components/select.svelte
++++ b/dist/bits/select/components/select.svelte
+@@ -1,4 +1,4 @@
+-<script context="module"></script>
++<script module></script>
+ 
+ <script generics="T, Multiple extends boolean = false">import { derived } from "svelte/store";
+ import { setCtx } from "../ctx.js";

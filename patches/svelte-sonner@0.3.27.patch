@@ -1,0 +1,11 @@
+diff --git a/dist/Toast.svelte b/dist/Toast.svelte
+index eaa232b4fe57399822b7566a9da58ca484e5830e..42a18449c4bf5f5cdd95d63669ac13236d8d4f25 100644
+--- a/dist/Toast.svelte
++++ b/dist/Toast.svelte
+@@ -1,6 +1,3 @@
+-<!-- Set immutable: true to avoid unnecessary re-runs of reactive statements. -->
+-<svelte:options immutable={true} />
+-
+ <script>import { onMount, tick } from 'svelte';
+ import { toastState, useEffect } from './state';
+ import { cn } from './internal/helpers';

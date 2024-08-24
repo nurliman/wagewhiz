@@ -31,5 +31,9 @@
     "esbuild",
     "svelte-preprocess"
   ],
-  "packageManager": "bun@1.1.26"
+  "packageManager": "bun@1.1.26",
+  "patchedDependencies": {
+    "bits-ui@0.21.13": "patches/bits-ui@0.21.13.patch",
+    "svelte-sonner@0.3.27": "patches/svelte-sonner@0.3.27.patch"
+  }
 }
