@@ -16,7 +16,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write --cache \"**/*.+(js|mjs|cjs|jsx|ts|tsx|css|scss|md|json|yml|yaml|astro|html)\" --ignore .gitignore --ignore .prettierignore"
+    "format": "prettier --write --cache \"**/*.+(js|mjs|cjs|jsx|ts|tsx|css|scss|md|json|yml|yaml|astro|svelte|html)\" --ignore .gitignore --ignore .prettierignore"
   },
   "devDependencies": {
     "eslint": "^9.9.1",
