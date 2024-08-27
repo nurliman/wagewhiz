@@ -9,10 +9,12 @@
   import { login } from "$lib/api/auth";
   import { loginInputSchema, type LoginInput } from "$lib/schemas/auth";
   import { goto } from "$app/navigation";
+  import { cn } from "$lib/utils/shadcn";
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import * as Card from "$lib/components/ui/card";
   import * as Form from "$lib/components/ui/form";
+  import FluentSpinnerIos16Regular from "virtual:icons/fluent/spinner-ios-16-regular";
 
   const loginMutation = createMutation<UserWithCredential, Error, LoginInput>({
     mutationFn: login,
@@ -46,7 +48,7 @@
   const { form: formData, enhance } = form;
 </script>
 
-<div class="container flex flex-1 flex-col">
+<div class="container flex max-w-md flex-1 flex-col">
   <div class="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center">
     <Card.Root>
       <Card.Header class="space-y-1">
@@ -79,7 +81,15 @@
             <Form.FieldErrors />
           </Form.Field>
           <div>
-            <Form.Button class="w-full" disabled={$loginMutation.isPending}>Login</Form.Button>
+            <Form.Button
+              class="flex w-full flex-row items-center"
+              disabled={$loginMutation.isPending}
+            >
+              <FluentSpinnerIos16Regular
+                class={cn("mr-2 animate-spin", !$loginMutation.isPending && "hidden")}
+              />
+              Login
+            </Form.Button>
           </div>
         </form>
         <div class="relative">
@@ -96,6 +106,7 @@
             type="button"
             variant="outline"
             disabled={$loginMutation.isPending}
+            on:click={() => toast.error("Not implemented yet.")}
           >
             <!-- TODO: Add GitHub icon -->
             GitHub
@@ -105,6 +116,7 @@
             type="button"
             variant="outline"
             disabled={$loginMutation.isPending}
+            on:click={() => toast.error("Not implemented yet.")}
           >
             <!-- TODO: Add Google icon -->
             Google
