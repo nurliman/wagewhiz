@@ -20,7 +20,7 @@ use axum::{
     Router,
 };
 use std::net::SocketAddr;
-use tower_http::cors::CorsLayer;
+use tower_http::{cors::CorsLayer, trace};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -29,10 +29,21 @@ async fn main() {
 
     tracing_subscriber::registry()
         .with(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| "api=debug".into()),
+            tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+                // axum logs rejections from built-in extractors with the `axum::rejection`
+                // target, at `TRACE` level. `axum::rejection=trace` enables showing those events
+                format!(
+                    "{}=debug,tower_http=debug,axum::rejection=trace",
+                    env!("CARGO_CRATE_NAME")
+                )
+                .into()
+            }),
         )
-        .with(tracing_subscriber::fmt::layer())
+        .with(
+            tracing_subscriber::fmt::layer()
+                .with_target(false)
+                .compact(),
+        )
         .init();
 
     let app = Router::new()
@@ -60,6 +71,14 @@ async fn main() {
             get(handlers::people::get_person_by_id)
                 .route_layer(middleware::from_fn(middlewares::auth)),
         )
+        // High level logging of requests and responses
+        .layer(
+            trace::TraceLayer::new_for_http()
+                .make_span_with(trace::DefaultMakeSpan::new())
+                .on_request(trace::DefaultOnRequest::new().level(tracing::Level::INFO))
+                .on_response(trace::DefaultOnResponse::new().level(tracing::Level::INFO)),
+        )
+        // Add CORS headers to responses
         .layer(
             CorsLayer::new()
                 // TODO: change this to the frontend url dynamically using env var

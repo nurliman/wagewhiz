@@ -10,7 +10,7 @@ publish = false
 anyhow = "1.0.86"
 argon2 = "0.5.3"
 ascii85 = "0.2.1"
-axum = "0.7.5"
+axum = { version = "0.7.5", features = ["tracing"] }
 axum-extra = { version = "0.9.3", features = ["cookie"] }
 axum-macros = "0.4.1"
 base64-url = "3.0.0"
@@ -31,7 +31,7 @@ serde_json = "1.0.127"
 thiserror = "1.0.63"
 time = { version = "0.3.36", features = ["serde", "formatting", "parsing"] }
 tokio = { version = "1.39.3", features = ["full"] }
-tower-http = { version = "0.5.2", features = ["cors"] }
+tower-http = { version = "0.5.2", features = ["cors", "trace"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 uuid = { version = "1.10.0", features = ["serde"] }
