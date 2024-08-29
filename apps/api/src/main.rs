@@ -42,11 +42,7 @@ async fn main() {
                 .into()
             }),
         )
-        .with(
-            tracing_subscriber::fmt::layer()
-                .with_target(false)
-                .compact(),
-        )
+        .with(tracing_subscriber::fmt::layer())
         .init();
 
     let app = Router::new()
