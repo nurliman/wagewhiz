@@ -1,7 +1,7 @@
 mod constants;
 mod db;
-mod env;
 mod entities;
+mod env;
 mod errors;
 mod handlers;
 mod middlewares;
@@ -88,8 +88,9 @@ async fn main() {
         })
         .unwrap();
 
-    tracing::debug!("listening on {}", addr);
-
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+
+    tracing::debug!("listening on {}", listener.local_addr().unwrap());
+
     axum::serve(listener, app).await.unwrap();
 }
