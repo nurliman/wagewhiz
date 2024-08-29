@@ -4,6 +4,7 @@ import { isLoggedIn } from "$lib/stores/auth";
 import axios from "axios";
 import axiosRetry from "axios-retry";
 import startsWith from "lodash-es/startsWith";
+import { nanoid } from "nanoid";
 import { toast } from "svelte-sonner";
 
 const BACKEND_BASE_URL = "http://localhost:3001";
@@ -19,6 +20,12 @@ const theAxios = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+});
+
+// setup X-Requested-ID
+theAxios.interceptors.request.use((config) => {
+  config.headers["X-Request-ID"] = nanoid();
+  return config;
 });
 
 // TODO: Replace axios with tanstack-query for retry and refresh token handling.

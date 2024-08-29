@@ -13,14 +13,14 @@ mod validation;
 use axum::{
     http::{
         header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE},
-        HeaderValue, Method,
+        HeaderName, HeaderValue, Method,
     },
     middleware,
     routing::{get, post},
     Router,
 };
 use std::net::SocketAddr;
-use tower_http::{cors::CorsLayer, trace};
+use tower_http::{cors::CorsLayer, propagate_header::PropagateHeaderLayer, trace};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -78,6 +78,10 @@ async fn main() {
                 .on_request(trace::DefaultOnRequest::new().level(tracing::Level::INFO))
                 .on_response(trace::DefaultOnResponse::new().level(tracing::Level::INFO)),
         )
+        // Propagate `X-Request-Id`s from requests to responses
+        .layer(PropagateHeaderLayer::new(HeaderName::from_static(
+            "x-request-id",
+        )))
         // Add CORS headers to responses
         .layer(
             CorsLayer::new()
@@ -87,7 +91,12 @@ async fn main() {
                     "http://localhost:8080".parse::<HeaderValue>().unwrap(),
                 ])
                 .allow_credentials(true)
-                .allow_headers([ACCEPT, AUTHORIZATION, CONTENT_TYPE])
+                .allow_headers([
+                    ACCEPT,
+                    AUTHORIZATION,
+                    CONTENT_TYPE,
+                    HeaderName::from_static("x-request-id"),
+                ])
                 .allow_methods([
                     Method::GET,
                     Method::POST,
