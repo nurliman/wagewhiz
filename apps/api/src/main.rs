@@ -12,7 +12,7 @@ mod validation;
 
 use axum::{
     http::{
-        header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE},
+        header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE, COOKIE, SET_COOKIE},
         HeaderName, HeaderValue, Method,
     },
     middleware,
@@ -20,7 +20,10 @@ use axum::{
     Router,
 };
 use std::net::SocketAddr;
-use tower_http::{cors::CorsLayer, propagate_header::PropagateHeaderLayer, trace};
+use tower_http::{
+    cors::CorsLayer, propagate_header::PropagateHeaderLayer,
+    sensitive_headers::SetSensitiveHeadersLayer, trace,
+};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -74,10 +77,16 @@ async fn main() {
         // High level logging of requests and responses
         .layer(
             trace::TraceLayer::new_for_http()
-                .make_span_with(trace::DefaultMakeSpan::new())
+                .make_span_with(trace::DefaultMakeSpan::new().include_headers(true))
                 .on_request(trace::DefaultOnRequest::new().level(tracing::Level::INFO))
                 .on_response(trace::DefaultOnResponse::new().level(tracing::Level::INFO)),
         )
+        // Mark headers as sensitive so they don't show in logs.
+        .layer(SetSensitiveHeadersLayer::new(
+            std::iter::once(AUTHORIZATION)
+                .chain(std::iter::once(COOKIE))
+                .chain(std::iter::once(SET_COOKIE)),
+        ))
         // Propagate `X-Request-Id`s from requests to responses
         .layer(PropagateHeaderLayer::new(HeaderName::from_static(
             "x-request-id",
