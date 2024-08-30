@@ -15,7 +15,7 @@ impl MigrationTrait for Migration {
                 updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 deleted_at TIMESTAMPTZ,
                 name TEXT,
-                nip TEXT,
+                nik TEXT,
                 country TEXT,
                 city TEXT,
                 address TEXT,
@@ -38,7 +38,7 @@ impl MigrationTrait for Migration {
         .await?;
 
         db.execute_unprepared(
-            "INSERT INTO people (name, email, department, role, joining_date, gender, nip, phone, status)
+            "INSERT INTO people (name, email, department, role, joining_date, gender, nik, phone, status)
             VALUES
               ('John Doe', 'johndoe@example.com', 'Human Resources', 'HR Manager', '2022-01-01', 'Male', '1234567890', '+6281234567890', 'Permanent'),
               ('Jane Smith', 'janesmith@example.com', 'Sales', 'Sales Representative', '2022-02-01', 'Female', '0987654321', '+6289876543210', 'Contract'),

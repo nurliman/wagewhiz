@@ -43,7 +43,7 @@ export type Person = {
   updated_at: Date;
   deleted_at: Date | null;
   name: string | null;
-  nip: string | null;
+  nik: string | null;
   country: string | null;
   city: string | null;
   address: string | null;
