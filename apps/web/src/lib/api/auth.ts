@@ -1,48 +1,68 @@
-import type { LoginInput } from "$lib/schemas/auth";
-import { theAxios } from "$lib/theAxios";
-import type { Person, UserWithCredential } from "$lib/types";
-import { createQuery } from "@tanstack/svelte-query";
+import { graphql } from "$lib/graphql";
+import { execute } from "$lib/graphql/execute";
+import type { LoginInput } from "$lib/graphql/graphql";
 import { encodeBase85 } from "base85";
 import clone from "lodash-es/clone";
-import ms from "ms";
-import type { PartialDeep } from "type-fest";
 
-export const getMe = async () => {
-  const response = await theAxios.get<Person>("v0/me");
-  return response.data;
-};
+export const loginMutation = graphql(`
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+      user {
+        id
+        createdAt
+        updatedAt
+        username
+        role
+        personId
+      }
+      credential {
+        accessToken
+        refreshToken
+      }
+    }
+  }
+`);
 
-export const login = async (loginInput: LoginInput) => {
-  if (!loginInput?.username || !loginInput?.password) {
+export const login = async ({ username, password }: LoginInput) => {
+  if (!username || !password) {
     throw new Error("Username and password are required");
   }
   // Encode username and password to base85
-  const username = encodeBase85(clone(loginInput.username));
-  const password = encodeBase85(clone(loginInput.password));
+  username = encodeBase85(clone(username));
+  password = encodeBase85(clone(password));
 
-  const response = await theAxios.post<UserWithCredential>("v0/auth/login", {
-    username,
-    password,
-  });
-  return response.data;
+  return execute(loginMutation, { input: { username, password } }).then((res) => res.login);
 };
+
+export const logoutMutation = graphql(`
+  mutation Logout {
+    logout
+  }
+`);
 
 export const logout = async () => {
-  await theAxios.post("v0/auth/logout");
-  return null;
+  return execute(logoutMutation).then((res) => res.logout);
 };
 
-export const refreshToken = async (refreshToken?: string) => {
-  const response = await theAxios.post<PartialDeep<UserWithCredential>>("v0/auth/refresh-token", {
-    refresh_token: refreshToken,
-  });
-  return response.data;
-};
+export const refreshTokenMutation = graphql(`
+  mutation RefreshToken {
+    refreshToken {
+      user {
+        id
+        createdAt
+        updatedAt
+        username
+        role
+        personId
+      }
+      credential {
+        accessToken
+        refreshToken
+      }
+    }
+  }
+`);
 
-export const useGetMeQuery = () =>
-  createQuery<Person, Error>({
-    queryKey: ["v0/me"],
-    queryFn: getMe,
-    staleTime: 0,
-    refetchInterval: ms("5 minutes"),
-  });
+export const refreshToken = async () => {
+  return execute(refreshTokenMutation);
+};

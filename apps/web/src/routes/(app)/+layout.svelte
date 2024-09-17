@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { useGetMeQuery } from "$lib/api/auth";
+  import { useGetMeQuery } from "$lib/api";
   import AppHeader from "$lib/components/AppHeader.svelte";
   import AppNav from "$lib/components/AppNav.svelte";
   import SpinnerPage from "$lib/components/SpinnerPage.svelte";

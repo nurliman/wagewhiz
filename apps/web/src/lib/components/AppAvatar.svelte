@@ -4,7 +4,7 @@
   import { isAxiosError } from "axios";
   import { createMutation } from "@tanstack/svelte-query";
   import { isLoggedIn } from "$lib/stores/auth";
-  import { logout } from "$lib/api/auth";
+  import { logout } from "$lib/api";
   import { Button } from "$lib/components/ui/button";
   import * as Avatar from "$lib/components/ui/avatar";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";

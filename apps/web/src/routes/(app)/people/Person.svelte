@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Person } from "$lib/types";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
   import FluentSend16Regular from "virtual:icons/fluent/send-16-regular";
@@ -7,6 +6,7 @@
   import * as Avatar from "$lib/components/ui/avatar";
   import * as Card from "$lib/components/ui/card";
   import initials from "initials";
+  import type { Person } from "$lib/graphql/graphql";
 
   export let person: Person;
 
@@ -21,7 +21,7 @@
     <div class="flex flex-col items-center">
       <a href={personHref} class="mb-4">
         <Avatar.Root class="size-20">
-          <Avatar.Image src={person.avatar_url} alt={safeName} loading="lazy" />
+          <Avatar.Image src={person.avatarUrl} alt={safeName} loading="lazy" />
           <Avatar.Fallback class="text-2xl">{personInitials}</Avatar.Fallback>
         </Avatar.Root>
       </a>

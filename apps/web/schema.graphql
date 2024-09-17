@@ -1,0 +1,103 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type AuthResponse {
+  credential: Credential!
+  user: UserAccount!
+}
+
+type Credential {
+  accessToken: String!
+  refreshToken: String!
+}
+
+"""
+Implement the DateTime<FixedOffset> scalar
+
+The input/output is a string in RFC3339 format.
+"""
+scalar DateTime
+
+input LoginInput {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  login(input: LoginInput!): AuthResponse!
+  logout: Boolean!
+  refreshToken: AuthResponse!
+}
+
+"""
+ISO 8601 calendar date without timezone.
+Format: %Y-%m-%d
+
+# Examples
+
+* `1994-11-13`
+* `2000-02-24`
+"""
+scalar NaiveDate
+
+type PeoplePaginationResponse {
+  items: [Person!]!
+  page: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+type Person {
+  address: String
+  avatarUrl: String
+  birthday: NaiveDate
+  city: String
+  country: String
+  createdAt: DateTime!
+  deletedAt: DateTime
+  department: String
+  email: String
+  gender: String
+  id: UUID!
+  isActive: Boolean
+  joiningDate: NaiveDate
+  name: String
+  nik: String
+  organization: String
+  phone: String
+  role: String
+  status: String
+  updatedAt: DateTime!
+  zipCode: String
+}
+
+type Query {
+  me: UserAccount!
+  people(page: Int, pageSize: Int): PeoplePaginationResponse!
+  person(id: UUID!): Person!
+  user(id: UUID!): UserAccount!
+}
+
+"""
+A UUID is a unique 128-bit number, stored as 16 octets. UUIDs are parsed as
+Strings within GraphQL. UUIDs are used to assign unique identifiers to
+entities without requiring a central allocating authority.
+
+# References
+
+* [Wikipedia: Universally Unique Identifier](http://en.wikipedia.org/wiki/Universally_unique_identifier)
+* [RFC4122: A Universally Unique IDentifier (UUID) URN Namespace](http://tools.ietf.org/html/rfc4122)
+"""
+scalar UUID
+
+type UserAccount {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  id: UUID!
+  personId: UUID
+  role: String!
+  updatedAt: DateTime!
+  username: String!
+}

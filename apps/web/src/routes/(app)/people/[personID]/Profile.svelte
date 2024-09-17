@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Person } from "$lib/types";
   import * as Avatar from "$lib/components/ui/avatar";
   import * as Card from "$lib/components/ui/card";
+  import type { Person } from "$lib/graphql/graphql";
   import initials from "initials";
 
   type ChronoCardData = {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { useGetPersonQuery } from "$lib/api/people";
+  import { useGetPersonQuery } from "$lib/api";
   import { Skeleton } from "$lib/components/ui/skeleton";
   import * as Breadcrumb from "$lib/components/ui/breadcrumb";
   import Profile from "./Profile.svelte";

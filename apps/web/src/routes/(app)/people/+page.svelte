@@ -4,7 +4,7 @@
   import FluentArrowSort20Regular from "virtual:icons/fluent/arrow-sort-20-regular";
   import FluentPeopleAdd20Regular from "virtual:icons/fluent/people-add-20-regular";
   import FluentPersonAdd20Regular from "virtual:icons/fluent/person-add-20-regular";
-  import { useGetPeopleQuery } from "$lib/api/people";
+  import { useGetPeopleQuery } from "$lib/api";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
   import * as Card from "$lib/components/ui/card";
@@ -80,8 +80,8 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <!-- TODO: add ui for empty data -->
       {#each $people.data?.pages || [] as page (page.page)}
-        {#if Array.isArray(page.data)}
-          {#each page.data as person (person.id)}
+        {#if Array.isArray(page.items)}
+          {#each page.items as person (person.id)}
             <Person {person} />
           {/each}
         {/if}

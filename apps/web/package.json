@@ -16,6 +16,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "prettier": "prettier --cache --ignore-path=../../.prettierignore --ignore-path=.gitignore",
     "lint": "npm run prettier -- --check . && eslint .",
+    "codegen": "graphql-codegen-esm --config graphql-codegen.ts",
     "format": "npm run prettier -- --write ."
   },
   "dependencies": {
@@ -34,11 +35,13 @@
     "is-absolute-url": "^4.0.1",
     "is-relative-url": "^4.0.0",
     "lodash-es": "^4.17.21",
+    "make-error": "^1.3.6",
     "mode-watcher": "^0.4.1",
     "ms": "^3.0.0-canary.1",
     "nanoid": "^5.0.7",
     "nanostores": "^0.11.3",
     "nprogress": "^0.2.0",
+    "p-retry": "^6.2.0",
     "svelte-inview": "^4.0.2",
     "svelte-radix": "^1.1.1",
     "svelte-sonner": "^0.3.27",
@@ -47,6 +50,11 @@
     "tailwind-variants": "^0.2.1"
   },
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.14",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@iconify-json/fluent": "^1.1.63",
     "@sveltejs/adapter-static": "^3.0.4",
     "@sveltejs/kit": "^2.5.25",

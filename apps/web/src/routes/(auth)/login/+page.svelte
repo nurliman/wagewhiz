@@ -1,12 +1,11 @@
 <script lang="ts">
-  import type { UserWithCredential } from "$lib/types";
+  import type { AuthResponse } from "$lib/graphql/graphql";
   import { superForm, defaults } from "sveltekit-superforms";
   import { valibot } from "sveltekit-superforms/adapters";
-  import { isAxiosError } from "axios";
   import { createMutation } from "@tanstack/svelte-query";
   import { toast } from "svelte-sonner";
   import { isLoggedIn } from "$lib/stores/auth";
-  import { login } from "$lib/api/auth";
+  import { login } from "$lib/api";
   import { loginInputSchema, type LoginInput } from "$lib/schemas/auth";
   import { goto } from "$app/navigation";
   import { cn } from "$lib/utils/shadcn";
@@ -15,8 +14,9 @@
   import * as Card from "$lib/components/ui/card";
   import * as Form from "$lib/components/ui/form";
   import FluentSpinnerIos16Regular from "virtual:icons/fluent/spinner-ios-16-regular";
+  import { isAppError } from "$lib/errors";
 
-  const loginMutation = createMutation<UserWithCredential, Error, LoginInput>({
+  const loginMutation = createMutation<AuthResponse, Error, LoginInput>({
     mutationFn: login,
     onSuccess: async () => {
       $isLoggedIn = true;
@@ -26,10 +26,11 @@
       await goto(redirectUrl);
     },
     onError: (err) => {
-      if (isAxiosError(err)) {
-        toast.error(err.response?.data?.message || "An error occurred, please try again.");
+      let message = "An error occurred, please try again.";
+      if (isAppError(err)) {
+        message = err.message;
       }
-
+      toast.error(message);
       console.error(err);
     },
   });
