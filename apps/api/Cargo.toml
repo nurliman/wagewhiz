@@ -4,35 +4,34 @@ version = "0.0.1"
 edition = "2021"
 publish = false
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+proc-macro = true
 
 [dependencies]
-anyhow = "1.0.86"
+actix-cors = "0.7.0"
+actix-web = "4.9.0"
 argon2 = "0.5.3"
 ascii85 = "0.2.1"
-axum = { version = "0.7.5", features = ["tracing"] }
-axum-extra = { version = "0.9.3", features = ["cookie"] }
-axum-macros = "0.4.1"
+async-graphql = { version = "7.0.9", features = ["chrono", "log", "uuid"] }
+async-graphql-actix-web = "7.0.9"
 base64-url = "3.0.0"
-dotenv = "0.15.0"
+dotenvy = "0.15.7"
 envy = "0.4.2"
+listenfd = "1.0.1"
 migration = { path = "migration" }
+nject = "0.4.4"
 once_cell = "1.19.0"
-pasetors = "0.6.8"
-sea-orm = { version = "1.0.0", features = [
-    "macros",
-    "runtime-tokio-native-tls",
-    "sqlx-postgres",
-    "with-chrono",
-    "with-uuid",
-] }
-serde = { version = "1.0.209", features = ["derive"] }
-serde_json = "1.0.127"
+pasetors = "0.7.0"
+proc-macro2 = "1.0.86"
+quote = "1.0.37"
+sea-orm = { version = "1.0.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros"] }
+serde = { version = "1.0.210", features = ["derive"] }
+serde-inline-default = "0.2.0"
+serde_json = "1.0.128"
+syn = { version = "2.0.77", features = ["full"] }
 thiserror = "1.0.63"
 time = { version = "0.3.36", features = ["serde", "formatting", "parsing"] }
-tokio = { version = "1.39.3", features = ["full"] }
-tower-http = { version = "0.5.2", features = ["cors", "propagate-header", "sensitive-headers", "trace"] }
+tokio = { version = "1.40.0", features = ["full"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 uuid = { version = "1.10.0", features = ["serde"] }
-validator = { version = "0.18.1", features = ["derive"] }

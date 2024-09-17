@@ -1,137 +1,35 @@
-use axum::{
-    extract::rejection::{FormRejection, JsonRejection, QueryRejection},
-    http::StatusCode,
-    response::IntoResponse,
-};
-use axum_macros::{FromRequest, FromRequestParts};
-use serde_json::json;
-use std::net::AddrParseError;
-use thiserror::Error;
+use async_graphql::ErrorExtensions;
 
-#[derive(FromRequest)]
-#[from_request(via(axum::Json), rejection(AppError))]
-pub struct Json<T>(pub T);
-
-#[derive(FromRequestParts)]
-#[from_request(via(axum::extract::Query), rejection(AppError))]
-pub struct Query<T>(pub T);
-
-#[derive(Error, Debug)]
+#[derive(thiserror::Error, Debug)]
 pub enum AppError {
-    // for invalid encoding base85
-    #[error("Invalid base85 encoding")]
-    InvalidBase85Encoding,
+    #[error("User is not authenticated")]
+    Unauthenticated,
 
-    // Generic unauthorized error
-    #[error("Unauthorized")]
-    Unauthorized,
+    #[error("User does not have permission to perform this action")]
+    Forbidden,
 
-    #[error("User with username '{0}' not found")]
-    UsernameNotFound(String),
+    #[error("Invalid user input: {0}")]
+    BadInput(String),
 
-    #[error("User with id '{0}' not found")]
-    UserNotFound(String),
+    #[error("Resource not found: {0}")]
+    ResourceNotFound(String),
 
-    #[error("Person with id '{0}' not found")]
-    PersonNotFound(String),
+    #[error("Validation error: {0}")]
+    ValidationError(String),
 
-    #[error("Account not linked to person")]
-    AccountNotLinkedToPerson,
-
-    #[error("'{}' is not a valid uuid", .0)]
-    InvalidUuid(String),
-
-    #[error("Invalid username or password")]
-    InvalidUsernameOrPassword,
-
-    #[error("User password not found, please contact admin to reset your password")]
-    UserPasswordNotFound,
-
-    #[error("Validation error: {:?}",.0.to_string().replace('\n', ", "))]
-    ValidationError(#[from] validator::ValidationErrors),
-
-    #[error("Error parsing token")]
-    TokenParseError,
-
-    #[error("Invalid token")]
-    InvalidToken,
-
-    #[error("Invalid access token")]
-    InvalidAccessToken,
-
-    #[error("Invalid refresh token")]
-    InvalidRefreshToken,
-
-    #[error("Token payload error")]
-    TokenPayloadError,
-
-    #[error("Token not found, please login to get token")]
-    TokenNotFound,
-
-    #[error("Refresh token not found, please provide refresh token in body or cookie")]
-    // This error may occur if the refresh token has expired.
-    RefreshTokenNotFound,
-
-    #[error("Form error: {0}")]
-    AxumFormRejection(#[from] FormRejection),
-
-    #[error("Body Json error: {0}")]
-    AxumJsonRejection(#[from] JsonRejection),
-
-    #[error("Query Params error: {0}")]
-    AxumQueryRejection(#[from] QueryRejection),
-
-    #[error("Unsupported media type")]
-    UnsupportedMediaType,
-
-    #[error("Internal error")]
+    #[error("Internal server error")]
     InternalError,
-
-    #[error("Error parsing env variable")]
-    EnvError(#[from] envy::Error),
-
-    #[error("Database error")]
-    DbError(#[from] sea_orm:: DbErr),
-
-    #[error("Error binding address")]
-    AddrError(#[from] AddrParseError),
 }
 
-impl AppError {
-    pub fn status_code(&self) -> StatusCode {
-        match self {
-            AppError::InvalidBase85Encoding => StatusCode::BAD_REQUEST,
-            AppError::Unauthorized => StatusCode::UNAUTHORIZED,
-            AppError::UsernameNotFound(_) => StatusCode::NOT_FOUND,
-            AppError::UserNotFound(_) => StatusCode::NOT_FOUND,
-            AppError::PersonNotFound(_) => StatusCode::NOT_FOUND,
-            AppError::AccountNotLinkedToPerson => StatusCode::NOT_FOUND,
-            AppError::InvalidUuid(_) => StatusCode::BAD_REQUEST,
-            AppError::InvalidUsernameOrPassword => StatusCode::UNAUTHORIZED,
-            AppError::UserPasswordNotFound => StatusCode::UNAUTHORIZED,
-            AppError::ValidationError(_) => StatusCode::BAD_REQUEST,
-            AppError::TokenParseError => StatusCode::UNAUTHORIZED,
-            AppError::InvalidToken => StatusCode::UNAUTHORIZED,
-            AppError::InvalidAccessToken => StatusCode::UNAUTHORIZED,
-            AppError::InvalidRefreshToken => StatusCode::UNAUTHORIZED,
-            AppError::TokenPayloadError => StatusCode::UNAUTHORIZED,
-            AppError::TokenNotFound => StatusCode::UNAUTHORIZED,
-            AppError::RefreshTokenNotFound => StatusCode::UNAUTHORIZED,
-            AppError::AxumFormRejection(_) => StatusCode::BAD_REQUEST,
-            AppError::AxumJsonRejection(_) => StatusCode::BAD_REQUEST,
-            AppError::AxumQueryRejection(_) => StatusCode::BAD_REQUEST,
-            AppError::UnsupportedMediaType => StatusCode::UNSUPPORTED_MEDIA_TYPE,
-            _ => StatusCode::INTERNAL_SERVER_ERROR,
-        }
-    }
-}
-
-impl IntoResponse for AppError {
-    fn into_response(self) -> axum::response::Response {
-        let payload = json!({
-            "message": self.to_string(),
-        });
-
-        (self.status_code(), axum::Json(payload)).into_response()
+impl ErrorExtensions for AppError {
+    fn extend(&self) -> async_graphql::Error {
+        self.extend_with(|err, e| match err {
+            AppError::Unauthenticated => e.set("code", "UNAUTHENTICATED"),
+            AppError::Forbidden => e.set("code", "FORBIDDEN"),
+            AppError::BadInput(_) => e.set("code", "BAD_USER_INPUT"),
+            AppError::ResourceNotFound(_) => e.set("code", "RESOURCE_NOT_FOUND"),
+            AppError::ValidationError(_) => e.set("code", "VALIDATION_ERROR"),
+            AppError::InternalError => e.set("code", "INTERNAL_SERVER_ERROR"),
+        })
     }
 }
