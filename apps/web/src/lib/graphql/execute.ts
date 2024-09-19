@@ -59,6 +59,7 @@ graphqlAxios.interceptors.response.use((response) => {
 
 const LOGIN_PAGE_PATH = "/login";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleUnauthenticated = async (query: TypedDocumentString<any, any>) => {
   if (query === refreshTokenMutation || query === loginMutation) return false;
 
