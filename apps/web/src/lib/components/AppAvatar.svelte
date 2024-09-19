@@ -9,7 +9,7 @@
   import * as Avatar from "$lib/components/ui/avatar";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 
-  const logoutMutation = createMutation<null, Error>({
+  const logoutMutation = createMutation({
     mutationFn: logout,
     onSuccess() {
       isLoggedIn.set(false);

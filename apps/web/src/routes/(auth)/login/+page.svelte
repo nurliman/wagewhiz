@@ -1,12 +1,11 @@
 <script lang="ts">
-  import type { AuthResponse } from "$lib/graphql/graphql";
   import { superForm, defaults } from "sveltekit-superforms";
   import { valibot } from "sveltekit-superforms/adapters";
   import { createMutation } from "@tanstack/svelte-query";
   import { toast } from "svelte-sonner";
   import { isLoggedIn } from "$lib/stores/auth";
   import { login } from "$lib/api";
-  import { loginInputSchema, type LoginInput } from "$lib/schemas/auth";
+  import { loginInputSchema } from "$lib/schemas/auth";
   import { goto } from "$app/navigation";
   import { cn } from "$lib/utils/shadcn";
   import { Button } from "$lib/components/ui/button";
@@ -16,7 +15,7 @@
   import FluentSpinnerIos16Regular from "virtual:icons/fluent/spinner-ios-16-regular";
   import { isAppError } from "$lib/errors";
 
-  const loginMutation = createMutation<AuthResponse, Error, LoginInput>({
+  const loginMutation = createMutation({
     mutationFn: login,
     onSuccess: async () => {
       $isLoggedIn = true;
