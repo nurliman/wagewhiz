@@ -38,3 +38,6 @@ vite.config.ts.timestamp-*
 
 # Rust
 target
+
+# ESLint
+.eslintcache
