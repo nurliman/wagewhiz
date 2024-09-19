@@ -19,21 +19,20 @@
     "format": "prettier --write --cache \"**/*.+(js|mjs|cjs|jsx|ts|tsx|css|scss|md|json|yml|yaml|astro|svelte|html)\" --ignore .gitignore --ignore .prettierignore"
   },
   "devDependencies": {
-    "eslint": "^9.9.1",
+    "eslint": "^9.10.0",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-svelte": "^3.2.6",
     "prettier-plugin-tailwindcss": "^0.6.6",
-    "turbo": "^2.1.0"
+    "turbo": "^2.1.2"
   },
   "trustedDependencies": [
     "@sveltejs/kit",
     "esbuild",
     "svelte-preprocess"
   ],
-  "packageManager": "bun@1.1.26",
   "patchedDependencies": {
-    "bits-ui@0.21.13": "patches/bits-ui@0.21.13.patch",
+    "bits-ui@0.21.14": "patches/bits-ui@0.21.14.patch",
     "svelte-sonner@0.3.27": "patches/svelte-sonner@0.3.27.patch"
   }
 }
