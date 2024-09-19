@@ -86,7 +86,7 @@ const redirectToLogin = () => {
   }
   isLoggedIn.set(false);
   goto(loginPagePath.toString());
-  toast.error("Unauthorized, please login again.");
+  toast.error("You have been logged out. Please log in again to continue.");
 };
 
 export const execute = async <TResult, TVariables>(
