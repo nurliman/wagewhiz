@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "prettier": "prettier --cache --ignore-path=../../.prettierignore --ignore-path=.gitignore",
+    "prettier": "prettier --cache --ignore-path=../../.prettierignore --ignore-path=../../.gitignore",
     "lint": "npm run prettier -- --check . && eslint .",
     "codegen": "graphql-codegen-esm --config graphql-codegen.ts",
     "format": "npm run prettier -- --write ."
