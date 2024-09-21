@@ -12,7 +12,7 @@
     "url": "https://nurliman.dev"
   },
   "scripts": {
-    "dev": "cargo run",
+    "dev": "cargo watch -x run",
     "migration:up": "sea-orm-cli migrate up",
     "migration:refresh": "sea-orm-cli migrate refresh",
     "migration:create": "sea-orm-cli migrate generate",
