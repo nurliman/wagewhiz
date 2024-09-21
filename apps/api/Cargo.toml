@@ -12,7 +12,7 @@ actix-cors = "0.7.0"
 actix-web = "4.9.0"
 argon2 = "0.5.3"
 ascii85 = "0.2.1"
-async-graphql = { version = "7.0.9", features = ["chrono", "log", "uuid"] }
+async-graphql = { version = "7.0.9", features = ["log", "time", "uuid"] }
 async-graphql-actix-web = "7.0.9"
 base64-url = "3.0.0"
 dotenvy = "0.15.7"

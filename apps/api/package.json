@@ -16,7 +16,7 @@
     "migration:up": "sea-orm-cli migrate up",
     "migration:refresh": "sea-orm-cli migrate refresh",
     "migration:create": "sea-orm-cli migrate generate",
-    "generate-entity": "sea-orm-cli generate entity -o=src/entities --with-serde=both --serde-skip-hidden-column --model-extra-derives='async_graphql::SimpleObject'"
+    "generate-entity": "sea-orm-cli generate entity -o=src/entities --date-time-crate=time --with-serde=both --serde-skip-hidden-column --model-extra-derives='async_graphql::SimpleObject'"
   },
   "devDependencies": {
     "paseto-ts": "^1.5.7"

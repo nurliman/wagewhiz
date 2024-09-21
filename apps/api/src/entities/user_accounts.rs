@@ -18,9 +18,9 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub created_at: DateTimeWithTimeZone,
-    pub updated_at: DateTimeWithTimeZone,
-    pub deleted_at: Option<DateTimeWithTimeZone>,
+    pub created_at: TimeDateTimeWithTimeZone,
+    pub updated_at: TimeDateTimeWithTimeZone,
+    pub deleted_at: Option<TimeDateTimeWithTimeZone>,
     pub username: String,
     #[sea_orm(column_name = "_password", column_type = "Text")]
     #[serde(skip)]

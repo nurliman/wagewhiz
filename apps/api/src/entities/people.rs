@@ -18,9 +18,9 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub created_at: DateTimeWithTimeZone,
-    pub updated_at: DateTimeWithTimeZone,
-    pub deleted_at: Option<DateTimeWithTimeZone>,
+    pub created_at: TimeDateTimeWithTimeZone,
+    pub updated_at: TimeDateTimeWithTimeZone,
+    pub deleted_at: Option<TimeDateTimeWithTimeZone>,
     #[sea_orm(column_type = "Text", nullable)]
     pub name: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
@@ -37,14 +37,14 @@ pub struct Model {
     pub email: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub phone: Option<String>,
-    pub birthday: Option<Date>,
+    pub birthday: Option<TimeDate>,
     #[sea_orm(column_type = "Text", nullable)]
     pub organization: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub role: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub department: Option<String>,
-    pub joining_date: Option<Date>,
+    pub joining_date: Option<TimeDate>,
     pub is_active: Option<bool>,
     pub gender: Option<String>,
     pub status: Option<String>,
