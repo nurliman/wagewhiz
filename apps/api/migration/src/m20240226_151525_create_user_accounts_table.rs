@@ -15,7 +15,7 @@ impl MigrationTrait for Migration {
                 updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 deleted_at TIMESTAMPTZ,
                 username VARCHAR NOT NULL,
-                password TEXT NOT NULL,
+                _password TEXT NOT NULL,
                 role VARCHAR NOT NULL,
                 person_id uuid,
                 FOREIGN KEY (person_id) REFERENCES people(id)
@@ -25,7 +25,7 @@ impl MigrationTrait for Migration {
 
         // add admin user
         db.execute_unprepared("
-            INSERT INTO user_accounts (username, password, role)
+            INSERT INTO user_accounts (username, _password, role)
             VALUES ('admin', '$argon2i$v=19$m=16,t=2,p=1$cTNiYkxtSFZwUXVObGdqQw$w2Jx6n8dZgEh9eXiCBoinw', 'admin');
         ")
         .await?;

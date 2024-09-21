@@ -22,7 +22,7 @@ pub struct Model {
     pub updated_at: DateTimeWithTimeZone,
     pub deleted_at: Option<DateTimeWithTimeZone>,
     pub username: String,
-    #[sea_orm(column_type = "Text")]
+    #[sea_orm(column_name = "_password", column_type = "Text")]
     #[serde(skip)]
     #[graphql(skip)]
     pub password: String,
