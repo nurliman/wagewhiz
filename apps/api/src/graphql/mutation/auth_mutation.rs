@@ -110,7 +110,10 @@ impl AuthMutation {
         let user_creds = auth_service
             .refresh_token(&refresh_token)
             .await
-            .map_err(|e| e.extend())?;
+            .map_err(|e| match e {
+                AppError::ResourceNotFound(_) => AppError::Unauthenticated.extend(),
+                e => e.extend(),
+            })?;
 
         let access_token_cookie = Cookie::build(
             ACCESS_TOKEN_COOKIE_NAME,

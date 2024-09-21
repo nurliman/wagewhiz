@@ -98,6 +98,9 @@ impl TokenVerifier {
             .provide::<UsersService>()
             .find_by_id(user_id)
             .await
-            .map_err(|_| AppError::Forbidden.extend())
+            .map_err(|e| match e {
+                AppError::ResourceNotFound(_) => AppError::Unauthenticated.extend(),
+                e => e.extend(),
+            })
     }
 }
